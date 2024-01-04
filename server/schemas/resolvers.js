@@ -1,5 +1,14 @@
-const typeDefs = require('./typeDefs');
-const resolvers = require('./resolvers');
+const {User} = require('../models');
 
-// Export the typeDefs and resolvers as an object so we can import them into the ApolloServer instance in server.js
-module.exports = { typeDefs, resolvers };
+const resolvers = {
+    Query:{
+        users: async () =>{
+            return User.find();
+        },
+        user: async ()=>{
+
+        }
+    }
+}
+
+module.exports = resolvers;
