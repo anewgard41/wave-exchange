@@ -6,7 +6,9 @@ const resolvers = {
             return User.find();
         },
         user: async ()=>{
-            
+
         }
     }
 }
+
+module.exports = resolvers;
