@@ -1,4 +1,4 @@
 const User = require('User.js');
+const Music = require('Music.js')
 
-
-module.exports = {User};
+module.exports = {User, Music};
