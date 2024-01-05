@@ -40,6 +40,7 @@ const startServer = async () => {
   db.once('open', () => {
     app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
   });
 });
 };
