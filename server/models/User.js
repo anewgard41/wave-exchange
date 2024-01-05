@@ -30,7 +30,7 @@ userSchema.virtual('donationTotal')
     this.donation += newDonation;
 });
 
-userSchema.virtual('savedMusic')
+userSchema.virtual('musicList')
 .get(()=>{
     return this.savedMusic;
 })
