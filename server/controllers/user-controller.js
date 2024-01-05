@@ -46,7 +46,7 @@ module.exports = {
     try {
       const updatedUser = await User.findOneAndUpdate(
         { _id: user._id },
-        { $addToSet: { savedSongs: body } },
+        { $addToSet: { savedMusic: body } },
         { new: true, runValidators: true }
       );
       return res.json(updatedUser);
