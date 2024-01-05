@@ -14,7 +14,7 @@ const userSchema = new Schema({
         required: true
     },
     donation: {
-        type: Decimal128,
+        type: Number,
         required: true,
         default: 0
     },

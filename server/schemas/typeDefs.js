@@ -3,7 +3,18 @@ const typeDefs = `
         _id: ID
         username: String
         password: String
-        donation:
+        donation: Number
+        savedMusic: [Music]
+    }
+
+    type Music {
+        artists: [String]
+        songId: String
+        songTitle: String
+    }
+
+    type Query {
+        
     }
 `;
 
