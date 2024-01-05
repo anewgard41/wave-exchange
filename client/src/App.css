@@ -19,7 +19,8 @@ body {
   line-height: 1;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
@@ -35,23 +36,23 @@ a {
 .body-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 9fr;
+  grid-template-rows: 1fr 7fr;
   background-color: #252422;
   height: 100vh;
 }
 
 .header-container {
   display: grid;
-  grid-template-columns:  repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr;
   place-items: center;
-  height: 8rem;
+  height: 10rem;
   background-color: #252422;
 }
 
 header h1 {
   font-size: 2.5rem;
-  color: #FFFCF2;
+  color: #fffcf2;
 }
 
 .nav-container {
@@ -60,4 +61,66 @@ header h1 {
   grid-template-rows: 1fr;
   width: 60%;
   gap: 1rem;
+}
+
+.donate-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  gap: 1rem;
+  text-align: center;
+  place-items: center;
+  height: 75%;
+}
+
+.donate-section {
+  background-color: #403d39;
+  height: 75%;
+  width: 80%;
+  border-radius: 2rem;
+}
+
+.donations {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 4fr;
+  gap: 1rem;
+  height: 100%;
+  place-items: center;
+}
+
+.donate-layout h2 {
+  font-size: 2rem;
+  color: #fffcf2;
+}
+
+.donate-btn-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3rem;
+  place-self: center;
+  height: 80%;
+  width: 60%;
+}
+
+.leaderboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 4fr;
+  gap: 1rem;
+  height: 100%;
+  place-items: center;
+}
+
+.leaderboard-names-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+}
+
+.leaderboard-names-container p {
+  font-size: 1.2rem;
+  color: #fffcf2; 
 }

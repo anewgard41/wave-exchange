@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="body-container">
       <Header/>
-      <LandingPage/>
+      <DonatePage/>
     </div>
   );
 }
