@@ -42,13 +42,14 @@ const startServer = async () => {
     const xml = await response.text();
     try {
       const data = xml2js(xml, { compact: true });
+      console.log(data.ArrayOfSearchLyricResult.SearchLyricResult)
       const results = data.ArrayOfSearchLyricResult.SearchLyricResult.map(result => {
         const newObj = {};
         Object.keys(result).forEach(key => {
           newObj[key] = result[key]._text;
         });
         return newObj;
-      });
+      }).filter(x => Object.keys(x).length === 8);
       res.status(200).json(results);
     }
     catch (error) {
