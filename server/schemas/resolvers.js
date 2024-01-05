@@ -1,14 +1,14 @@
-const {User} = require('../models');
+const { User } = require('../models');
 const axios = require('axios');
 
 const resolvers = {
     Query:{
-        users: async () =>{
-            return User.find();
-        },
-        user: async ()=>{
+        // users: async () =>{
+        //     return User.find();
+        // },
+        // user: async ()=>{
 
-        },
+        // },
         search: async (_, { query }) => {
             try {
               const accessToken = process.env.GENIUS_ACCESS_TOKEN;
