@@ -1,5 +1,5 @@
 body {
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Koulen';
 }
 
 h1,
@@ -14,4 +14,19 @@ h6 {
 .small {
   font-weight: 300;
   font-style: italic;
+}
+
+.header-container {
+  display: grid;
+  grid-template-columns:  repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  place-items: center;
+}
+
+.nav-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  width: 60%;
+  gap: 1rem;
 }
