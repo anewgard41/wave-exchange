@@ -16,7 +16,7 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <div>
+    <div className="body-container">
       <Header/>
       <LandingPage/>
     </div>
