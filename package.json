@@ -1,7 +1,7 @@
 {
   "name": "wavve-exchange",
   "version": "1.0.0",
-  "description": "",
+  "description": "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -18,6 +18,9 @@
   },
   "dependencies": {
     "antd": "^5.12.7",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "axios": "^1.6.4",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
   }
 }
