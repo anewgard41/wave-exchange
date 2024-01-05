@@ -15,5 +15,9 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "antd": "^5.12.7",
+    "react-scripts": "^5.0.1"
   }
 }
