@@ -1,13 +1,14 @@
-const {Schema, model} = require('mongoose');
-const bcrypt = require('bcrypt');
-const musicSchema = require('./Music');
+const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt");
+const musicSchema = require("./Music");
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     username: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
     },
     password: {
         type: String,
@@ -18,15 +19,29 @@ const userSchema = new Schema({
         required: true,
         default: 0
     },
-    savedMusic: [musicSchema]
-});
+    savedMusic: [musicSchema],
+  },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
+);
 
-userSchema.virtual('donationTotal')
-.get(()=>{
+userSchema
+  .virtual("donationTotal")
+  .get(() => {
     return this.donation;
-})
-.set((newDonation)=>{
+  })
+  .set((newDonation) => {
     this.donation += newDonation;
+  });
+
+userSchema.pre("save", async function (next) {
+  if (this.isNew || this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
+  next();
 });
 
 userSchema.virtual('musicList')
@@ -37,17 +52,10 @@ userSchema.virtual('musicList')
     this.savedMusic.push(song);
 });
 
-userSchema.pre('save', async function (next){
-    if(this.isNew || this.isModified('password')){
-        this.password = await bcrypt.hash(this.password,10);
-    }
-    next();
-});
+userSchema.methods.isCorrectPassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
 
-userSchema.methods.isCorrectPassword = async function (password){
-    return bcrypt.compare(password, this.password);
-}
-
-const User = model('user', userSchema);
+const User = model("user", userSchema);
 
 module.exports = User;
