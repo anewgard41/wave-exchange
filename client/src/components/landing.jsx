@@ -1,10 +1,16 @@
 import React from 'react';
-import { Input, Space } from 'antd';
+import { Input, Space, Image } from 'antd';
 const { Search } = Input;
 
 const LandingPage = () => (
   // Vertical space to center content and take up full height of the viewport
   <Space direction="vertical" align="center" style={{ height: '100vh' }}>
+    {/* Image component */}
+    <Image
+      width={500}
+      src="../images/waveexchange_logo.png"
+    />
+
     {/* Search input component */}
     <Search
       placeholder="Input search text"  // Placeholder text when the input is empty
