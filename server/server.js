@@ -49,6 +49,10 @@ const startServer = async () => {
 
   server.applyMiddleware({ app });
 
+  app.use("/graphql", expressMiddleware(server, {
+    context: authMiddleware
+  }))
+
   // Handle requests for the root path
   app.get('/', (req, res) => {
     res.send('Hello, this is your GraphQL server!');
