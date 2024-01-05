@@ -1,7 +1,13 @@
-const typeDefs = `
+const { gql } = require('apollo-server-express');
+
+const typeDefs = gql`
     type Query {
         me: User
     }
+
+    type Query {
+        search(query: String!): [Song]
+      }
 
     type Mutation {
         login(username: String!, password: String!): Auth
@@ -20,7 +26,7 @@ const typeDefs = `
         _id: ID!
         username: String!
         savedMusic: [Song]
-        donationTotal: Decimal
+        donationTotal: Int
     }
 
     type Song {
@@ -28,6 +34,12 @@ const typeDefs = `
         artists: [String]
         songTitle: String
     }
+
+    type Song {
+        id: ID!
+        title: String!
+        # Add other fields as needed
+      }
 
     type Auth {
         token: ID!

@@ -16,9 +16,9 @@ const userSchema = new Schema(
       minlength: 8,
     },
     donation: {
-      type: Decimal128,
-      required: true,
-      default: 0,
+        type: Number,
+        required: true,
+        default: 0
     },
     savedMusic: [musicSchema],
   },
@@ -43,6 +43,14 @@ userSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, 10);
   }
   next();
+});
+
+userSchema.virtual('musicList')
+.get(()=>{
+    return this.savedMusic;
+})
+.set((song)=>{
+    this.savedMusic.push(song);
 });
 
 userSchema.methods.isCorrectPassword = async function (password) {
