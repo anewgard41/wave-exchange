@@ -17,6 +17,8 @@ const SignupPage = () => {
   return (
     <Layout style={layoutStyle}>
       <Content style={layoutStyle}>
+        {/* "Sign Up Today" text */}
+        <p style={{ color: '#CCC5B9', fontSize: '18px', marginBottom: '16px' }}>Sign Up Today</p>
         {/* Username input */}
         <Input
           placeholder="Enter your username"

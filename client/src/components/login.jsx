@@ -17,6 +17,8 @@ const LoginPage = () => {
   return (
     <Layout style={layoutStyle}>
       <Content style={layoutStyle}>
+        {/* "Login" text */}
+        <p style={{ color: '#CCC5B9', fontSize: '18px', marginBottom: '16px' }}>Login</p>
         {/* Username input */}
         <Input
           placeholder="Enter your username"
