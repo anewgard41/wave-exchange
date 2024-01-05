@@ -4,12 +4,12 @@ const { Search } = Input;
 
 const LandingPage = () => (
   // Vertical space to center content and take up full height of the viewport
-  <Space direction="vertical" align="center" style={{ height: '100vh' }}>
+  <Space direction="vertical" align="center" style={{ height: '80vh' }}>
     {/* Image component */}
     <Avatar size={600} src="../images/waveexchange_logo.png"
     />
 
-    {/* Search input component */}
+    {/* Search input component - loading */}
     <Search
       placeholder="Input search text"  // Placeholder text when the input is empty
       enterButton="Search"  // Text on the submit button
