@@ -22,17 +22,17 @@ const LoginPage = () => {
       {/* Main content area */}
       <Content style={layoutStyle}>
         {/* "Login" text */}
-        <p style={{ color: '#FFFCF2', fontSize: '18px', marginBottom: '16px' }}>Login</p>
+        <p style={{ color: '#FFFCF2', fontSize: '36px', marginBottom: '10px' }}>Login</p>
 
         {/* Input components for username and password */}
         <Space direction="vertical" style={{ width: '100%', maxWidth: '300px' }}>
           {/* Username input */}
-          <Input
-            placeholder="Enter your username"
+          <Input 
+            placeholder="Please enter username"
             prefix={<UserOutlined className="site-form-item-icon" />}
             suffix={
               // Tooltip for extra information about the username input
-              <Tooltip title="Extra information">
+              <Tooltip title="Username is case-sensitive">
                 <InfoCircleOutlined
                   style={{
                     color: 'rgba(0, 0, 0, 0.45)',
@@ -44,7 +44,7 @@ const LoginPage = () => {
 
           {/* Password input with eye icon */}
           <Input.Password
-            placeholder="Input password"
+            placeholder="Please enter password"
             iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
           />
         </Space>
