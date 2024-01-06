@@ -40,6 +40,7 @@ export function LyricSearchPage() {
         try {
             const results = await axios.get(`/api/search?lyricText=${encodeURIComponent(query)}`);
             setSearchResults(results.data);
+            console.log(results);
         } catch (error) {
             console.error('Error searching from server:', error);
         }
