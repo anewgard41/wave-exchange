@@ -35,12 +35,6 @@ const typeDefs = gql`
         songTitle: String
     }
 
-    type Song {
-        id: ID!
-        title: String!
-        # Add other fields as needed
-      }
-
     type Auth {
         token: ID!
         user: User
