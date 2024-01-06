@@ -42,7 +42,7 @@ const startServer = async () => {
     const xml = await response.text();
     try {
       const data = xml2js(xml, { compact: true });
-      console.log(data.ArrayOfSearchLyricResult.SearchLyricResult)
+      //console.log(data.ArrayOfSearchLyricResult.SearchLyricResult)
       const results = data.ArrayOfSearchLyricResult.SearchLyricResult.map(result => {
         const newObj = {};
         Object.keys(result).forEach(key => {

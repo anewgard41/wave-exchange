@@ -8,6 +8,11 @@ import {
 } from "@ant-design/icons";
 import Header from "./Header.jsx";
 
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
+
+import Auth from "../utils/auth.js";
+
 const { Content } = Layout;
 
 // Styling for the layout
@@ -38,6 +43,8 @@ const SignupPage = () => {
       });
     }, 6000);
   };
+
+  const [addUser] = useMutation(ADD_USER);
 
   return (
     <div className="body-container">
