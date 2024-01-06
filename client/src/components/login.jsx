@@ -80,6 +80,7 @@ const LoginPage = () => {
         </Space>
       </Content>
     </Layout>
+    </div>
   );
 };
 

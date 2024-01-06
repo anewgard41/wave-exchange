@@ -73,14 +73,17 @@ const SignupPage = () => {
               }
             />
 
-          {/* Password input with eye icon */}
-          <Input.Password
-            placeholder="Please enter password"
-            iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-          />
-        </Space>
-      </Content>
-    </Layout>
+            {/* Password input with eye icon */}
+            <Input.Password
+              placeholder="Please enter password"
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
+            />
+          </Space>
+        </Content>
+      </Layout>
+    </div>
   );
 };
 
