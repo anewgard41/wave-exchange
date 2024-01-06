@@ -14,7 +14,7 @@ const client = new ApolloClient({
 });
 
 function App() {
-  return <LandingPage />;
+  return <UserPage/>;
 }
 
 export default App;
