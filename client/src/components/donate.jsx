@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { DownloadOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import Header from "./Header.jsx";
 
 function DonatePage() {
   const [size, setSize] = useState("large");
 
   return (
-    <div className="donate-layout">
+    <div className="body-container">
+      <Header/>
+      <div className="donate-layout">
       <section className="donate-section">
         <div className="donations">
           <h2>Donate</h2>
@@ -46,6 +49,8 @@ function DonatePage() {
         </div>
       </section>
     </div>
+    </div>
+    
   );
 }
 
