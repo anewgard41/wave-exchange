@@ -1,6 +1,7 @@
 const { User } = require('../models');
 const axios = require('axios');
 const { signToken, AuthenticationError } = require("../utils/auth");
+const { GraphQLError } = require('graphql');
 
 const resolvers = {
   Query: {
