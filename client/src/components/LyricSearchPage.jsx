@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 import { SongList } from './SongList';
 const { Search } = Input;
 const { Content } = Layout;
+import Header from "./Header.jsx";
 
 const layoutStyle = {
     textAlign: 'center',
@@ -47,7 +48,9 @@ export function LyricSearchPage() {
     };
 
     return (
-        <Layout style={layoutStyle}>
+        <div>
+            <Header/>
+            <Layout style={layoutStyle}>
             {/* Main content area */}
             <Content style={layoutStyle}>
             <p style={{ color: '#FFFCF2', fontSize: '36px', marginBottom: '10px' }}>Lyric Search</p>
@@ -67,5 +70,6 @@ export function LyricSearchPage() {
                 <SongList searchResults={searchResults} />
             </Content>
         </Layout>
+        </div>
     );
 }
