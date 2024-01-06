@@ -11,6 +11,7 @@ const layoutStyle = {
   lineHeight: '120px',
   color: '#fff',
   backgroundColor: '#252422',
+  minHeight: '80vh',
 };
 
 const LoginPage = () => {
