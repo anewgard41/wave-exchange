@@ -8,49 +8,56 @@ function DonatePage() {
 
   return (
     <div className="body-container">
-      <Header/>
+      <Header />
       <div className="donate-layout">
-      <section className="donate-section">
-        <div className="donations">
-          <h2>Donate</h2>
-          <div className="donate-btn-container">
-          <Button type="primary" size={size}>
-            $5
-          </Button>
-          <Button type="primary" size={size}>
-            $10
-          </Button>
-          <Button type="primary" size={size}>
-            $20
-          </Button>
-          <Button type="primary" size={size}>
-            $50
-          </Button>
+        <section className="donate-section">
+          <div className="donations">
+            <h2 style={{ color: "#fffcf2", size: "2rem" }}>Donate</h2>
+            <div className="donate-btn-container">
+              <Button
+                type="primary"
+                size={size}
+                style={{ backgroundColor: "#EB5E28" }}
+              >
+                $5
+              </Button>
+              <Button
+                type="primary"
+                size={size}
+                style={{ backgroundColor: "#EB5E28" }}
+              >
+                $10
+              </Button>
+              <Button
+                type="primary"
+                size={size}
+                style={{ backgroundColor: "#EB5E28" }}
+              >
+                $20
+              </Button>
+              <Button
+                type="primary"
+                size={size}
+                style={{ backgroundColor: "#EB5E28" }}
+              >
+                $50
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
-      <section className="donate-section">
-        <div className="leaderboard">
-          <h2>Leaderboard</h2>
-          <div className="leaderboard-names-container">
-            <p>
-              Fake Name
-            </p>
-            <p>
-              Fake Name
-            </p>
-            <p>
-              Fake Name
-            </p>
-            <p>
-              Fake Name
-            </p>
+        </section>
+        <section className="donate-section">
+          <div className="leaderboard">
+            <h2>Leaderboard</h2>
+            <div className="leaderboard-names-container">
+              <p>Fake Name</p>
+              <p>Fake Name</p>
+              <p>Fake Name</p>
+              <p>Fake Name</p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
-    </div>
-    
   );
 }
 
