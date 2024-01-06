@@ -10,13 +10,13 @@ function Header() {
       <div className="header-container">
         <h1>Wave Exchange</h1>
         <div className="nav-container">
-          <Button type="primary" size={size}>
+          <Button className="signup-button" type="primary" size={size}>
             Sign Up
           </Button>
-          <Button type="primary" size={size}>
+          <Button className="login-button" type="primary" size={size}>
             Login
           </Button>
-          <Button type="primary" danger size={size}>
+          <Button className="donate-button" type="primary" size={size}>
             Donate
           </Button>
         </div>
