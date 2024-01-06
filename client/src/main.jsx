@@ -3,6 +3,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./components/App.jsx";
 import { LyricSearchPage } from "./components/LyricSearchPage.jsx";
+import LoginPage from "./components/login.jsx";
+import SignUpPage from "./components/signup.jsx";
+import DonatePage from "./components/donate.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +20,18 @@ const router = createBrowserRouter([
         path: "/search",
         element: <LyricSearchPage />,
       },
+      {
+        path: '/login',
+        element: <LoginPage />
+      },
+      {
+        path: '/signup',
+        element: <SignUpPage />
+      },
+      {
+        path: '/donate',
+        element: <DonatePage />
+      }
     ],
   }
 ]);

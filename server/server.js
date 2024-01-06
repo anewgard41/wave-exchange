@@ -53,8 +53,7 @@ const startServer = async () => {
       res.status(200).json(results);
     }
     catch (error) {
-      console.log(error);
-      res.status(500);
+      res.status(500).send(error);
     }
   });
   app.get('/api/lyric', async (req, res) => {
@@ -70,8 +69,7 @@ const startServer = async () => {
       res.status(200).send(data.GetLyricResult.Lyric._text);
     }
     catch (error) {
-      console.log(error);
-      res.status(500);
+      res.status(500).send(error);
     }
   })
   const PORT = process.env.PORT || 4000;
