@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Input, Select, Space } from 'antd';
+import { Layout, Button, Input, Space } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import { SongList } from './SongList';
 const { Search } = Input;
+const { Content } = Layout;
+
+const layoutStyle = {
+    textAlign: 'center',
+    minHeight: 120,
+    lineHeight: '120px',
+    color: '#fff',
+    backgroundColor: '#252422',
+};
 
 export function LyricSearchPage() {
     const navigate = useNavigate();
@@ -36,23 +46,25 @@ export function LyricSearchPage() {
     };
 
     return (
-        <div className="App">
-            <h1>Lyric Search</h1>
-            <Space.Compact
-                style={{
-                    width: '100%',
-                    maxWidth: '300px',
-                }}>
-                <Input defaultValue="Enter search term"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}/>
-            <button type="primary" onClick={() => navigate(`?lyricText=${searchTerm}`)}>Search</button>
-            </Space.Compact>
-            <div>
-                <h2>Search Results</h2>
+        <Layout style={layoutStyle}>
+            {/* Main content area */}
+            <Content style={layoutStyle}>
+            <p style={{ color: '#FFFCF2', fontSize: '36px', marginBottom: '10px' }}>Lyric Search</p>
+            <Space direction="vertical" style={{ width: '100%', maxWidth: '300px' }}>
+                <Space.Compact
+                    style={{
+                        width: '100%',
+                        maxWidth: '300px',
+                    }}>
+                    <Input defaultValue="Enter search term"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}/>
+                <Button type="primary" onClick={() => navigate(`?lyricText=${searchTerm}`)}>Search</Button>
+                </Space.Compact>
+            </Space>
+                <p style={{ color: '#FFFCF2', fontSize: '24px', marginBottom: '10px' }}>Search Results</p>
                 <SongList searchResults={searchResults} />
-            </div>
-        </div>
+            </Content>
+        </Layout>
     );
 }
-
