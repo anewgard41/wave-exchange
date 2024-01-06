@@ -8,16 +8,20 @@ import {
 } from "@ant-design/icons";
 import Header from "./Header.jsx";
 
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations.js";
+
+import Auth from "../utils/auth.js";
+
 const { Content } = Layout;
 
 // Styling for the layout
 const layoutStyle = {
   textAlign: "center",
   minHeight: 120,
-  lineHeight: '120px',
-  color: '#fff',
-  backgroundColor: '#252422',
-  minHeight: '80vh',
+  lineHeight: "120px",
+  color: "#fff",
+  backgroundColor: "#252422",
 };
 
 // SignupPage component
@@ -40,6 +44,41 @@ const SignupPage = () => {
     }, 6000);
   };
 
+  const [userFormData, setUserFormData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [addUser] = useMutation(ADD_USER);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    try {
+      const { data } = await addUser({
+        variables: { ...userFormData },
+      });
+
+      console.log(data.addUser.token);
+
+      // TODO: Make sure Auth is set up with global context?
+      Auth.login(data.addUser.token);
+    } catch (err) {
+      console.error(err);
+    }
+
+    setUserFormData({
+      username: "",
+      password: "",
+    });
+  };
+
   return (
     <div className="body-container">
       <Header />
@@ -52,41 +91,58 @@ const SignupPage = () => {
           >
             Sign Up Today
           </p>
+          <form onSubmit={handleFormSubmit}>
+            {/* Input components for username and password */}
+            <Space
+              direction="vertical"
+              style={{ width: "100%", maxWidth: "300px" }}
+            >
+              {/* Username input */}
+              <Input
+                type="text"
+                name="username"
+                placeholder="Please enter username"
+                onChange={handleInputChange}
+                value={userFormData.username}
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                suffix={
+                  // Tooltip for extra information about the username input
+                  <Tooltip title="Username is case-sensitive">
+                    <InfoCircleOutlined
+                      style={{
+                        color: "rgba(0, 0, 0, 0.45)",
+                      }}
+                    />
+                  </Tooltip>
+                }
+              />
 
-          {/* Input components for username and password */}
-          <Space
-            direction="vertical"
-            style={{ width: "100%", maxWidth: "300px" }}
-          >
-            {/* Username input */}
-            <Input
-              placeholder="Please enter username"
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              suffix={
-                // Tooltip for extra information about the username input
-                <Tooltip title="Username is case-sensitive">
-                  <InfoCircleOutlined
-                    style={{
-                      color: "rgba(0, 0, 0, 0.45)",
-                    }}
-                  />
-                </Tooltip>
-              }
-            />
-
-            {/* Password input with eye icon */}
-            <Input.Password
-              placeholder="Please enter password"
-              iconRender={(visible) =>
-                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-              }
-            />
-          </Space>
-          <Flex gap="small" wrap="wrap" align='center' justify='center'>
-            <Button type="primary" direction="vertical" loading={loadings[0]} onClick={() => enterLoading(0)} style={{ backgroundColor: '#EB5E28', color: '#252422' }}>
-              Signup!
-            </Button>
-          </Flex>
+              {/* Password input with eye icon */}
+              <Input.Password
+                type="password"
+                placeholder="Please enter password"
+                name="password"
+                onChange={handleInputChange}
+                value={userFormData.password}
+                iconRender={(visible) =>
+                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                }
+              />
+            </Space>
+            <Flex gap="small" wrap="wrap" align="center" justify="center">
+              <Button
+                type="primary"
+                direction="vertical"
+                disabled={!(userFormData.username && userFormData.password)}
+                loading={loadings[0]}
+                onClick={() => enterLoading(0)}
+                htmlType="submit"
+                style={{ backgroundColor: "#EB5E28", color: "#252422" }}
+              >
+                Signup!
+              </Button>
+            </Flex>
+          </form>
         </Content>
       </Layout>
     </div>

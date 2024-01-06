@@ -8,6 +8,9 @@ import {
 } from "@ant-design/icons";
 import Header from "./Header.jsx";
 
+//import {useMutation } from '@apollo/client';
+//import { LOGIN_USER } from '../utils/mutations';
+
 const { Content } = Layout;
 
 // Styling for the layout
@@ -17,7 +20,6 @@ const layoutStyle = {
   lineHeight: '120px',
   color: '#fff',
   backgroundColor: '#252422',
-  minHeight: '80vh',
 };
 
 const LoginPage = () => {
