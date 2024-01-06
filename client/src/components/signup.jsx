@@ -1,5 +1,5 @@
-import React from 'react';
-import { Layout, Input, Space, Tooltip } from 'antd';
+import React, { useState } from 'react';
+import { Layout, Input, Space, Tooltip, Button, Flex } from 'antd';
 import { InfoCircleOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
 const { Content } = Layout;
@@ -17,6 +17,21 @@ const layoutStyle = {
 const SignupPage = () => {
   // State for managing the visibility of the password
   const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const [loadings, setLoadings] = useState([]);
+  const enterLoading = (index) => {
+    setLoadings((prevLoadings) => {
+      const newLoadings = [...prevLoadings];
+      newLoadings[index] = true;
+      return newLoadings;
+    });
+    setTimeout(() => {
+      setLoadings((prevLoadings) => {
+        const newLoadings = [...prevLoadings];
+        newLoadings[index] = false;
+        return newLoadings;
+      });
+    }, 6000);
+  };
 
   return (
     <Layout style={layoutStyle}>
@@ -49,6 +64,12 @@ const SignupPage = () => {
             iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
           />
         </Space>
+
+        <Flex gap="small" wrap="wrap" align='center' justify='center'>
+            <Button type="primary" direction="vertical" loading={loadings[0]} onClick={() => enterLoading(0)} style={{ backgroundColor: '#EB5E28', color: '#252422' }}>
+              Signup!
+            </Button>
+        </Flex>
       </Content>
     </Layout>
   );
