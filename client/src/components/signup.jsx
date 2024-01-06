@@ -19,9 +19,10 @@ const { Content } = Layout;
 const layoutStyle = {
   textAlign: "center",
   minHeight: 120,
-  lineHeight: "120px",
-  color: "#fff",
-  backgroundColor: "#252422",
+  lineHeight: '120px',
+  color: '#fff',
+  backgroundColor: '#252422',
+  minHeight: '80vh',
 };
 
 // SignupPage component
@@ -88,6 +89,11 @@ const SignupPage = () => {
               }
             />
           </Space>
+          <Flex gap="small" wrap="wrap" align='center' justify='center'>
+            <Button type="primary" direction="vertical" loading={loadings[0]} onClick={() => enterLoading(0)} style={{ backgroundColor: '#EB5E28', color: '#252422' }}>
+              Signup!
+            </Button>
+          </Flex>
         </Content>
       </Layout>
     </div>
