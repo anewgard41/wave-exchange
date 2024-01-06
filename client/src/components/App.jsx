@@ -7,7 +7,7 @@ import DonatePage from './donate.jsx';
 import UserPage from './user.jsx';
 import LoginPage from './login.jsx';
 import SignupPage from './signup.jsx';
-import SearchPage from './search.jsx';
+import {LyricSearchPage } from './LyricSearchPage.jsx';
 
 const client = new ApolloClient({
   uri: '/graphql',
