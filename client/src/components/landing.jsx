@@ -8,12 +8,10 @@ const suffix = (
   <AudioOutlined
     style={{
       fontSize: 16,
-      color: '#1677ff',
+      color: '#242522',
     }}
   />
 );
-
-const onSearch = (value, _e, info) => console.log(info?.source, value);
 
 const LandingPage = () => {
   const navigate = useNavigate();

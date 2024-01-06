@@ -63,6 +63,22 @@ header h1 {
   gap: 1rem;
 }
 
+/* Define styles for each button class */
+.signup-button {
+  background-color: #EB5E28;
+  color: #252422; /* Text color */
+}
+
+.login-button {
+  background-color: #CCC5B9;
+  color: #252422; /* Text color */
+}
+
+.donate-button {
+  background-color: #FFFCF2;
+  color: #252422; /* Text color */
+}
+
 .donate-layout {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

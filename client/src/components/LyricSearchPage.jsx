@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Button, Input, Select, Space } from 'antd';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import { SongList } from './SongList';
+const { Search } = Input;
 
 export function LyricSearchPage() {
     const navigate = useNavigate();
@@ -36,13 +38,16 @@ export function LyricSearchPage() {
     return (
         <div className="App">
             <h1>Lyric Search</h1>
-            <input
-                type="text"
-                placeholder="Enter search term"
+            <Space.Compact
+                style={{
+                    width: '100%',
+                    maxWidth: '300px',
+                }}>
+                <Input defaultValue="Enter search term"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button onClick={() => navigate(`?lyricText=${searchTerm}`)}>Search</button>
+                onChange={(e) => setSearchTerm(e.target.value)}/>
+            <button type="primary" onClick={() => navigate(`?lyricText=${searchTerm}`)}>Search</button>
+            </Space.Compact>
             <div>
                 <h2>Search Results</h2>
                 <SongList searchResults={searchResults} />
