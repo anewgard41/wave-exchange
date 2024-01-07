@@ -9,12 +9,6 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import Header from "./Header.jsx";
-import LandingPage from "./landing.jsx";
-import DonatePage from "./donate.jsx";
-import UserPage from "./user.jsx";
-import LoginPage from "./login.jsx";
-import SignupPage from "./signup.jsx";
-import { LyricSearchPage } from "./LyricSearchPage.jsx";
 
 // graphQL endpoint for Apollo Client
 const httpLink = createHttpLink({

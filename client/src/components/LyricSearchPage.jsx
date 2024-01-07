@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Button, Input, Space } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { SongList } from "./SongList";
-const { Search } = Input;
 const { Content } = Layout;
 
 const layoutStyle = {
