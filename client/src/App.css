@@ -70,14 +70,19 @@ a {
   background-color: #CCC5B9;
 }
 
-.active {
+.donate-link {
   background-color: #EB5E28;
-  color: #CCC5B9;
+  color: #fffcf2;
+}
+
+.active {
+  background-color: #403D39;
+  color: #fffcf2;
 }
 
 .nav-link:hover {
-  background-color: #403D39;
-  color: #CCC5B9;
+  background-color: #4096ff;
+  color: #fffcf2;
   transform: scale(1.1);
 }
 
