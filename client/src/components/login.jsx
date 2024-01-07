@@ -80,7 +80,6 @@ const LoginPage = () => {
 
   return (
     <div className="body-container">
-      <Header />
       <Layout style={layoutStyle}>
         {/* Main content area */}
         <Content style={layoutStyle}>

@@ -8,7 +8,6 @@ function DonatePage() {
 
   return (
     <div className="body-container">
-      <Header />
       <div className="donate-layout">
         <section className="donate-section">
           <div className="donations">
