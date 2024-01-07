@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { Button } from "antd";
+import Auth from "../utils/auth";
 
 function DonatePage() {
   const [size, setSize] = useState("large");
+
+  const handleDonation = (amount) => {
+    console.log(`Donated $${amount}`);
+  }
 
   return (
       <div className="donate-layout">
@@ -14,6 +19,7 @@ function DonatePage() {
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
+                onClick={() => handleDonation(5)}
               >
                 $5
               </Button>
@@ -21,6 +27,7 @@ function DonatePage() {
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
+                onClick={() => handleDonation(10)}
               >
                 $10
               </Button>
@@ -28,6 +35,7 @@ function DonatePage() {
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
+                onClick={() => handleDonation(20)}
               >
                 $20
               </Button>
@@ -35,6 +43,7 @@ function DonatePage() {
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
+                onClick={() => handleDonation(50)}
               >
                 $50
               </Button>
