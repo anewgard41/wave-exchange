@@ -10,14 +10,12 @@ import DonatePage from "./components/donate.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <App />,
     errorElement: <h1 className="display-2">Wrong page!</h1>,
     children: [
       {
-        index: true,
-        element: <App/>
-      },
-      {
         path: "/search",
+        index: true,
         element: <LyricSearchPage />,
       },
       {

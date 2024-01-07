@@ -12,7 +12,7 @@ import { LyricSearchPage } from './LyricSearchPage.jsx';
 
 // graphQL endpoint for Apollo Client
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: "/graphql",
 });
 
 // middleware to set the token to the auth header
@@ -37,6 +37,7 @@ function App() {
   return (
     <div className="body-container">
       <ApolloProvider client={client}>
+        <Outlet />
         <LandingPage />
       </ApolloProvider>
     </div>
