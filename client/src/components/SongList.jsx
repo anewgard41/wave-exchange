@@ -43,7 +43,13 @@ export function SongList({ searchResults }) {
 
     try {
       const { data } = await saveSong({
-        variables: { input: bookToSave },
+        variables: {
+          input: {
+            songId: songId,
+            songTitle: songTitle,
+            artists: artists,
+          },
+        },
         context: {
           headers: {
             Authorization: `Bearer ${token}`,

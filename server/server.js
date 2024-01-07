@@ -11,7 +11,8 @@ const { authMiddleware } = require('./utils/auth');
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: authMiddleware
 });
 
 const startServer = async () => {

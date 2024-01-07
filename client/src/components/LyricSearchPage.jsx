@@ -7,7 +7,6 @@ import { useNavigate } from "react-router";
 import { SongList } from "./SongList";
 const { Search } = Input;
 const { Content } = Layout;
-import Header from "./Header.jsx";
 
 const layoutStyle = {
   textAlign: "center",
@@ -50,7 +49,6 @@ export function LyricSearchPage() {
 
   return (
     <div>
-      <Header />
       <Layout style={layoutStyle}>
         {/* Main content area */}
         <Content style={layoutStyle}>
