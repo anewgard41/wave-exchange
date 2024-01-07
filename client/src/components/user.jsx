@@ -55,7 +55,7 @@ const UserPage = () => {
             navigation={true}
             modules={[Autoplay, Pagination, Navigation]}
             onAutoplayTimeLeft={onAutoplayTimeLeft}
-            className="mySwiper"
+            className="Swiper"
           >
             <SwiperSlide>Artist - Song</SwiperSlide>
             <SwiperSlide>Artist - Song</SwiperSlide>
