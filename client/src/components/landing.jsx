@@ -3,7 +3,6 @@ import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space, Avatar } from "antd";
 import { useNavigate } from "react-router";
 const { Search } = Input;
-import Header from "./Header.jsx";
 
 const suffix = (
   <AudioOutlined
@@ -17,8 +16,7 @@ const suffix = (
 const LandingPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="body-container">
-      <Header />
+    <>
       {/* Vertical space to center content and take up full height of the
       viewport*/} 
       <Space direction="vertical" align="center" style={{ height: "80vh" }}>
@@ -35,7 +33,7 @@ const LandingPage = () => {
           }
         />
       </Space>
-    </div>
+    </>
   );
 };
 

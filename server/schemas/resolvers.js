@@ -47,6 +47,7 @@ const resolvers = {
       return { token, user };
     },
     saveSong: async (parent, { input }, context) => {
+      //console.log(context);
       if (!context.user) {
         throw AuthenticationError;
       }

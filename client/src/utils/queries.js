@@ -6,12 +6,9 @@ export const GET_ME = gql`
       _id
       username
       savedMusic {
-        bookId
-        authors
-        image
-        description
-        title
-        link
+        artists
+        songId
+        songTitle
       }
     }
   }

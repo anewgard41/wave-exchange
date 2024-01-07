@@ -30,7 +30,7 @@ a {
 }
 
 /* ==========================================================================
-   Styling
+   Body
 ========================================================================== */
 
 .body-container {
@@ -40,6 +40,10 @@ a {
   background-color: #252422;
   height: 100vh;
 }
+
+/* ==========================================================================
+   Header
+========================================================================== */
 
 .header-container {
   display: grid;
@@ -55,8 +59,38 @@ a {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   width: 60%;
-  gap: 1rem;
+  gap: 2rem;
 }
+
+.nav-link {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 0.8rem 0;
+  border-radius: 0.5rem;
+  background-color: #CCC5B9;
+}
+
+.active {
+  background-color: #EB5E28;
+  color: #CCC5B9;
+}
+
+.nav-link:hover {
+  background-color: #403D39;
+  color: #CCC5B9;
+  transform: scale(1.1);
+}
+
+.nav-link:active {
+  transform: scale(1.1);
+  translate: 0 0.25rem;
+  background-color: #EB5E28;
+  color: #CCC5B9;
+}
+
+/* ==========================================================================
+   Donate Page
+========================================================================== */
 
 .donate-layout {
   display: grid;
@@ -70,7 +104,7 @@ a {
 
 .donate-section {
   background-color: #403d39;
-  height: 75%;
+  height: 100%;
   width: 80%;
   border-radius: 2rem;
 }
@@ -113,8 +147,4 @@ a {
 .leaderboard-names-container p {
   font-size: 1.2rem;
   color: #fffcf2; 
-}
-
-.ant-btn-primary:hover {
-  border-color: white;
 }
