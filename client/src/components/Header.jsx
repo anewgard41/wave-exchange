@@ -3,7 +3,7 @@ import { Button } from "antd";
 import { Link } from "react-router-dom";
 
 function Header() {
-  const [currentPage, setCurrentPage] = useState("home");
+  const [currentPage, setCurrentPage] = useState("landing");
 
   const setCurrentPageHandler = (page) => setCurrentPage(page);
 
@@ -18,9 +18,11 @@ function Header() {
         </h1>
         <div className="nav-container">
           <Link
+            className={
+              currentPage === "signup" ? "nav-link active" : "nav-link"
+            }
             key={1}
             {...(currentPage === "signup" ? { to: "/" } : { to: "/signup" })}
-            style={{ backgroundColor: "#EB5E28", color: "#252422" }}
             onClick={() => {
               currentPage === "signup"
                 ? setCurrentPageHandler("landing")
@@ -30,9 +32,11 @@ function Header() {
             {currentPage === "signup" ? "Home" : "Sign Up"}
           </Link>
           <Link
+            className={
+              currentPage === "login" ? "nav-link active" : "nav-link"
+            }
             key={2}
             {...(currentPage === "login" ? { to: "/" } : { to: "/login" })}
-            style={{ backgroundColor: "#CCC5B9", color: "#252422" }}
             onClick={() => {
               currentPage === "login"
                 ? setCurrentPageHandler("landing")
@@ -42,9 +46,11 @@ function Header() {
             {currentPage === "login" ? "Home" : "Login"}
           </Link>
           <Link
+            className={
+              currentPage === "donate" ? "nav-link active" : "nav-link"
+            }
             key={3}
             {...(currentPage === "donate" ? { to: "/" } : { to: "/donate" })}
-            style={{ backgroundColor: "#FFFCF2", color: "#252422" }}
             onClick={() => {
               currentPage === "donate"
                 ? setCurrentPageHandler("landing")
