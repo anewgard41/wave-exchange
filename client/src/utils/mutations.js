@@ -30,5 +30,14 @@ export const SAVE_SONG = gql`
       _id
       username
     }
-  }`
-;
+  }
+`;
+
+export const REMOVE_SONG = gql`
+  mutation RemoveSong($songId: String!) {
+    removeSong(songId: $songId) {
+      _id
+      username
+    }
+  }
+`;
