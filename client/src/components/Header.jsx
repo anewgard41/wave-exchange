@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { DownloadOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Link } from "react-router-dom";
 
 function Header() {
-  const [size, setSize] = useState("middle");
+  const [currentPage, setCurrentPage] = useState("landing");
+
+  const setCurrentPageHandler = (page) => setCurrentPage(page);
+
+  console.log(currentPage);
 
   return (
     <header>
@@ -13,30 +16,48 @@ function Header() {
           <span style={{ color: "#CCC5B9" }}>E</span>xchange
         </h1>
         <div className="nav-container">
-          <Button
-            type="primary"
-            href="/signup"
-            size={size}
-            style={{ backgroundColor: "#EB5E28", color: "#252422" }}
+          <Link
+            className={
+              currentPage === "signup" ? "nav-link active" : "nav-link"
+            }
+            key={1}
+            {...(currentPage === "signup" ? { to: "/" } : { to: "/signup" })}
+            onClick={() => {
+              currentPage === "signup"
+                ? setCurrentPageHandler("landing")
+                : setCurrentPageHandler("signup");
+            }}
           >
-            Sign Up
-          </Button>
-          <Button
-            type="primary"
-            href="/login"
-            size={size}
-            style={{ backgroundColor: "#CCC5B9", color: "#252422" }}
+            {currentPage === "signup" ? "Home" : "Sign Up"}
+          </Link>
+          <Link
+            className={
+              currentPage === "login" ? "nav-link active" : "nav-link"
+            }
+            key={2}
+            {...(currentPage === "login" ? { to: "/" } : { to: "/login" })}
+            onClick={() => {
+              currentPage === "login"
+                ? setCurrentPageHandler("landing")
+                : setCurrentPageHandler("login");
+            }}
           >
-            Login
-          </Button>
-          <Button
-            type="primary"
-            href="/donate"
-            size={size}
-            style={{ backgroundColor: "#FFFCF2", color: "#252422" }}
+            {currentPage === "login" ? "Home" : "Login"}
+          </Link>
+          <Link
+            className={
+              currentPage === "donate" ? "nav-link active" : "nav-link"
+            }
+            key={3}
+            {...(currentPage === "donate" ? { to: "/" } : { to: "/donate" })}
+            onClick={() => {
+              currentPage === "donate"
+                ? setCurrentPageHandler("landing")
+                : setCurrentPageHandler("donate");
+            }}
           >
-            Donate
-          </Button>
+            {currentPage === "donate" ? "Home" : "Donate"}
+          </Link>
         </div>
       </div>
     </header>

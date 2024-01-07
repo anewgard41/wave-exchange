@@ -7,6 +7,7 @@ import LoginPage from "./components/login.jsx";
 import SignUpPage from "./components/signup.jsx";
 import DonatePage from "./components/donate.jsx";
 import LandingPage from "./components/landing.jsx";
+import UserPage from "./components/user.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/donate',
         element: <DonatePage />
+      },
+      {
+        path: '/myaccount',
+        element: <UserPage />
       }
     ],
   }
