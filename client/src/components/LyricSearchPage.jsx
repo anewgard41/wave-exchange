@@ -70,7 +70,7 @@ export function LyricSearchPage() {
               }}
             >
               <Input
-                defaultValue="Enter search term"
+                placeholder="Enter search term"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
