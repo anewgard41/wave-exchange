@@ -18,7 +18,6 @@ const LandingPage = () => {
   const navigate = useNavigate();
   return (
     <div className="body-container">
-      <Header />
       {/* Vertical space to center content and take up full height of the
       viewport*/} 
       <Space direction="vertical" align="center" style={{ height: "80vh" }}>
