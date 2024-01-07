@@ -38,7 +38,6 @@ function App() {
     <div className="body-container">
       <ApolloProvider client={client}>
         <Outlet />
-        <LandingPage />
       </ApolloProvider>
     </div>
   );
