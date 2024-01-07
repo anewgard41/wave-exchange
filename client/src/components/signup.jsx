@@ -6,7 +6,6 @@ import {
   EyeInvisibleOutlined,
   EyeTwoTone,
 } from "@ant-design/icons";
-import Header from "./Header.jsx";
 
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations.js";
@@ -80,7 +79,7 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="body-container">
+    <>
       <Layout style={layoutStyle}>
         {/* Main content area */}
         <Content style={layoutStyle}>
@@ -144,7 +143,7 @@ const SignupPage = () => {
           </form>
         </Content>
       </Layout>
-    </div>
+    </>
   );
 };
 

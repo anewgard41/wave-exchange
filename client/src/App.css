@@ -104,7 +104,7 @@ a {
 
 .donate-section {
   background-color: #403d39;
-  height: 75%;
+  height: 100%;
   width: 80%;
   border-radius: 2rem;
 }
@@ -147,4 +147,20 @@ a {
 .leaderboard-names-container p {
   font-size: 1.2rem;
   color: #fffcf2; 
+}
+
+.ant-btn-primary {
+  background-color: #EB5E28;
+}
+
+.ant-btn-primary:hover {
+  border-color: #CCC5B9;
+  background-color: #EB5E28;
+  transform: scale(1.1);
+}
+
+.ant-btn-primary:active {
+  border-color: #CCC5B9;
+  translate: 0 0.5rem;
+  color: #CCC5B9;
 }
