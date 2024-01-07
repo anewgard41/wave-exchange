@@ -9,6 +9,8 @@ require('dotenv').config();
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 
+const app = express();
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -17,13 +19,18 @@ const server = new ApolloServer({
 
 const startServer = async () => {
   await server.start();
-  const app = express();
+  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
   app.use(cors());
   server.applyMiddleware({ app });
 
-  app.use("/graphql", expressMiddleware(server, {
-    context: authMiddleware
-  }))
+  try {
+    app.use("/graphql", expressMiddleware(server, {
+      context: authMiddleware
+    }))
+  } catch (err) {
+    console.log("Could not apply graphql expressMiddleware to server: server.js line 29.", err)
+  }
 
   // if we're in production, serve client/dist as static assets
   if (process.env.NODE_ENV === 'production') {
@@ -75,11 +82,19 @@ const startServer = async () => {
     }
   })
   const PORT = process.env.PORT || 4000;
-  db.once('open', () => {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+  try {
+    db.once('open', () => {
+      app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+      });
     });
-  });
-};
+  } catch (err) {
+    console.log("Could not connect to server: server.js line 85.", err);
+  };
+}
 
-startServer();
+try {
+  startServer();
+} catch (err) {
+  console.log(err);
+}
