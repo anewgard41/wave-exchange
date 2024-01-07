@@ -6,15 +6,17 @@ import { LyricSearchPage } from "./components/LyricSearchPage.jsx";
 import LoginPage from "./components/login.jsx";
 import SignUpPage from "./components/signup.jsx";
 import DonatePage from "./components/donate.jsx";
+import LandingPage from "./components/landing.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    errorElement: <h1 className="display-2">Wrong page!</h1>,
+    element: <App />,
+    errorElement: <h1>Wrong page!</h1>,
     children: [
       {
         index: true,
-        element: <App/>
+        element: <LandingPage/>
       },
       {
         path: "/search",
@@ -35,7 +37,7 @@ const router = createBrowserRouter([
     ],
   }
 ]);
-const root = ReactDOM.createRoot(document.getElementById("root"))
-root.render(
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router}/>
 );
