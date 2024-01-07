@@ -23,3 +23,12 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const SAVE_SONG = gql`
+  mutation saveSong($input: SongInput!) {
+    saveSong(input: $input) {
+      _id
+      username
+    }
+  }`
+;

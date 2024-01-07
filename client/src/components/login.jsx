@@ -11,7 +11,7 @@ import Header from "./Header.jsx";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
 
 const { Content } = Layout;
 
@@ -43,7 +43,10 @@ const LoginPage = () => {
     }, 6000);
   };
 
-  const [userFormData, setUserFormData] = useState({ username: '', password: '' });
+  const [userFormData, setUserFormData] = useState({
+    username: "",
+    password: "",
+  });
   const [loginUser] = useMutation(LOGIN_USER);
 
   const handleInputChange = (event) => {
@@ -64,6 +67,7 @@ const LoginPage = () => {
       });
       console.log(data);
       Auth.login(data.login.token);
+      console.log(data.login.token);
     } catch (err) {
       console.error(err);
     }
