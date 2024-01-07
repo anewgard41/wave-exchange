@@ -46,7 +46,7 @@ function Header() {
           </Link>
           <Link
             className={
-              currentPage === "donate" ? "nav-link active" : "nav-link"
+              currentPage === "donate" ? "nav-link active" : "nav-link donate-link"
             }
             key={3}
             {...(currentPage === "donate" ? { to: "/" } : { to: "/donate" })}
