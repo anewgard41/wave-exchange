@@ -6,16 +6,17 @@ function Header() {
 
   const setCurrentPageHandler = (page) => setCurrentPage(page);
 
-  console.log(currentPage);
-
   return (
     <header>
       <div className="header-container">
+        {/* Title */}
         <h1 style={{ color: "#fffcf2", fontSize: "2.5rem" }}>
           <span style={{ color: "#EB5E28" }}>W</span>ave{" "}
           <span style={{ color: "#CCC5B9" }}>E</span>xchange
         </h1>
+        {/* Nav */}
         <div className="nav-container">
+          {/* Sign Up */}
           <Link
             className={
               currentPage === "signup" ? "nav-link active" : "nav-link"
@@ -30,6 +31,7 @@ function Header() {
           >
             {currentPage === "signup" ? "Home" : "Sign Up"}
           </Link>
+          {/* Login */}
           <Link
             className={
               currentPage === "login" ? "nav-link active" : "nav-link"
@@ -44,6 +46,7 @@ function Header() {
           >
             {currentPage === "login" ? "Home" : "Login"}
           </Link>
+          {/* Donations */}
           <Link
             className={
               currentPage === "donate" ? "nav-link active" : "nav-link donate-link"
