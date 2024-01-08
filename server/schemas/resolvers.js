@@ -1,6 +1,7 @@
 const { User } = require('../models');
 const axios = require('axios');
 const { signToken, AuthenticationError } = require("../utils/auth");
+const { GraphQLError } = require('graphql');
 
 const resolvers = {
   Query: {
@@ -46,6 +47,7 @@ const resolvers = {
       return { token, user };
     },
     saveSong: async (parent, { input }, context) => {
+      //console.log(context);
       if (!context.user) {
         throw AuthenticationError;
       }

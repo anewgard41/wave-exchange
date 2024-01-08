@@ -19,7 +19,8 @@ body {
   line-height: 1;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
@@ -29,29 +30,76 @@ a {
 }
 
 /* ==========================================================================
-   Styling
+   Root
+========================================================================== */
+
+:root {
+  --shadow-color: 0deg 0% 27%;
+  --shadow-elevation-low:
+    0.2px 0.3px 0.4px hsl(var(--shadow-color) / 0.42),
+    0.4px 0.4px 0.6px -1.4px hsl(var(--shadow-color) / 0.39),
+    1px 1.1px 1.6px -2.7px hsl(var(--shadow-color) / 0.37);
+  --shadow-elevation-medium:
+    0.2px 0.3px 0.4px hsl(var(--shadow-color) / 0.44),
+    0.8px 0.8px 1.2px -0.9px hsl(var(--shadow-color) / 0.42),
+    2.1px 2.1px 3.2px -1.8px hsl(var(--shadow-color) / 0.4),
+    5.2px 5.3px 8.1px -2.7px hsl(var(--shadow-color) / 0.38);
+  --shadow-elevation-high:
+    0.2px 0.3px 0.4px hsl(var(--shadow-color) / 0.41),
+    1.4px 1.5px 2.2px -0.4px hsl(var(--shadow-color) / 0.4),
+    2.7px 2.8px 4.2px -0.8px hsl(var(--shadow-color) / 0.39),
+    4.6px 4.7px 7.2px -1.2px hsl(var(--shadow-color) / 0.38),
+    7.5px 7.6px 11.6px -1.6px hsl(var(--shadow-color) / 0.37),
+    11.9px 12.1px 18.5px -2px hsl(var(--shadow-color) / 0.36),
+    18.3px 18.7px 28.5px -2.4px hsl(var(--shadow-color) / 0.35),
+    27.2px 27.7px 42.2px -2.7px hsl(var(--shadow-color) / 0.34);
+}
+
+/* ==========================================================================
+   Body
 ========================================================================== */
 
 .body-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 9fr;
+  grid-template-rows: 1fr 7fr;
   background-color: #252422;
   height: 100vh;
 }
 
-.header-container {
-  display: grid;
-  grid-template-columns:  repeat(2, 1fr);
-  grid-template-rows: 1fr;
-  place-items: center;
-  height: 8rem;
-  background-color: #252422;
+.leaderboard-names-container p {
+  font-size: 1.2rem;
+  color: #fffcf2; 
 }
 
-header h1 {
-  font-size: 2.5rem;
-  color: #FFFCF2;
+.ant-btn-primary {
+  background-color: #EB5E28;
+  box-shadow: var(--shadow-elevation-high);
+}
+
+.ant-btn-primary:hover {
+  border-color: #CCC5B9;
+  background-color: #EB5E28;
+  transform: scale(1.1);
+}
+
+.ant-btn-primary:active {
+  border-color: #CCC5B9;
+  translate: 0 0.5rem;
+  color: #CCC5B9;
+}
+
+/* ==========================================================================
+   Header
+========================================================================== */
+
+.header-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  place-items: center;
+  height: 10rem;
+  background-color: #252422;
 }
 
 .nav-container {
@@ -59,5 +107,98 @@ header h1 {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   width: 60%;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 0.8rem 0;
+  border-radius: 0.5rem;
+  background-color: #CCC5B9;
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.donate-link {
+  background-color: #EB5E28;
+  color: #fffcf2;
+}
+
+.active {
+  background-color: #403D39;
+  color: #fffcf2;
+}
+
+.nav-link:hover {
+  background-color: #4096ff;
+  color: #fffcf2;
+  transform: scale(1.1);
+}
+
+.nav-link:active {
+  transform: scale(1.1);
+  translate: 0 0.25rem;
+  background-color: #EB5E28;
+  color: #CCC5B9;
+}
+
+/* ==========================================================================
+   Donate Page
+========================================================================== */
+
+.donate-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
   gap: 1rem;
+  text-align: center;
+  place-items: center;
+  height: 75%;
+}
+
+.donate-section {
+  background-color: #403d39;
+  height: 100%;
+  width: 80%;
+  border-radius: 2rem;
+}
+
+.donations {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 4fr 2fr;
+  gap: 1rem;
+  height: 100%;
+  place-items: center;
+}
+
+.donate-btn-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3rem;
+  place-self: center;
+  height: 100%;
+  width: 60%;
+}
+
+.stripe-logo {
+  place-self: start center;
+  height: 50%;
+}
+
+.leaderboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 3fr;
+  gap: 1rem;
+  height: 100%;
+  place-items: center;
+}
+
+.leaderboard-names-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
 }

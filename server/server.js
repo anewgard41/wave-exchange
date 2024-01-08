@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
 const { xml2js } = require('xml-js');
 const db = require("./config/connection");
@@ -7,21 +8,29 @@ const { expressMiddleware } = require("@apollo/server/express4");
 require('dotenv').config();
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
+const app = express();
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: authMiddleware,
+  cache: "bounded"
 });
 
 const startServer = async () => {
   await server.start();
-  const app = express();
-
+  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
+  app.use(cors());
   server.applyMiddleware({ app });
 
-  app.use("/graphql", expressMiddleware(server, {
-    context: authMiddleware
-  }))
+  try {
+    app.use("/graphql", expressMiddleware(server, {
+      context: authMiddleware
+    }))
+  } catch (err) {
+    console.log("Could not apply graphql expressMiddleware to server: server.js line 29.", err)
+  }
 
   // if we're in production, serve client/dist as static assets
   if (process.env.NODE_ENV === 'production') {
@@ -42,7 +51,7 @@ const startServer = async () => {
     const xml = await response.text();
     try {
       const data = xml2js(xml, { compact: true });
-      console.log(data.ArrayOfSearchLyricResult.SearchLyricResult)
+      //console.log(data.ArrayOfSearchLyricResult.SearchLyricResult)
       const results = data.ArrayOfSearchLyricResult.SearchLyricResult.map(result => {
         const newObj = {};
         Object.keys(result).forEach(key => {
@@ -53,7 +62,7 @@ const startServer = async () => {
       res.status(200).json(results);
     }
     catch (error) {
-      res.status(500).send(JSON.parse(error))
+      res.status(500).send(error);
     }
   });
   app.get('/api/lyric', async (req, res) => {
@@ -69,15 +78,23 @@ const startServer = async () => {
       res.status(200).send(data.GetLyricResult.Lyric._text);
     }
     catch (error) {
-      res.status(500).send(JSON.parse(error))
+      res.status(500).send(error);
     }
   })
   const PORT = process.env.PORT || 4000;
-  db.once('open', () => {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+  try {
+    db.once('open', () => {
+      app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+      });
     });
-  });
-};
+  } catch (err) {
+    console.log("Could not connect to server: server.js line 85.", err);
+  };
+}
 
-startServer();
+try {
+  startServer();
+} catch (err) {
+  console.log(err);
+}
