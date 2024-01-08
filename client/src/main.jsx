@@ -21,6 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/search",
+        index: true,
         element: <LyricSearchPage />,
       },
       {
