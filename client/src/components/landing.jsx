@@ -21,7 +21,7 @@ const LandingPage = () => {
       viewport*/} 
       <Space direction="vertical" align="center" style={{ height: "80vh" }}>
         {/* Image component */}
-        <Avatar size={600} src="../images/waveexchange_logo.png" />
+        <Avatar size={600} src="src\images\waveexchange_logo.png" />
 
         <Search
           placeholder="input search text"
