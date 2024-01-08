@@ -53,9 +53,6 @@ const PaymentPage = () => {
           >
             Payment Information
           </p>
-          <Element stripe={stripePromise}>
-
-          </Element>
         </Content>
       </Layout>
     
