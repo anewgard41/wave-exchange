@@ -1,23 +1,25 @@
 import React, { useState } from "react";
-import { DownloadOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import Header from "./Header.jsx";
+import Auth from "../utils/auth";
 
 function DonatePage() {
   const [size, setSize] = useState("large");
 
+  const handleDonation = (amount) => {
+    console.log(`Donated $${amount}`);
+  }
+
   return (
-    <div className="body-container">
-      <Header />
       <div className="donate-layout">
         <section className="donate-section">
           <div className="donations">
-            <h2 style={{ color: "#fffcf2", size: "2rem" }}>Donate</h2>
+            <h2 style={{ color: "#fffcf2", fontSize: "1.8rem" }}>Donate</h2>
             <div className="donate-btn-container">
               <Button
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
+                onClick={() => handleDonation(5)}
               >
                 $5
               </Button>
@@ -25,6 +27,7 @@ function DonatePage() {
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
+                onClick={() => handleDonation(10)}
               >
                 $10
               </Button>
@@ -32,6 +35,7 @@ function DonatePage() {
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
+                onClick={() => handleDonation(20)}
               >
                 $20
               </Button>
@@ -39,6 +43,7 @@ function DonatePage() {
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
+                onClick={() => handleDonation(50)}
               >
                 $50
               </Button>
@@ -47,7 +52,7 @@ function DonatePage() {
         </section>
         <section className="donate-section">
           <div className="leaderboard">
-            <h2>Leaderboard</h2>
+            <h2 style={{ color: "#fffcf2", fontSize: "1.8rem" }} >Leaderboard</h2>
             <div className="leaderboard-names-container">
               <p>Fake Name</p>
               <p>Fake Name</p>
@@ -57,7 +62,6 @@ function DonatePage() {
           </div>
         </section>
       </div>
-    </div>
   );
 }
 
