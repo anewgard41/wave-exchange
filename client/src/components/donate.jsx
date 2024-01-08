@@ -29,7 +29,7 @@ function DonatePage() {
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
                 onClick={() => handleDonation(10)}
-                href="/payment:1000"
+                href="/payment?amount=1000"
               >
                 $10
               </Button>
@@ -38,7 +38,7 @@ function DonatePage() {
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
                 onClick={() => handleDonation(20)}
-                href="/payment:2000"
+                href="/payment?amount=2000"
               >
                 $20
               </Button>
@@ -47,7 +47,7 @@ function DonatePage() {
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
                 onClick={() => handleDonation(50)}
-                href="/payment:5000"
+                href="/payment?amount=5000"
               >
                 $50
               </Button>
