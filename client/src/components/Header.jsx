@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import UseAnimations from "react-useanimations";
+import activity from "react-useanimations/lib/activity";
 
 function Header() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -12,6 +14,12 @@ function Header() {
       <div className="header-container">
         {/* Title */}
         <h1 style={{ color: "#fffcf2", fontSize: "2.5rem" }}>
+        {/* Animation */}
+        <span style={{ position: "inherit" }}>
+          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+            <UseAnimations animation={activity} size={76} />
+          </Link>
+        </span>
           <span style={{ color: "#EB5E28" }}>W</span>ave{" "}
           <span style={{ color: "#CCC5B9" }}>E</span>xchange
         </h1>
