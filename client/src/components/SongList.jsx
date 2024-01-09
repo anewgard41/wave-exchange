@@ -8,7 +8,7 @@ import { SAVE_SONG } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 export function SongList({ searchResults }) {
-  const [lyricMap, setLyricMap] = useState({});
+  const [lyricMap, setLyricMap] = useState([]);
 
   const [savedSongId, setSavedSongId] = useState({});
   const [saveSong] = useMutation(SAVE_SONG);
@@ -61,7 +61,7 @@ export function SongList({ searchResults }) {
       console.error("Error saving song:", error);
     }
   };
-
+  console.log(searchResults);
   return (
     <Collapse onChange={onChange} accordion>
       {searchResults.map((result) => (

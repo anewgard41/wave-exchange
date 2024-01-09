@@ -18,7 +18,9 @@
       "react-dom": "^18.2.0",
       "react-router-dom": "^6.11.2",
       "vite": "^5.0.10",
-      "antd": "^5.12.7"
+      "antd": "^5.12.7",
+      "swiper": "10.0.0",
+      "react-useanimations": "2.10.0"
     },
     "devDependencies": {
       "@types/react": "^18.0.28",
