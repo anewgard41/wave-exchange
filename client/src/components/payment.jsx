@@ -29,23 +29,30 @@ const PUBLIC_KEY = "pk_test_TYooMQauvdEDq54NiTphI7jx";
 const stripePromise = loadStripe(PUBLIC_KEY);
 
 const PaymentPage = () => {
-  const [user, setUser] = React.useState(null);
   const [amount, setAmount] = React.useState(0);
+   const options = {
+     // error will be caused by below line, needs and actual secret key
+     clientSecret: process.env.STRIPE_SECRET,
+   };
+
+   options={options}
+   //above line should be pasted as a prop in Elements, line 59, but you need the actual secret key
+
   const { search } = useLocation();
-  // const options = {
-  //   // error will be caused by below line, needs and actual secret key
-  //   clientSecret: '{{CLIENT_SECRET}}',
-  // };
-
-  // options={options}
-  // above line should be pasted as a prop in Elements, line 59, but you need the actual secret key
-
   useEffect(() => {
+    
     const params = new URLSearchParams(search);
     const total = params.get("amount");
     if (total) {
       setAmount(total);
     }
+  });
+
+  
+  const {loading, error, data} = useQuery(GET_ME);
+  const [user, setUser] = React.useState(null);
+  useEffect(()=>{
+    console.log(data);
   });
 
   return (
