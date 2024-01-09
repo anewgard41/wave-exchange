@@ -1,4 +1,5 @@
 const express = require("express");
+//const routes = require("./routes");
 const cors = require("cors");
 const path = require("path");
 const { xml2js } = require('xml-js');
@@ -23,6 +24,7 @@ const startServer = async () => {
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
   app.use(cors());
+  //app.use(routes);
   server.applyMiddleware({ app });
 
   try {
@@ -99,7 +101,7 @@ const startServer = async () => {
       res.json({success: false});
     }
   });
-  const PORT = process.env.PORT || 4000;
+  const PORT = process.env.PORT || 3000;
   try {
     db.once('open', () => {
       app.listen(PORT, () => {
