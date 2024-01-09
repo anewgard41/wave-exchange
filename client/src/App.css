@@ -146,7 +146,7 @@ a {
 
 .active {
   /* background-color: #403D39; */
-  background-image: linear-gradient(#252422, #252422);
+  background-image: linear-gradient(#161616, #161616);
   color: #fffcf2;
 }
 
@@ -198,7 +198,7 @@ a {
 .search-page-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 6fr;
+  grid-template-rows: 18rem 6fr;
   place-items: center;
   text-align: center;
   width: 95%;
