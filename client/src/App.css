@@ -198,7 +198,7 @@ a {
 .search-page-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 6fr;
+  grid-template-rows: 18rem 6fr;
   place-items: center;
   text-align: center;
   width: 95%;
