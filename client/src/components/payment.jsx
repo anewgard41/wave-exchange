@@ -20,7 +20,6 @@ const CARD_OPTIONS = {
             color: "#252422",
             fontFamily: "Arial, Helvetica, sans-serif",
             fontSize: "20px",
-            color: "#fffcf3",
             width: "50%"
         }
     }
