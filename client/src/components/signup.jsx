@@ -20,7 +20,7 @@ const layoutStyle = {
   minHeight: 120,
   lineHeight: "120px",
   color: "#fff",
-  backgroundColor: "#252422",
+  backgroundColor: "#403D39",
 };
 
 // SignupPage component
@@ -78,71 +78,65 @@ const SignupPage = () => {
   };
 
   return (
-    <>
-      <Layout style={layoutStyle}>
-        {/* Main content area */}
-        <Content style={layoutStyle}>
-          {/* "Sign Up Today" text */}
-          <p
-            style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}
-          >
-            Sign Up Today
-          </p>
-          <form onSubmit={handleFormSubmit}>
-            {/* Input components for username and password */}
-            <Space
-              direction="vertical"
-              style={{ width: "100%", maxWidth: "300px" }}
-            >
-              {/* Username input */}
-              <Input
-                type="text"
-                name="username"
-                placeholder="Please enter username"
-                onChange={handleInputChange}
-                value={userFormData.username}
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                suffix={
-                  // Tooltip for extra information about the username input
-                  <Tooltip title="Username is case-sensitive">
-                    <InfoCircleOutlined
-                      style={{
-                        color: "rgba(0, 0, 0, 0.45)",
-                      }}
-                    />
-                  </Tooltip>
-                }
-              />
+    <div className="info-container">
+      {/* Main content area */}
+      {/* "Sign Up Today" text */}
+      <h2 style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}>
+        Sign Up Today
+      </h2>
+      <form className="info-form" onSubmit={handleFormSubmit}>
+        {/* Input components for username and password */}
+        <Space
+          direction="vertical"
+          style={{ width: "100%", maxWidth: "300px" }}
+        >
+          {/* Username input */}
+          <Input
+            type="text"
+            name="username"
+            placeholder="Please enter username"
+            onChange={handleInputChange}
+            value={userFormData.username}
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            suffix={
+              // Tooltip for extra information about the username input
+              <Tooltip title="Username is case-sensitive">
+                <InfoCircleOutlined
+                  style={{
+                    color: "rgba(0, 0, 0, 0.45)",
+                  }}
+                />
+              </Tooltip>
+            }
+          />
 
-              {/* Password input with eye icon */}
-              <Input.Password
-                type="password"
-                placeholder="Please enter password"
-                name="password"
-                onChange={handleInputChange}
-                value={userFormData.password}
-                iconRender={(visible) =>
-                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                }
-              />
-            </Space>
-            <Flex gap="small" wrap="wrap" align="center" justify="center">
-              <Button
-                type="primary"
-                direction="vertical"
-                disabled={!(userFormData.username && userFormData.password)}
-                loading={loadings[0]}
-                onClick={() => enterLoading(0)}
-                htmlType="submit"
-                style={{ backgroundColor: "#EB5E28", color: "#252422" }}
-              >
-                Signup!
-              </Button>
-            </Flex>
-          </form>
-        </Content>
-      </Layout>
-    </>
+          {/* Password input with eye icon */}
+          <Input.Password
+            type="password"
+            placeholder="Please enter password"
+            name="password"
+            onChange={handleInputChange}
+            value={userFormData.password}
+            iconRender={(visible) =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
+          />
+        </Space>
+        <Flex gap="small" wrap="wrap" align="center" justify="center">
+          <Button
+            type="primary"
+            direction="vertical"
+            disabled={!(userFormData.username && userFormData.password)}
+            loading={loadings[0]}
+            onClick={() => enterLoading(0)}
+            htmlType="submit"
+            style={{ backgroundColor: "#EB5E28", color: "#252422" }}
+          >
+            Signup!
+          </Button>
+        </Flex>
+      </form>
+    </div>
   );
 };
 
