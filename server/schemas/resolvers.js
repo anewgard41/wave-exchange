@@ -8,6 +8,16 @@ const resolvers = {
     me: async (parent, args, context) => {
       return User.findOne({ _id: context.user._id }).populate("savedMusic");
     },
+    allUsers: async () => {
+      try {
+        // Fetch all users from the database
+        const allUsers = await User.find();
+        return allUsers;
+      } catch (error) {
+        console.error('Error fetching all users:', error);
+        throw new Error('Internal Server Error');
+      }
+    },
     search: async (_, { query }) => {
         try {
           const accessToken = process.env.GENIUS_ACCESS_TOKEN;

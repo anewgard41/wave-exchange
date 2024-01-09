@@ -102,6 +102,18 @@ a {
   background-color: #252422;
 }
 
+.title-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr;
+  place-items: center;
+  height: 100%;
+  width: 60%;
+}
+.title {
+  place-self: center start;
+}
+
 .nav-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

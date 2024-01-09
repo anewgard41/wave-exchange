@@ -11,12 +11,12 @@ export default defineConfig({
     proxy: {
       '/graphql': {
         target: 'http://localhost:4000',
-        secure: false,
+        secure: true,
         changeOrigin: true
       },
       '/api': {
         target: 'http://localhost:4000',
-        secure: false,
+        secure: true,
         changeOrigin: true
       }
     }
