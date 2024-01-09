@@ -63,6 +63,15 @@ function DonatePage() {
           <div className="leaderboard">
             <h2 style={{ color: "#fffcf2", fontSize: "1.8rem" }} >Leaderboard</h2>
             <div className="leaderboard-names-container">
+              {/* const donors = []
+                  const sortedDonors = donors.sort((a,b) => b - a); */}
+                  {/* or */}
+                  {/* {userData.donation.map((user) => {
+                    return (
+                      <p key={donation.donationId}>{user.name}</p>
+                    )
+                  })
+                  } */}
               <p>Fake Name</p>
               <p>Fake Name</p>
               <p>Fake Name</p>

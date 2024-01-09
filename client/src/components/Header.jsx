@@ -58,7 +58,7 @@ function Header() {
                 className={
                   currentPage === "login" ? "nav-link active" : "nav-link"
                 }
-                key={1}
+                key={2}
                 {...(currentPage === "login"
                   ? { to: "/" }
                   : { to: "/login" })}
