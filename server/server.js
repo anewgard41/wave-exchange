@@ -6,6 +6,7 @@ const db = require("./config/connection");
 const { ApolloServer } = require('apollo-server-express');
 const { expressMiddleware } = require("@apollo/server/express4");
 require('dotenv').config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 const app = express();
@@ -81,6 +82,23 @@ const startServer = async () => {
       res.status(500).send(error);
     }
   })
+
+  app.post('/payment', cors(), async (req,res) =>{
+    let {amount, id} = req.body;
+    try{
+      const payment = await stripe.paymentIntents.create({
+        amount,
+        currency: "USD",
+        description: `$${amount/100} donation to Wave Exchange`,
+        payment_method: id,
+        confirm: true
+      });
+      res.json({success: true});
+    }catch(err){
+      console.log(err);
+      res.json({success: false});
+    }
+  });
   const PORT = process.env.PORT || 4000;
   try {
     db.once('open', () => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout, Input, Space, Tooltip, Button, Flex } from "antd";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Elements, PaymentElement } from "@stripe/react-stripe-js/dist/react-stripe";
+import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js/dist/react-stripe";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   InfoCircleOutlined,
@@ -30,12 +30,8 @@ const stripePromise = loadStripe(PUBLIC_KEY);
 
 const PaymentPage = () => {
   const [amount, setAmount] = React.useState(0);
-   const options = {
-     // error will be caused by below line, needs and actual secret key
-     clientSecret: process.env.STRIPE_SECRET,
-   };
 
-   options={options}
+   //options={options}
    //above line should be pasted as a prop in Elements, line 59, but you need the actual secret key
 
   const { search } = useLocation();
@@ -53,8 +49,37 @@ const PaymentPage = () => {
   const [user, setUser] = React.useState(null);
   useEffect(()=>{
     console.log(data);
-  });
+  }), [data];
 
+  const [success, setSuccess] = useState(false);
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault();
+    const {err, paymentMethod} = await stripe.createPaymentMethod({
+        type: "card",
+        card: elements.getElement(cardElement)
+    });
+
+    if(!err){
+        try{
+            const {id} = paymentMethod;
+            const response = await axios.post("/payment", {
+                amount,
+                id
+            });
+            if(response.data.success){
+                //Set up donation post
+                setSuccess(true);
+            }
+        } catch(error){
+            console.log("Error", error);
+        }
+    } else {
+        console.log("Error", err);
+    }
+  }
   return (
     <Layout style={layoutStyle}>
       {/* Main content area */}
@@ -64,10 +89,9 @@ const PaymentPage = () => {
           Payment Information
         </p>
         <Elements stripe={stripePromise}>
-          {/* <form>
-            <PaymentElement />
-            <button>Submit</button>
-          </form> */}
+          <form onSubmit={handleSubmit}>
+            
+          </form>
         </Elements>
       </Content>
     </Layout>
