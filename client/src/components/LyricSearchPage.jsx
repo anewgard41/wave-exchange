@@ -11,7 +11,7 @@ const layoutStyle = {
   minHeight: 120,
   lineHeight: "120px",
   color: "#fff",
-  backgroundColor: "#252422",
+  backgroundColor: "#403D39",
 };
 
 export function LyricSearchPage() {

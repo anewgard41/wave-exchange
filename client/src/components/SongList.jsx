@@ -65,21 +65,18 @@ export function SongList({ searchResults }) {
 
   return (
     <div className="search-result-container">
-      <Collapse
-        onChange={onChange}
-        // style={{ color: "#fffcf2", backgroundColor: "#403D39" }}
-        accordion
-      >
+      <Collapse className="custom-collapse" onChange={onChange} accordion>
         {searchResults.map((result) => (
           <Collapse.Panel
-            style={{ backgroundColor: "#403D39" }}
+            className="custom-collapse"
+            style={{ backgroundColor: "#252422" }}
             key={result.LyricId}
             header={`${result.Song} - ${result.Artist}`}
           >
-            <pre>
+            <pre style={{ color: "#FFFCF2" }}>
               {lyricMap.find((entry) => entry.id === result.LyricId)?.data}
             </pre>
-            <br/>
+            <br />
             <Button
               type="primary"
               style={{ backgroundColor: "#EB5E28" }}
