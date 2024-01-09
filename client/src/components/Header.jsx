@@ -7,6 +7,8 @@ function Header() {
 
   const setCurrentPageHandler = (page) => setCurrentPage(page);
 
+  console.log(currentPage);
+
   return (
     <header>
       <div className="header-container">
@@ -30,7 +32,7 @@ function Header() {
                   : setCurrentPageHandler("signup");
               }}
             >
-              {currentPage === "signup" ? "Home" : "Logout"}
+              Logout
             </Link>
           ) : (
             <>
@@ -66,7 +68,7 @@ function Header() {
                     : setCurrentPageHandler("login");
                 }}
               >
-                {currentPage === "signup" ? "Home" : "Login"}
+                {currentPage === "login" ? "Home" : "Login"}
               </Link>
             </>
           )}
