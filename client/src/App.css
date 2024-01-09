@@ -60,7 +60,7 @@ a {
 ========================================================================== */
 
 #body {
-  background-image: linear-gradient(#403D39, #252422);
+  background-image: linear-gradient(#252422, #403D39);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
