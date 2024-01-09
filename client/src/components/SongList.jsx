@@ -15,7 +15,7 @@ export function SongList({ searchResults }) {
 
   const onChange = async (key) => {
     if (Array.isArray(key)) key = key[0];
-    if (!key || lyricMap[key]) return;
+    if (!key || lyricMap.some((entry) => entry.id === key)) return;
     const song = searchResults.find((x) => x.LyricId === key);
     if (!song) return;
 
@@ -23,10 +23,10 @@ export function SongList({ searchResults }) {
       const results = await axios.get(
         `/api/lyric?lyricId=${song.LyricId}&lyricCheckSum=${song.LyricChecksum}`
       );
-      setLyricMap({
-        ...lyricMap,
-        [song.LyricId]: results.data,
-      });
+      setLyricMap((prevLyricMap) => [
+        ...prevLyricMap,
+        { id: song.LyricId, data: results.data },
+      ]);
     } catch (error) {
       console.error("Error retrieving or saving song:", error);
     }
@@ -69,8 +69,9 @@ export function SongList({ searchResults }) {
           key={result.LyricId}
           header={`${result.Song} - ${result.Artist}`}
         >
-          <pre>{lyricMap[result.LyricId]}</pre>
-
+          <pre>
+            {lyricMap.find((entry) => entry.id === result.LyricId)?.data}
+          </pre>
           <button
             onClick={() =>
               handleSaveSong(result.LyricId, result.Song, result.Artist)
