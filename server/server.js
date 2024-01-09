@@ -1,20 +1,20 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const { xml2js } = require('xml-js');
+const { xml2js } = require("xml-js");
 const db = require("./config/connection");
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer } = require("apollo-server-express");
 const { expressMiddleware } = require("@apollo/server/express4");
-require('dotenv').config();
-const { typeDefs, resolvers } = require('./schemas');
-const { authMiddleware } = require('./utils/auth');
+require("dotenv").config();
+const { typeDefs, resolvers } = require("./schemas");
+const { authMiddleware } = require("./utils/auth");
 const app = express();
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
-  cache: "bounded"
+  cache: "bounded",
 });
 
 const startServer = async () => {
@@ -25,73 +25,85 @@ const startServer = async () => {
   server.applyMiddleware({ app });
 
   try {
-    app.use("/graphql", expressMiddleware(server, {
-      context: authMiddleware
-    }))
+    app.use(
+      "/graphql",
+      expressMiddleware(server, {
+        context: authMiddleware,
+      })
+    );
   } catch (err) {
-    console.log("Could not apply graphql expressMiddleware to server: server.js line 29.", err)
+    console.log(
+      "Could not apply graphql expressMiddleware to server: server.js line 29.",
+      err
+    );
   }
 
   // if we're in production, serve client/dist as static assets
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/dist')));
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../client/dist")));
 
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, "../client/dist/index.html"));
     });
-  };
+  }
 
   // Handle requests for the root path
-  app.get('/', (req, res) => {
-    res.send('Hello, this is your GraphQL server!');
+  app.get("/", (req, res) => {
+    res.send("Hello, this is your GraphQL server!");
   });
 
-  app.get('/api/search', async (req, res) => {
-    const response = await fetch(`http://api.chartlyrics.com/apiv1.asmx/SearchLyricText?lyricText=${encodeURIComponent(req.query.lyricText)}`);
+  app.get("/api/search", async (req, res) => {
+    const response = await fetch(
+      `http://api.chartlyrics.com/apiv1.asmx/SearchLyricText?lyricText=${encodeURIComponent(
+        req.query.lyricText
+      )}`
+    );
     const xml = await response.text();
     try {
       const data = xml2js(xml, { compact: true });
       //console.log(data.ArrayOfSearchLyricResult.SearchLyricResult)
-      const results = data.ArrayOfSearchLyricResult.SearchLyricResult.map(result => {
-        const newObj = {};
-        Object.keys(result).forEach(key => {
-          newObj[key] = result[key]._text;
-        });
-        return newObj;
-      }).filter(x => Object.keys(x).length === 8);
+      const results = data.ArrayOfSearchLyricResult.SearchLyricResult.map(
+        (result) => {
+          const newObj = {};
+          Object.keys(result).forEach((key) => {
+            newObj[key] = result[key]._text;
+          });
+          return newObj;
+        }
+      ).filter((x) => Object.keys(x).length === 8);
       res.status(200).json(results);
-    }
-    catch (error) {
+    } catch (error) {
       res.status(500).send(error);
     }
   });
-  app.get('/api/lyric', async (req, res) => {
+  app.get("/api/lyric", async (req, res) => {
     if (!req.query.lyricId || !req.query.lyricCheckSum) {
-      res.status(400).send('Missing query parameter')
+      res.status(400).send("Missing query parameter");
       return;
     }
-    
-    const response = await fetch(`http://api.chartlyrics.com/apiv1.asmx/GetLyric?lyricId=${req.query.lyricId}&lyricCheckSum=${req.query.lyricCheckSum}`)
+
+    const response = await fetch(
+      `http://api.chartlyrics.com/apiv1.asmx/GetLyric?lyricId=${req.query.lyricId}&lyricCheckSum=${req.query.lyricCheckSum}`
+    );
     const xml = await response.text();
     try {
       const data = xml2js(xml, { compact: true });
       res.status(200).send(data.GetLyricResult.Lyric._text);
-    }
-    catch (error) {
+    } catch (error) {
       res.status(500).send(error);
     }
-  })
+  });
   const PORT = process.env.PORT || 4000;
   try {
-    db.once('open', () => {
+    db.once("open", () => {
       app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
       });
     });
   } catch (err) {
     console.log("Could not connect to server: server.js line 85.", err);
-  };
-}
+  }
+};
 
 try {
   startServer();
