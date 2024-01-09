@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import Auth from '../utils/auth';
+
 function Header() {
-  const [loggedIn, setLoggedIn] = useState(false);
+
   const [currentPage, setCurrentPage] = useState("landing");
 
   const setCurrentPageHandler = (page) => setCurrentPage(page);
@@ -19,20 +21,15 @@ function Header() {
         </h1>
         {/* Nav */}
         <div className="nav-container">
-          {loggedIn ? (
+          {Auth.loggedIn() ? (
             <>
               {/* Log out */}
               <Link
                 className={"nav-link"}
                 key={1}
-                to="/"
-                // onClick={() => {
-                //   currentPage === "signup"
-                //     ? setCurrentPageHandler("landing")
-                //     : setCurrentPageHandler("signup");
-                // }}
+                onClick={() => Auth.logout()}
               >
-                Logout
+                Logout 
               </Link>
               {/* My Songs */}
               <Link
