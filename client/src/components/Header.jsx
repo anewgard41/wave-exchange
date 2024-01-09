@@ -34,6 +34,7 @@ function Header() {
           
         {/* Nav */}
         <div className="nav-container">
+          {/* User is logged in */}
           {Auth.loggedIn() ? (
             <>
               {/* Log out */}
@@ -63,6 +64,7 @@ function Header() {
               </Link>
             </>
           ) : (
+            // User is not logged in
             <>
               {/* Sign Up */}
               <Link
@@ -98,6 +100,7 @@ function Header() {
               </Link>
             </>
           )}
+          {/* Always visible */}
           {/* Donations */}
           <Link
             className={

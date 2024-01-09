@@ -59,11 +59,17 @@ a {
    Body
 ========================================================================== */
 
+#body {
+  background-image: linear-gradient(#252422, #403D39);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 .body-container {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 7fr;
-  background-color: #403D39;
+  /* background-color: #403D39; */
   height: 100vh;
 }
 
@@ -99,7 +105,6 @@ a {
   grid-template-rows: 1fr;
   place-items: center;
   height: 10rem;
-  background-color: #403D39;
 }
 
 .title-container {
@@ -127,22 +132,27 @@ a {
   font-size: 1.2rem;
   padding: 0.8rem 0;
   border-radius: 0.5rem;
-  background-color: #CCC5B9;
+  color: #252422;
+  /* background-color: #CCC5B9; */
+  background-image: linear-gradient(#CCC5B9, #FFFCF2);
   box-shadow: var(--shadow-elevation-medium);
 }
 
 .donate-link {
-  background-color: #EB5E28;
+  /* background-color: #EB5E28; */
+  background-image: linear-gradient(#EB5E28, #252422);
   color: #fffcf2;
 }
 
 .active {
-  background-color: #403D39;
+  /* background-color: #403D39; */
+  background-image: linear-gradient(#252422, #252422);
   color: #fffcf2;
 }
 
 .nav-link:hover {
-  background-color: #4096ff;
+  /* background-color: #4096ff; */
+  background-image: linear-gradient(#4096ff, #4096ff);
   color: #fffcf2;
   transform: scale(1.1);
 }
@@ -152,6 +162,59 @@ a {
   translate: 0 0.25rem;
   background-color: #EB5E28;
   color: #CCC5B9;
+}
+
+/* ==========================================================================
+   Sign up and Login Pages
+========================================================================== */
+
+.info-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 3fr;
+  place-items: center;
+  height: 60%;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.info-container h2{
+  place-self: end center;
+}
+
+.info-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  place-items: center;
+  width: 100%;
+  gap: 2rem;
+}
+
+/* ==========================================================================
+   Search Page
+========================================================================== */
+
+.search-page-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 6fr;
+  place-items: center;
+  text-align: center;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.search-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  place-items: center;
+  gap: 2rem;
+}
+
+.results {
+  width: 100%;
 }
 
 /* ==========================================================================
@@ -169,10 +232,8 @@ a {
 }
 
 .donate-section {
-  background-color: #403d39;
   height: 100%;
   width: 80%;
-  border-radius: 2rem;
 }
 
 .donations {
@@ -206,6 +267,8 @@ a {
   gap: 1rem;
   height: 100%;
   place-items: center;
+  background-color: #161616;
+  border-radius: 2rem;
 }
 
 .leaderboard-names-container {

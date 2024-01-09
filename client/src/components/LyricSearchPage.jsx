@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Input, Space } from "antd";
+import { Button, Input, Space } from "antd";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { SongList } from "./SongList";
-const { Content } = Layout;
-
-const layoutStyle = {
-  textAlign: "center",
-  minHeight: 120,
-  lineHeight: "120px",
-  color: "#fff",
-  backgroundColor: "#403D39",
-};
 
 export function LyricSearchPage() {
   const navigate = useNavigate();
@@ -49,50 +40,44 @@ export function LyricSearchPage() {
   };
 
   return (
-    <div>
-      <Layout style={layoutStyle}>
-        {/* Main content area */}
-        <Content style={layoutStyle}>
-          <p
-            style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}
-          >
-            Lyric Search
-          </p>
-          <Space
-            direction="vertical"
-            style={{ width: "100%", maxWidth: "300px" }}
-          >
-            <Space.Compact
-              style={{
-                width: "100%",
-                maxWidth: "300px",
-              }}
+    <div className="search-page-container">
+      {/* Main content area */}
+      <div className="search-top">
+        <h2
+          style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}
+        >
+          Lyric Search
+        </h2>
+        <Space
+          direction="vertical"
+        >
+          <Space.Compact>
+            <Input
+              placeholder="Enter search term"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Button
+              type="primary"
+              onClick={() => navigate(`?lyricText=${searchTerm}`)}
             >
-              <Input
-                placeholder="Enter search term"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <Button
-                type="primary"
-                onClick={() => navigate(`?lyricText=${searchTerm}`)}
-              >
-                Search
-              </Button>
-            </Space.Compact>
-          </Space>
-          <p
-            style={{ color: "#FFFCF2", fontSize: "24px", marginBottom: "10px" }}
-          >
-            Search Results
-          </p>
-          {loading ? (
-            <p>Loading...</p> // Display a loading indicator while fetching data
-          ) : (
-            <SongList searchResults={searchResults} />
-          )}
-        </Content>
-      </Layout>
+              Search
+            </Button>
+          </Space.Compact>
+        </Space>
+        <h3
+          style={{ color: "#FFFCF2", fontSize: "24px", marginBottom: "10px" }}
+        >
+          Search Results
+        </h3>
+      </div>
+      <div className="results">
+        {loading ? (
+          <p>Loading...</p> // Display a loading indicator while fetching data
+        ) : (
+          <SongList searchResults={searchResults} />
+        )}
+      </div>
     </div>
   );
 }
