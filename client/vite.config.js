@@ -6,16 +6,16 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3000,
+    port: 4000,
     open: true,
     proxy: {
       '/graphql': {
-        target: 'http://localhost:4000',
+        target: 'http://localhost:3000',
         secure: true,
         changeOrigin: true
       },
       '/api': {
-        target: 'http://localhost:4000',
+        target: 'https://wave-exchange.onrender.com/',
         secure: true,
         changeOrigin: true
       }

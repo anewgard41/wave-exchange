@@ -61,7 +61,8 @@ export function SongList({ searchResults }) {
       console.error("Error saving song:", error);
     }
   };
-  console.log(searchResults);
+  console.log("searchResults", searchResults);
+
   return (
     <Collapse onChange={onChange} accordion>
       {searchResults.map((result) => (

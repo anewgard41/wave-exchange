@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const userRoutes = require('./chartLyrics');
+const chartRoutes = require('./chartLyrics');
 
-router.use('/u', userRoutes);
+router.use('/chartlyrics', chartRoutes);
 
 module.exports = router;

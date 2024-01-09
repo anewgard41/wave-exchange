@@ -42,7 +42,7 @@ export function LyricSearchPage() {
         `/api/search?lyricText=${encodeURIComponent(query)}`
       );
       setSearchResults(results.data);
-      console.log(results);
+      console.log(results.data);
     } catch (error) {
       console.error("Error searching from server:", error);
     }
