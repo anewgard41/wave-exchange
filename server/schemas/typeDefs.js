@@ -3,6 +3,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
     type Query {
         me: User
+        allUsers: [User]
         search(query: String!): [Song]
     }
 
@@ -23,7 +24,7 @@ const typeDefs = gql`
         _id: ID!
         username: String!
         savedMusic: [Song]
-        donationTotal: Int
+        donation: Int
     }
 
     type Song {
