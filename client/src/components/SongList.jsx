@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Collapse } from "antd";
 import axios from "axios";
+import { Button } from "antd";
 
 import { useMutation } from "@apollo/client";
 import { SAVE_SONG } from "../utils/mutations";
@@ -33,7 +34,6 @@ export function SongList({ searchResults }) {
   };
 
   const handleSaveSong = async (songId, songTitle, artists) => {
-
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     console.log(`the token is ${token}`);
 
@@ -64,24 +64,31 @@ export function SongList({ searchResults }) {
   console.log("searchResults", searchResults);
 
   return (
-    <Collapse onChange={onChange} accordion>
-      {searchResults.map((result) => (
-        <Collapse.Panel
-          key={result.LyricId}
-          header={`${result.Song} - ${result.Artist}`}
-        >
-          <pre>
-            {lyricMap.find((entry) => entry.id === result.LyricId)?.data}
-          </pre>
-          <button
-            onClick={() =>
-              handleSaveSong(result.LyricId, result.Song, result.Artist)
-            }
+    <div className="search-result-container">
+      <Collapse className="custom-collapse" onChange={onChange} accordion>
+        {searchResults.map((result) => (
+          <Collapse.Panel
+            className="custom-collapse"
+            style={{ backgroundColor: "#252422" }}
+            key={result.LyricId}
+            header={`${result.Song} - ${result.Artist}`}
           >
-            Save Song
-          </button>
-        </Collapse.Panel>
-      ))}
-    </Collapse>
+            <pre style={{ color: "#FFFCF2" }}>
+              {lyricMap.find((entry) => entry.id === result.LyricId)?.data}
+            </pre>
+            <br />
+            <Button
+              type="primary"
+              style={{ backgroundColor: "#EB5E28" }}
+              onClick={() =>
+                handleSaveSong(result.LyricId, result.Song, result.Artist)
+              }
+            >
+              Save Song
+            </Button>
+          </Collapse.Panel>
+        ))}
+      </Collapse>
+    </div>
   );
 }
