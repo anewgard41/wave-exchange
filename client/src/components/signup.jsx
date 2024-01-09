@@ -66,7 +66,6 @@ const SignupPage = () => {
 
       console.log(data.addUser.token);
       console.log(data);
-      // TODO: Make sure Auth is set up with global context?
       Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);

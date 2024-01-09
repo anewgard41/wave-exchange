@@ -35,9 +35,11 @@ const UserPage = () => {
   const [removeSong] = useMutation(REMOVE_SONG);
   const userData = data?.me || {};
   console.log(userData);
-  const savedMusic = userData.savedMusic || [];
+  const savedMusic = userData.savedMusic ?? [];
   console.log(savedMusic);
-  
+
+
+
   const handleRemoveSong = async (songId) => {
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;

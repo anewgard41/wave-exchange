@@ -56,7 +56,7 @@ function DonatePage() {
                 $50
               </Button>
             </div>
-            <img className="stripe-logo" src="src/images/stripe-logo.svg"/>
+            <img className="stripe-logo" src="/images/stripe-logo.svg"/>
           </div>
         </section>
         <section className="donate-section">
