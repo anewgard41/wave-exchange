@@ -214,3 +214,25 @@ a {
   gap: 1rem;
   height: 100%;
 }
+
+/* ==========================================================================
+   Songlist
+========================================================================== */
+
+.search-result-container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.ant-collapse-header-text {
+  font-size: 1.2rem;
+  color: #FFFCF2;
+}
+
+.ant-collapse-content {
+  font-size: 1.1rem;
+}
+
+.ant-collapse-content-box {
+  background-color: #CCC5B9;
+}
