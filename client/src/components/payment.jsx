@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout, Input, Space, Tooltip, Button, Flex } from "antd";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js/dist/react-stripe";
+import { Elements, CardElement} from "@stripe/react-stripe-js/dist/react-stripe";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   InfoCircleOutlined,
@@ -12,6 +12,19 @@ import {
 } from "@ant-design/icons";
 
 import { GET_ME } from "../utils/queries";
+
+const CARD_OPTIONS = {
+    iconStyle: 'solid',
+    style: {
+        base: {
+            color: "#252422",
+            fontFamily: "Arial, Helvetica, sans-serif",
+            fontSize: "20px",
+            color: "#fffcf3",
+            width: "50%"
+        }
+    }
+}
 
 const { Content } = Layout;
 
@@ -52,14 +65,12 @@ const PaymentPage = () => {
   }), [data];
 
   const [success, setSuccess] = useState(false);
-  const stripe = useStripe();
-  const elements = useElements();
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
     const {err, paymentMethod} = await stripe.createPaymentMethod({
         type: "card",
-        card: elements.getElement(cardElement)
+        card: CardElement
     });
 
     if(!err){
@@ -89,9 +100,22 @@ const PaymentPage = () => {
           Payment Information
         </p>
         <Elements stripe={stripePromise}>
-          <form onSubmit={handleSubmit}>
-            
-          </form>
+        
+          {
+           !success
+          ? <form onSubmit={handleSubmit}>
+                <fieldset className="FormGroup">
+                    <div className="FormRow">
+                        <CardElement options={CARD_OPTIONS} />
+                    </div>
+                </fieldset>
+                <Button>Pay</Button>
+            </form>
+          : <div>
+            <h2>Payment Successful!</h2>
+            <Button href="./donate">Return to Donations</Button>
+          </div>
+          }
         </Elements>
       </Content>
     </Layout>
