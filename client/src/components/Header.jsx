@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import Auth from '../utils/auth';
+
 function Header() {
-  const [loggedIn, setLoggedIn] = useState(false);
+
   const [currentPage, setCurrentPage] = useState("landing");
 
   const setCurrentPageHandler = (page) => setCurrentPage(page);
+
+  console.log(currentPage);
 
   return (
     <header>
@@ -17,21 +21,34 @@ function Header() {
         </h1>
         {/* Nav */}
         <div className="nav-container">
-          {loggedIn ? (
-            <Link
-              className={
-                currentPage === "signup" ? "nav-link active" : "nav-link"
-              }
-              key={1}
-              {...(currentPage === "signup" ? { to: "/" } : { to: "/signup" })}
-              onClick={() => {
-                currentPage === "signup"
-                  ? setCurrentPageHandler("landing")
-                  : setCurrentPageHandler("signup");
-              }}
-            >
-              {currentPage === "signup" ? "Home" : "Logout"}
-            </Link>
+          {Auth.loggedIn() ? (
+            <>
+              {/* Log out */}
+              <Link
+                className={"nav-link"}
+                key={1}
+                onClick={() => Auth.logout()}
+              >
+                Logout 
+              </Link>
+              {/* My Songs */}
+              <Link
+                className={
+                  currentPage === "songs" ? "nav-link active" : "nav-link"
+                }
+                key={2}
+                {...(currentPage === "songs"
+                  ? { to: "/" }
+                  : { to: "/myaccount" })}
+                onClick={() => {
+                  currentPage === "songs"
+                    ? setCurrentPageHandler("landing")
+                    : setCurrentPageHandler("songs");
+                }}
+              >
+                {currentPage === "songs" ? "Home" : "My Songs"}
+              </Link>
+            </>
           ) : (
             <>
               {/* Sign Up */}
@@ -56,17 +73,15 @@ function Header() {
                 className={
                   currentPage === "login" ? "nav-link active" : "nav-link"
                 }
-                key={1}
-                {...(currentPage === "login"
-                  ? { to: "/" }
-                  : { to: "/login" })}
+                key={2}
+                {...(currentPage === "login" ? { to: "/" } : { to: "/login" })}
                 onClick={() => {
                   currentPage === "login"
                     ? setCurrentPageHandler("landing")
                     : setCurrentPageHandler("login");
                 }}
               >
-                {currentPage === "signup" ? "Home" : "Login"}
+                {currentPage === "login" ? "Home" : "Login"}
               </Link>
             </>
           )}
