@@ -20,20 +20,38 @@ function Header() {
         {/* Nav */}
         <div className="nav-container">
           {loggedIn ? (
-            <Link
-              className={
-                currentPage === "signup" ? "nav-link active" : "nav-link"
-              }
-              key={1}
-              {...(currentPage === "signup" ? { to: "/" } : { to: "/signup" })}
-              onClick={() => {
-                currentPage === "signup"
-                  ? setCurrentPageHandler("landing")
-                  : setCurrentPageHandler("signup");
-              }}
-            >
-              Logout
-            </Link>
+            <>
+              {/* Log out */}
+              <Link
+                className={"nav-link"}
+                key={1}
+                to="/"
+                // onClick={() => {
+                //   currentPage === "signup"
+                //     ? setCurrentPageHandler("landing")
+                //     : setCurrentPageHandler("signup");
+                // }}
+              >
+                Logout
+              </Link>
+              {/* My Songs */}
+              <Link
+                className={
+                  currentPage === "songs" ? "nav-link active" : "nav-link"
+                }
+                key={2}
+                {...(currentPage === "songs"
+                  ? { to: "/" }
+                  : { to: "/myaccount" })}
+                onClick={() => {
+                  currentPage === "songs"
+                    ? setCurrentPageHandler("landing")
+                    : setCurrentPageHandler("songs");
+                }}
+              >
+                {currentPage === "songs" ? "Home" : "My Songs"}
+              </Link>
+            </>
           ) : (
             <>
               {/* Sign Up */}
@@ -59,9 +77,7 @@ function Header() {
                   currentPage === "login" ? "nav-link active" : "nav-link"
                 }
                 key={2}
-                {...(currentPage === "login"
-                  ? { to: "/" }
-                  : { to: "/login" })}
+                {...(currentPage === "login" ? { to: "/" } : { to: "/login" })}
                 onClick={() => {
                   currentPage === "login"
                     ? setCurrentPageHandler("landing")
