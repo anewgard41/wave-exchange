@@ -11,7 +11,7 @@ const layoutStyle = {
   minHeight: 120,
   lineHeight: "120px",
   color: "#fff",
-  backgroundColor: "#252422",
+  backgroundColor: "#403D39",
 };
 
 export function LyricSearchPage() {
@@ -19,7 +19,9 @@ export function LyricSearchPage() {
   const [query, setQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { search } = useLocation();
+
   useEffect(() => {
     const params = new URLSearchParams(search);
     const lyricText = params.get("lyricText");
@@ -28,6 +30,7 @@ export function LyricSearchPage() {
       setQuery(lyricText);
     }
   }, [search]);
+
   useEffect(() => {
     if (!query) return;
     handleSearch();
@@ -39,7 +42,7 @@ export function LyricSearchPage() {
         `/api/search?lyricText=${encodeURIComponent(query)}`
       );
       setSearchResults(results.data);
-      console.log(results);
+      console.log(results.data);
     } catch (error) {
       console.error("Error searching from server:", error);
     }
@@ -83,7 +86,11 @@ export function LyricSearchPage() {
           >
             Search Results
           </p>
-          <SongList searchResults={searchResults} />
+          {loading ? (
+            <p>Loading...</p> // Display a loading indicator while fetching data
+          ) : (
+            <SongList searchResults={searchResults} />
+          )}
         </Content>
       </Layout>
     </div>

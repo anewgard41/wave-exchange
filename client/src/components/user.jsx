@@ -64,8 +64,8 @@ const UserPage = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error: {error.message}</p>;
 
   const progressCircle = useRef(null);
   const progressContent = useRef(null);

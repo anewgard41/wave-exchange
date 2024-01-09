@@ -1,4 +1,5 @@
 const express = require("express");
+//const routes = require("./routes");
 const cors = require("cors");
 const path = require("path");
 const { xml2js } = require("xml-js");
@@ -6,6 +7,7 @@ const db = require("./config/connection");
 const { ApolloServer } = require("apollo-server-express");
 const { expressMiddleware } = require("@apollo/server/express4");
 require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
 const app = express();
@@ -22,6 +24,7 @@ const startServer = async () => {
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
   app.use(cors());
+  //app.use(routes);
   server.applyMiddleware({ app });
 
   try {
@@ -37,19 +40,9 @@ const startServer = async () => {
       err
     );
   }
-
-  // if we're in production, serve client/dist as static assets
-  if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../client/dist")));
-
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-    });
-  }
-
   // Handle requests for the root path
   app.get("/", (req, res) => {
-    res.send("Hello, this is your GraphQL server!");
+    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
   });
 
   app.get("/api/search", async (req, res) => {
@@ -93,7 +86,34 @@ const startServer = async () => {
       res.status(500).send(error);
     }
   });
-  const PORT = process.env.PORT || 4000;
+
+  app.post("/payment", cors(), async (req, res) => {
+    let { amount, id } = req.body;
+    try {
+      const payment = await stripe.paymentIntents.create({
+        amount,
+        currency: "USD",
+        description: `$${amount / 100} donation to Wave Exchange`,
+        payment_method: id,
+        confirm: true,
+      });
+      res.json({ success: true });
+    } catch (err) {
+      console.log(err);
+      res.json({ success: false });
+    }
+  });
+
+  // if we're in production, serve client/dist as static assets
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../client/dist")));
+
+    app.get("*", (req, res) => {
+      res.send("Hello, You're lost!");
+    });
+  }
+
+  const PORT = process.env.PORT || 3000;
   try {
     db.once("open", () => {
       app.listen(PORT, () => {

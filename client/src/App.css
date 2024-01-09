@@ -63,7 +63,7 @@ a {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 7fr;
-  background-color: #252422;
+  background-color: #403D39;
   height: 100vh;
 }
 
@@ -99,7 +99,7 @@ a {
   grid-template-rows: 1fr;
   place-items: center;
   height: 10rem;
-  background-color: #252422;
+  background-color: #403D39;
 }
 
 .title-container {
@@ -213,4 +213,39 @@ a {
   flex-direction: column;
   gap: 1rem;
   height: 100%;
+}
+
+/* ==========================================================================
+   Songlist
+========================================================================== */
+
+.search-result-container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.ant-collapse-header {
+  border: none;
+}
+
+.ant-collapse-header-text {
+  font-size: 1.2rem;
+  color: #FFFCF2;
+}
+
+.ant-collapse-content {
+  font-size: 1.1rem;
+}
+
+.ant-collapse-content-box {
+  background-color: #252422;
+}
+
+.ant-collapse-expand-icon {
+  color: #FFFCF2;
+}
+
+.custom-collapse {
+  border: none;
+  border-radius: 0.5rem;
 }
