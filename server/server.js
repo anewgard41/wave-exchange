@@ -42,7 +42,7 @@ const startServer = async () => {
   }
   // Handle requests for the root path
   app.get("/", (req, res) => {
-    res.send("Hello, this is your GraphQL server!");
+    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
   });
 
   app.get("/api/search", async (req, res) => {
@@ -109,7 +109,7 @@ const startServer = async () => {
     app.use(express.static(path.join(__dirname, "../client/dist")));
 
     app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+      res.send("Hello, You're lost!");
     });
   }
 
