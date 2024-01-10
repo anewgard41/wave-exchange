@@ -16,7 +16,8 @@ export default defineConfig({
         changeOrigin: true
       },
       '/api': {
-        target: 'https://wave-exchange.onrender.com/',
+        //target: 'https://wave-exchange.onrender.com/',
+        target: 'http://localhost:3000',
         secure: true,
         changeOrigin: true
       }
