@@ -34,25 +34,27 @@ a {
 ========================================================================== */
 
 :root {
-  --shadow-color: 0deg 0% 27%;
+  --shadow-color: 0deg 0% 0%;
   --shadow-elevation-low:
-    0.2px 0.3px 0.4px hsl(var(--shadow-color) / 0.42),
-    0.4px 0.4px 0.6px -1.4px hsl(var(--shadow-color) / 0.39),
-    1px 1.1px 1.6px -2.7px hsl(var(--shadow-color) / 0.37);
+    0.2px 0.3px 0.3px hsl(var(--shadow-color) / 0.25),
+    0.4px 0.4px 0.5px -2.1px hsl(var(--shadow-color) / 0.18),
+    1.1px 1.2px 1.4px -4.2px hsl(var(--shadow-color) / 0.11);
   --shadow-elevation-medium:
-    0.2px 0.3px 0.4px hsl(var(--shadow-color) / 0.44),
-    0.8px 0.8px 1.2px -0.9px hsl(var(--shadow-color) / 0.42),
-    2.1px 2.1px 3.2px -1.8px hsl(var(--shadow-color) / 0.4),
-    5.2px 5.3px 8.1px -2.7px hsl(var(--shadow-color) / 0.38);
+    0.2px 0.3px 0.3px hsl(var(--shadow-color) / 0.21),
+    0.4px 0.5px 0.6px -1.1px hsl(var(--shadow-color) / 0.17),
+    1.1px 1.2px 1.4px -2.1px hsl(var(--shadow-color) / 0.14),
+    2.6px 2.9px 3.4px -3.2px hsl(var(--shadow-color) / 0.11),
+    5.6px 6.2px 7.2px -4.2px hsl(var(--shadow-color) / 0.07);
   --shadow-elevation-high:
-    0.2px 0.3px 0.4px hsl(var(--shadow-color) / 0.41),
-    1.4px 1.5px 2.2px -0.4px hsl(var(--shadow-color) / 0.4),
-    2.7px 2.8px 4.2px -0.8px hsl(var(--shadow-color) / 0.39),
-    4.6px 4.7px 7.2px -1.2px hsl(var(--shadow-color) / 0.38),
-    7.5px 7.6px 11.6px -1.6px hsl(var(--shadow-color) / 0.37),
-    11.9px 12.1px 18.5px -2px hsl(var(--shadow-color) / 0.36),
-    18.3px 18.7px 28.5px -2.4px hsl(var(--shadow-color) / 0.35),
-    27.2px 27.7px 42.2px -2.7px hsl(var(--shadow-color) / 0.34);
+    0.2px 0.3px 0.3px hsl(var(--shadow-color) / 0.21),
+    0.7px 0.8px 0.9px -0.5px hsl(var(--shadow-color) / 0.19),
+    1.4px 1.6px 1.8px -1.1px hsl(var(--shadow-color) / 0.18),
+    2.8px 3.1px 3.6px -1.6px hsl(var(--shadow-color) / 0.16),
+    5.2px 5.7px 6.7px -2.1px hsl(var(--shadow-color) / 0.14),
+    9px 9.9px 11.5px -2.7px hsl(var(--shadow-color) / 0.12),
+    14.6px 16.1px 18.7px -3.2px hsl(var(--shadow-color) / 0.1),
+    22.4px 24.7px 28.8px -3.7px hsl(var(--shadow-color) / 0.08),
+    32.7px 36px 41.9px -4.2px hsl(var(--shadow-color) / 0.06);
 }
 
 /* ==========================================================================
@@ -69,7 +71,6 @@ a {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 7fr;
-  /* background-color: #403D39; */
   height: 100vh;
 }
 
@@ -80,7 +81,7 @@ a {
 
 .ant-btn-primary {
   background-color: #EB5E28;
-  box-shadow: var(--shadow-elevation-high);
+  box-shadow: var(--shadow-elevation-medium);
 }
 
 .ant-btn-primary:hover {
@@ -133,25 +134,21 @@ a {
   padding: 0.8rem 0;
   border-radius: 0.5rem;
   color: #252422;
-  /* background-color: #CCC5B9; */
   background-image: linear-gradient(#CCC5B9, #FFFCF2);
-  box-shadow: var(--shadow-elevation-medium);
+  box-shadow: var(--shadow-elevation-high);
 }
 
 .donate-link {
-  /* background-color: #EB5E28; */
   background-image: linear-gradient(#EB5E28, #252422);
   color: #fffcf2;
 }
 
 .active {
-  /* background-color: #403D39; */
   background-image: linear-gradient(#161616, #161616);
   color: #fffcf2;
 }
 
 .nav-link:hover {
-  /* background-color: #4096ff; */
   background-image: linear-gradient(#4096ff, #4096ff);
   color: #fffcf2;
   transform: scale(1.1);
