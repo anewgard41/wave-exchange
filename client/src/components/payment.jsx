@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout, Input, Space, Tooltip, Button, Flex } from "antd";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Elements, CardElement} from "@stripe/react-stripe-js/dist/react-stripe";
+import { Elements, CardElement} from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   InfoCircleOutlined,
@@ -17,10 +17,9 @@ const CARD_OPTIONS = {
     iconStyle: 'solid',
     style: {
         base: {
-            color: "#252422",
+            color: "#FFFFFF",
             fontFamily: "Arial, Helvetica, sans-serif",
             fontSize: "20px",
-            width: "50%"
         }
     }
 }
@@ -36,7 +35,7 @@ const layoutStyle = {
   backgroundColor: "#252422",
 };
 
-const PUBLIC_KEY = "pk_test_TYooMQauvdEDq54NiTphI7jx";
+const PUBLIC_KEY = "pk_test_51OVg6UJiSz0z5LGkkgL7TCPW4kcuNoxVY4GMfM5m1dugVUGdrRUsgrzfIecf2HMhe0u1WrTVC0cL3yAwfyl4o0yJ00ldmksGIn";
 
 const stripePromise = loadStripe(PUBLIC_KEY);
 

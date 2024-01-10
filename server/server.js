@@ -104,6 +104,38 @@ const startServer = async () => {
     }
   });
 
+  // app.post('/payment', async (req, res) => {
+  //   const session = await stripe.checkout.sessions.create({
+  //     line_items: [
+  //       {
+  //         // 5 dollars
+  //         price: 'price_1OVgh0JiSz0z5LGkNTChdRo1',
+  //         quantity: 1,
+  //       },
+  //       {
+  //         // 10 dollars
+  //         price: 'price_1OW9fSJiSz0z5LGkTgZaJopU',
+  //         quantity: 1,
+  //       },
+  //       {
+  //         // 20 dollars
+  //         price: 'price_1OW9fhJiSz0z5LGkErZniUxd',
+  //         quantity: 1,
+  //       },
+  //       {
+  //         // 50 dollars
+  //         price: 'price_1OW9foJiSz0z5LGkL3ISgqAp',
+  //         quantity: 1,
+  //       }
+  //     ],
+  //     mode: 'payment',
+  //     success_url: `${PORT}?success=true`,
+  //     cancel_url: `${PORT}?canceled=true`,
+  //   });
+  
+  //   res.redirect(303, session.url);
+  // });
+
   // if we're in production, serve client/dist as static assets
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/dist")));
