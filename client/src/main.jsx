@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import { LyricStore } from "./LyricStore.jsx";
+import { UserStore } from "./UserStore.jsx";
 import App from "./components/App.jsx";
 import { LyricSearchPage } from "./components/LyricSearchPage.jsx";
 import LoginPage from "./components/login.jsx";
@@ -8,6 +9,7 @@ import SignUpPage from "./components/signup.jsx";
 import DonatePage from "./components/donate.jsx";
 import LandingPage from "./components/landing.jsx";
 import UserPage from "./components/user.jsx";
+import PaymentPage from "./components/payment.jsx"
 
 const router = createBrowserRouter([
   {
@@ -17,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LandingPage/>
+        element: <LandingPage />
       },
       {
         path: "/search",
@@ -39,11 +41,19 @@ const router = createBrowserRouter([
       {
         path: '/myaccount',
         element: <UserPage />
+      },
+      {
+        path: '/payment',
+        element: <PaymentPage />
       }
     ],
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router}/>
+  <LyricStore>
+    <UserStore>
+      <RouterProvider router={router} />
+    </UserStore>
+  </LyricStore>
 );

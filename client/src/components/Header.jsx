@@ -3,37 +3,39 @@ import { Link } from "react-router-dom";
 import UseAnimations from "react-useanimations";
 import activity from "react-useanimations/lib/activity";
 
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
 
 function Header() {
-
   const [currentPage, setCurrentPage] = useState("landing");
 
   const setCurrentPageHandler = (page) => setCurrentPage(page);
-
-  console.log(currentPage);
 
   return (
     <header>
       <div className="header-container">
         {/* Title */}
         <div className="title-container">
-          <span >
-          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-            <UseAnimations animation={activity} size={76} />
+          {/* Animation */}
+          <span>
+            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+              <UseAnimations animation={activity} size={76} />
+            </Link>
+          </span>
+          <Link
+            className="title"
+            to="/"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <h1 style={{ color: "#fffcf2", fontSize: "2.5rem" }}>
+              <span style={{ color: "#EB5E28" }}>W</span>ave{" "}
+              <span style={{ color: "#CCC5B9" }}>E</span>xchange
+            </h1>
           </Link>
-        </span> 
-        <h1 className="title" style={{ color: "#fffcf2", fontSize: "2.5rem" }}>
-          <span style={{ color: "#EB5E28" }}>W</span>ave{" "}
-          <span style={{ color: "#CCC5B9" }}>E</span>xchange
-        </h1>
         </div>
-              
-        {/* Animation */}
-        
-          
+
         {/* Nav */}
         <div className="nav-container">
+          {/* User is logged in */}
           {Auth.loggedIn() ? (
             <>
               {/* Log out */}
@@ -42,7 +44,7 @@ function Header() {
                 key={1}
                 onClick={() => Auth.logout()}
               >
-                Logout 
+                Logout
               </Link>
               {/* My Songs */}
               <Link
@@ -63,6 +65,7 @@ function Header() {
               </Link>
             </>
           ) : (
+            // User is not logged in
             <>
               {/* Sign Up */}
               <Link
@@ -98,6 +101,7 @@ function Header() {
               </Link>
             </>
           )}
+          {/* Always visible */}
           {/* Donations */}
           <Link
             className={
