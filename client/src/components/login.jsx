@@ -78,17 +78,15 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      <Layout style={layoutStyle}>
+    <div className="info-container">
         {/* Main content area */}
-        <Content style={layoutStyle}>
           {/* "Login" text */}
-          <p
+          <h2
             style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}
           >
             Login
-          </p>
-          <form onSubmit={handleFormSubmit}>
+          </h2>
+          <form className="info-form" onSubmit={handleFormSubmit}>
             {/* Input components for username and password */}
             <Space
               direction="vertical"
@@ -140,9 +138,7 @@ const LoginPage = () => {
               </Button>
             </Flex>
           </form>
-        </Content>
-      </Layout>
-    </>
+    </div>
   );
 };
 

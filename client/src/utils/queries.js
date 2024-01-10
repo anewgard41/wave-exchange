@@ -7,8 +7,9 @@ export const GET_ME = gql`
       username
       savedMusic {
         artists
-        songId
-        songTitle
+        id
+        name
+        checksum
       }
     }
   }

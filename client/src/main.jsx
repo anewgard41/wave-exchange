@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import { LyricStore } from "./LyricStore.jsx";
+import { UserStore } from "./UserStore.jsx";
 import App from "./components/App.jsx";
 import { LyricSearchPage } from "./components/LyricSearchPage.jsx";
 import LoginPage from "./components/login.jsx";
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LandingPage/>
+        element: <LandingPage />
       },
       {
         path: "/search",
@@ -50,5 +51,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router}/>
+  <LyricStore>
+    <UserStore>
+      <RouterProvider router={router} />
+    </UserStore>
+  </LyricStore>
 );
