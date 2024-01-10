@@ -46,35 +46,38 @@ const startServer = async () => {
   });
 
   app.get("/api/search", async (req, res) => {
-    const response = await fetch(
-      `http://api.chartlyrics.com/apiv1.asmx/SearchLyricText?lyricText=${encodeURIComponent(
-        req.query.lyricText
-      )}`
-    );
-    const xml = await response.text();
+    console.log("search route hit");
     try {
+      const response = await fetch(
+        `http://api.chartlyrics.com/apiv1.asmx/SearchLyricText?lyricText=${encodeURIComponent(
+          req.query.lyricText
+        )}`
+      );
+      const xml = await response.text();
+  
       const data = xml2js(xml, { compact: true });
       //console.log(data.ArrayOfSearchLyricResult.SearchLyricResult)
-      const results = data.ArrayOfSearchLyricResult.SearchLyricResult.map(
-        (result) => {
-          const newObj = {};
-          Object.keys(result).forEach((key) => {
-            newObj[key] = result[key]._text;
-          });
-          return newObj;
-        }
-      ).filter((x) => Object.keys(x).length === 8);
+      const results = data.ArrayOfSearchLyricResult.SearchLyricResult.filter(x => Object.keys(x).length > 1).map(
+        (result) => ({
+          id: result.LyricId._text,
+          checksum: result.LyricChecksum._text,
+          name: result.Song._text,
+          artists: [result.Artist._text]
+        })
+      );
       res.status(200).json(results);
     } catch (error) {
+      console.log(error);
       res.status(500).send(error);
     }
   });
+  
   app.get("/api/lyric", async (req, res) => {
     if (!req.query.lyricId || !req.query.lyricCheckSum) {
       res.status(400).send("Missing query parameter");
       return;
     }
-
+  
     const response = await fetch(
       `http://api.chartlyrics.com/apiv1.asmx/GetLyric?lyricId=${req.query.lyricId}&lyricCheckSum=${req.query.lyricCheckSum}`
     );
@@ -83,7 +86,7 @@ const startServer = async () => {
       const data = xml2js(xml, { compact: true });
       res.status(200).send(data.GetLyricResult.Lyric._text);
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).send();
     }
   });
 

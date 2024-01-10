@@ -6,12 +6,17 @@ const musicSchema = new Schema({
             type: String,
         },
     ],
-    songId: {
+    id: {
         type: String,
         required: true,
     },
-    songTitle: {
+    checksum: {
         type: String,
+        required: true,
+    },
+    name: {
+        type: String,
+        required: true
     }
 })
 

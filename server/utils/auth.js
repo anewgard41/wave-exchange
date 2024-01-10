@@ -14,6 +14,9 @@ module.exports = {
     }),
     // function for our authenticated routes
     authMiddleware: function({ req }) {
+        const operationName = req.body.operationName;
+        if (operationName === 'login' || operationName === 'addUser')
+            return req;
         // allows token to be sent via req.body, req.query, or headers
         let token = req.headers.authorization || req.body.token || req.query.token;
         // ["Bearer", "<tokenvalue>"]

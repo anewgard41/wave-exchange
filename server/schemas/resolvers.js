@@ -6,7 +6,7 @@ const { GraphQLError } = require('graphql');
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
-      return User.findOne({ _id: context.user._id }).populate("savedMusic");
+      return await User.findOne({ _id: context.user._id }).populate("savedMusic");
     },
     allUsers: async () => {
       try {
