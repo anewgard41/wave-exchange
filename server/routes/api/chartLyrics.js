@@ -4,23 +4,26 @@ const axios = require("axios");
 router.get("/search", async (req, res) => {
   console.log("search route hit");
   try {
+    let startTime = new Date();
     const response = await axios.get(
       `http://api.chartlyrics.com/apiv1.asmx/SearchLyricText?lyricText=${encodeURIComponent(
         req.query.lyricText
       )}`
     );
     const xml = await response.text();
+    console.log('Fetch time: ', (new Date() - startTime) / 1000)
 
+    startTime = new Date();
     const data = xml2js(xml, { compact: true });
+    console.log('Parse time: ', (new Date() - startTime) / 1000)
     //console.log(data.ArrayOfSearchLyricResult.SearchLyricResult)
     const results = data.ArrayOfSearchLyricResult.SearchLyricResult.map(
-      (result) => {
-        const newObj = {};
-        Object.keys(result).forEach((key) => {
-          newObj[key] = result[key]._text;
-        });
-        return newObj;
-      }
+      (result) => ({
+        id: result.LyricId._text,
+        checksum: result.LyricChecksum._text,
+        name: result.Song._text,
+        artists: [result.Artist._text]
+      })
     ).filter((x) => Object.keys(x).length === 8);
     res.status(200).json(results);
   } catch (error) {

@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { Layout, Row, Col, Card, Button } from 'antd';
+import { Layout, Row, Col, Card, Button, Modal } from 'antd';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { useFetchSongLyrics } from '../LyricStore';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -18,27 +20,19 @@ import Auth from "../utils/auth";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { GET_ME } from "../utils/queries";
 import { REMOVE_SONG } from "../utils/mutations";
+import { useUserData } from '../UserStore';
 
 const { Content } = Layout;
 
 const UserPage = () => {
-  const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-  const { loading, error, data } = useQuery(GET_ME, {
-    context: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  });
-
+  const { data: userData } = useUserData();
   const [removeSong] = useMutation(REMOVE_SONG);
-  const userData = data?.me || {};
-  console.log(userData);
+  console.log('User data: ', userData);
   const savedMusic = userData.savedMusic ?? [];
   console.log(savedMusic);
 
-
+  const [activeSong, setActiveSong] = useState();
+  const lyrics = useFetchSongLyrics(activeSong);
 
   const handleRemoveSong = async (songId) => {
 
@@ -73,12 +67,25 @@ const UserPage = () => {
     progressCircle.current.style.setProperty('--progress', 1 - progress);
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
-  
+
   return (
     <Layout style={{ textAlign: 'center' }}>
+      <Modal title={activeSong?.name} open={!!activeSong} onCancel={() => setActiveSong(null)} footer={[]}>
+        <pre>{lyrics}</pre>
+      </Modal>
       <Content style={{ minHeight: 'calc(100vh - 120px)', padding: '50px' }}>
         <h1 style={{ color: '#FFFCF2', fontSize: '36px', marginBottom: '20px' }}>Saved Songs</h1>
-        <Swiper
+        {savedMusic.map((song) => (
+          <Card title={
+            <div onClick={() => setActiveSong(song)}>{song.name}</div>
+          } style={{ height: '100%' }} key={song.id}>
+            <p>Artists: {song.artists}</p>
+            <Button onClick={() => handleRemoveSong(song.id)} type="primary">
+              Remove Song
+            </Button>
+          </Card>
+        ))}
+        {/* <Swiper
             spaceBetween={30}
             centeredSlides={true}
             autoplay={{
@@ -109,7 +116,7 @@ const UserPage = () => {
               </svg>
             <span ref={progressContent}></span>
           </div>
-        </Swiper>
+        </Swiper> */}
       </Content>
     </Layout>
   );

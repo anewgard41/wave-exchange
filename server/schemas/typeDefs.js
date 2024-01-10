@@ -16,8 +16,16 @@ const typeDefs = gql`
 
     input SongInput {
         artists: [String]
-        songId: String!
-        songTitle: String
+        id: String!
+        name: String!
+        checksum: String!
+    }
+
+    type Song {
+        artists: [String]
+        id: String!
+        name: String!
+        checksum: String!
     }
 
     type User {
@@ -25,12 +33,6 @@ const typeDefs = gql`
         username: String!
         savedMusic: [Song]
         donation: Int
-    }
-
-    type Song {
-        songId: String!
-        artists: [String]
-        songTitle: String
     }
 
     type Auth {
