@@ -11,7 +11,6 @@ import Auth from "../utils/auth";
 export function SongList({ searchResults }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [activeSong, setActiveSong] = useState();
-  const [savedSongId, setSavedSongId] = useState({});
   const [saveSong] = useMutation(SAVE_SONG);
   const { refetch } = useUserData();
 
@@ -20,7 +19,7 @@ export function SongList({ searchResults }) {
     setActiveSong(key);
   };
 
-  const handleSaveSong = async (song) => {
+  const handleSaveSong = async (song, setSavedMusic) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     console.log(`the token is ${token}`);
 
@@ -40,6 +39,8 @@ export function SongList({ searchResults }) {
       });
       console.log("Saved song:", data);
       setSuccessMessage("Song saved!");
+      
+      setSavedMusic(prevSavedMusic => [...prevSavedMusic, song]);
       await refetch();
     } catch (error) {
       console.error("Error saving song:", error);
