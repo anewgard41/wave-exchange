@@ -3,62 +3,85 @@
 ========================================================================== */
 
 .header-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  place-items: center;
+  height: 10rem;
+}
+
+.title-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr;
+  place-items: center;
+  height: 100%;
+  width: 60%;
+}
+
+.title {
+  place-self: center start;
+}
+
+.nav-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  width: 60%;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 0.8rem 0;
+  border-radius: 0.5rem;
+  color: #252422;
+  background-image: linear-gradient(#ccc5b9, #fffcf2);
+  box-shadow: var(--shadow-elevation-high);
+}
+
+.donate-link {
+  background-image: linear-gradient(#eb5e28, #252422);
+  color: #fffcf2;
+}
+
+.active {
+  background-image: linear-gradient(#161616, #161616);
+  color: #fffcf2;
+}
+
+.nav-link:hover {
+  background-image: linear-gradient(#4096ff, #4096ff);
+  color: #fffcf2;
+  transform: scale(1.1);
+}
+
+.nav-link:active {
+  transform: scale(1.1);
+  translate: 0 0.25rem;
+  background-color: #eb5e28;
+  color: #ccc5b9;
+}
+
+@media only screen and (max-width: 1220px) {
+  .header-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    place-items: center;
-    height: 10rem;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
-  
+
+  .title {
+    place-self: center;
+  }
+
   .title-container {
     display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: 1fr;
-    place-items: center;
+    grid-template-columns: 1fr;
+    text-align: center;
     height: 100%;
     width: 60%;
   }
-  .title {
-    place-self: center start;
-  }
-  
-  .nav-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
-    width: 60%;
-    gap: 2rem;
-  }
-  
-  .nav-link {
-    text-align: center;
-    font-size: 1.2rem;
-    padding: 0.8rem 0;
-    border-radius: 0.5rem;
-    color: #252422;
-    background-image: linear-gradient(#CCC5B9, #FFFCF2);
-    box-shadow: var(--shadow-elevation-high);
-  }
-  
-  .donate-link {
-    background-image: linear-gradient(#EB5E28, #252422);
-    color: #fffcf2;
-  }
-  
-  .active {
-    background-image: linear-gradient(#161616, #161616);
-    color: #fffcf2;
-  }
-  
-  .nav-link:hover {
-    background-image: linear-gradient(#4096ff, #4096ff);
-    color: #fffcf2;
-    transform: scale(1.1);
-  }
-  
-  .nav-link:active {
-    transform: scale(1.1);
-    translate: 0 0.25rem;
-    background-color: #EB5E28;
-    color: #CCC5B9;
-  }
+
+}

@@ -1,9 +1,22 @@
 import React, { useRef, useState } from 'react';
 import { Card, Button, Modal } from 'antd';
 import { useFetchSongLyrics } from '../LyricStore';
-import Auth from '../utils/auth';
-import { useMutation } from '@apollo/client';
-import { REMOVE_SONG } from '../utils/mutations';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+import '../../src/styles.css';
+
+// import required modules
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+
+import Auth from "../utils/auth";
+
+import { useQuery, useMutation, gql } from "@apollo/client";
+import { GET_ME } from "../utils/queries";
+import { REMOVE_SONG } from "../utils/mutations";
 import { useUserData } from '../UserStore';
 
 // Shared style object
@@ -31,7 +44,7 @@ const UserPage = () => {
 
   // Function to handle removing a song
   const handleRemoveSong = async (songId) => {
-    // Get the authentication token
+
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     console.log(token);
 
@@ -41,7 +54,6 @@ const UserPage = () => {
     }
 
     try {
-      // Execute the removeSong mutation with the provided songId
       await removeSong({
         variables: { songId },
         context: {
@@ -50,7 +62,7 @@ const UserPage = () => {
           },
         },
       });
-      console.log('Song removed successfully');
+      console.log('Song removed successfully', data);
     } catch (error) {
       console.error('Error removing song:', error.message);
     }

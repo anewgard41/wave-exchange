@@ -25,6 +25,7 @@ const layoutStyle = {
 };
 
 const LoginPage = () => {
+  const [loginError, setLoginError] = useState('');
   // State for managing the visibility of the password
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [loadings, setLoadings] = useState([]);
@@ -76,8 +77,9 @@ const LoginPage = () => {
       // If successful, log the user in
       Auth.login(data.login.token);
       console.log(data.login.token);
+      setLoginError('');
     } catch (err) {
-      // Handle errors
+      setLoginError('Could not log you in. Please double check your username and password.');
       console.error(err);
     }
 
@@ -92,14 +94,18 @@ const LoginPage = () => {
   return (
     <div className="info-container">
       {/* Main content area */}
-      <h2 style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}>
+      {/* "Login" text */}
+      <h2
+        style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}
+      >
         Login
       </h2>
-
-      {/* Login form */}
       <form className="info-form" onSubmit={handleFormSubmit}>
         {/* Input components for username and password */}
-        <Space direction="vertical" style={{ width: "100%", maxWidth: "300px" }}>
+        <Space
+          direction="vertical"
+          style={{ width: "100%", maxWidth: "300px" }}
+        >
           {/* Username input */}
           <Input
             type="text"
@@ -132,8 +138,9 @@ const LoginPage = () => {
             }
           />
         </Space>
-
-        {/* Button for submitting the login form */}
+        <div className="login-error" style={{ color: "red", fontSize: "18px", marginTop: "10px" }}>
+          {loginError && <p className="login-error">{loginError}</p>}
+        </div>
         <Flex gap="small" wrap="wrap" align="center" justify="center">
           <Button
             disabled={!(userFormData.username && userFormData.password)}
@@ -148,6 +155,7 @@ const LoginPage = () => {
           </Button>
         </Flex>
       </form>
+
     </div>
   );
 };
