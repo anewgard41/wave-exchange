@@ -20,7 +20,11 @@ const SignupPage = () => {
   const [loginError, setLoginError] = useState('');
   // State for managing the visibility of the password
   const [passwordVisible, setPasswordVisible] = React.useState(false);
+
+  // State for managing button loading state
   const [loadings, setLoadings] = useState([]);
+  
+  // Function to simulate loading state for the button
   const enterLoading = (index) => {
     setLoadings((prevLoadings) => {
       const newLoadings = [...prevLoadings];
@@ -36,27 +40,33 @@ const SignupPage = () => {
     }, 6000);
   };
 
+  // State for storing user input data
   const [userFormData, setUserFormData] = useState({
     username: "",
     password: "",
   });
 
+  // Apollo mutation for adding a user
   const [addUser] = useMutation(ADD_USER);
 
+  // Function to handle input changes
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+  // Function to handle form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
     try {
+      // Attempt to add a new user using the addUser mutation
       const { data } = await addUser({
         variables: { ...userFormData },
       });
 
+      // Log the token and user data, then login the user
       console.log(data.addUser.token);
       console.log(data);
       Auth.login(data.addUser.token);
@@ -66,12 +76,14 @@ const SignupPage = () => {
       console.error(err);
     }
 
+    // Reset the user input data
     setUserFormData({
       username: "",
       password: "",
     });
   };
 
+  // Render the SignupPage component
   return (
     <div className="info-container">
       {/* Main content area */}
@@ -79,6 +91,8 @@ const SignupPage = () => {
       <h2 style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}>
         Sign Up Today
       </h2>
+
+      {/* Signup form */}
       <form className="info-form" onSubmit={handleFormSubmit}>
         {/* Input components for username and password */}
         <Space

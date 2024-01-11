@@ -44,29 +44,37 @@ const LoginPage = () => {
     }, 6000);
   };
 
+  // State for storing user input data
   const [userFormData, setUserFormData] = useState({
     username: "",
     password: "",
   });
+
+  // Apollo mutation for login
   const [loginUser] = useMutation(LOGIN_USER);
 
+  // Function to handle input changes
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+  // Function to handle form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
-    // check if form has everything (as per react-bootstrap docs)
+    // Check if the form has everything
     const form = event.currentTarget;
 
     try {
+      // Attempt to log in the user using the login mutation
       const { data } = await loginUser({
         variables: { ...userFormData },
       });
       console.log(data);
+
+      // If successful, log the user in
       Auth.login(data.login.token);
       console.log(data.login.token);
       setLoginError('');
@@ -75,12 +83,14 @@ const LoginPage = () => {
       console.error(err);
     }
 
+    // Reset the user input data
     setUserFormData({
       username: "",
       password: "",
     });
   };
 
+  // Render the login page component
   return (
     <div className="info-container">
       {/* Main content area */}
