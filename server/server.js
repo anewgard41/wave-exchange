@@ -90,54 +90,57 @@ const startServer = async () => {
     }
   });
 
-  app.post("/payment", cors(), async (req, res) => {
-    let { amount, id } = req.body;
-    try {
-      const payment = await stripe.paymentIntents.create({
-        amount,
-        currency: "USD",
-        description: `$${amount / 100} donation to Wave Exchange`,
-        payment_method: id,
-        confirm: true,
-      });
+  // app.post("/payment", cors(), async (req, res) => {
+  //   let { amount, id } = req.body;
+  //   try {
+  //     const payment = await stripe.paymentIntents.create({
+  //       amount,
+  //       currency: "USD",
+  //       description: `$${amount / 100} donation to Wave Exchange`,
+  //       payment_method: id,
+  //       confirm: true,
+  //     });
+  //     res.json({ success: true });
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.json({ success: false });
+  //   }
+  // });
+
+  app.post('/payment', async (req, res) => {
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          // 5 dollars
+          price: 'price_1OVgh0JiSz0z5LGkNTChdRo1',
+          quantity: 1,
+        },
+        {
+          // 10 dollars
+          price: 'price_1OW9fSJiSz0z5LGkTgZaJopU',
+          quantity: 1,
+        },
+        {
+          // 20 dollars
+          price: 'price_1OW9fhJiSz0z5LGkErZniUxd',
+          quantity: 1,
+        },
+        {
+          // 50 dollars
+          price: 'price_1OW9foJiSz0z5LGkL3ISgqAp',
+          quantity: 1,
+        }
+      ],
+      mode: 'payment',
+      
+    });
+  
+    if (session.status === "success") {
       res.json({ success: true });
-    } catch (err) {
-      console.log(err);
+    } else {
       res.json({ success: false });
     }
   });
-
-  // app.post('/payment', async (req, res) => {
-  //   const session = await stripe.checkout.sessions.create({
-  //     line_items: [
-  //       {
-  //         // 5 dollars
-  //         price: 'price_1OVgh0JiSz0z5LGkNTChdRo1',
-  //         quantity: 1,
-  //       },
-  //       {
-  //         // 10 dollars
-  //         price: 'price_1OW9fSJiSz0z5LGkTgZaJopU',
-  //         quantity: 1,
-  //       },
-  //       {
-  //         // 20 dollars
-  //         price: 'price_1OW9fhJiSz0z5LGkErZniUxd',
-  //         quantity: 1,
-  //       },
-  //       {
-  //         // 50 dollars
-  //         price: 'price_1OW9foJiSz0z5LGkL3ISgqAp',
-  //         quantity: 1,
-  //       }
-  //     ],
-  //     mode: 'payment',
-  //     success_url: `${PORT}?success=true`,
-  //     cancel_url: `${PORT}?canceled=true`,
-  //   });
-  
-  //   res.redirect(303, session.url);
-  // });
 
   // if we're in production, serve client/dist as static assets
   if (process.env.NODE_ENV === "production") {
