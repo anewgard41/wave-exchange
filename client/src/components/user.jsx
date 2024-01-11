@@ -1,49 +1,47 @@
 import React, { useRef, useState } from 'react';
-import { Layout, Row, Col, Card, Button, Modal } from 'antd';
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { Card, Button, Modal } from 'antd';
 import { useFetchSongLyrics } from '../LyricStore';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
-import '../../src/styles.css';
-
-// import required modules
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-
-import Auth from "../utils/auth";
-
-import { useQuery, useMutation, gql } from "@apollo/client";
-import { GET_ME } from "../utils/queries";
-import { REMOVE_SONG } from "../utils/mutations";
+import Auth from '../utils/auth';
+import { useMutation } from '@apollo/client';
+import { REMOVE_SONG } from '../utils/mutations';
 import { useUserData } from '../UserStore';
 
-const { Content } = Layout;
+// Shared style object
+const commonStyle = {
+  color: '#FFFCF2',
+  fontSize: '36px',
+  marginBottom: '20px',
+};
 
 const UserPage = () => {
+  // Fetch user data using a custom hook
   const { data: userData } = useUserData();
+
+  // Initialize Apollo mutation for removing a song
   const [removeSong] = useMutation(REMOVE_SONG);
+
+  // Log user data and retrieve saved music
   console.log('User data: ', userData);
   const savedMusic = userData.savedMusic ?? [];
   console.log(savedMusic);
 
+  // State for the currently active song and lyrics
   const [activeSong, setActiveSong] = useState();
   const lyrics = useFetchSongLyrics(activeSong);
 
+  // Function to handle removing a song
   const handleRemoveSong = async (songId) => {
-
+    // Get the authentication token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     console.log(token);
 
+    // Return if no token is available
     if (!token) {
       return false;
     }
 
     try {
+      // Execute the removeSong mutation with the provided songId
       await removeSong({
         variables: { songId },
         context: {
@@ -58,67 +56,42 @@ const UserPage = () => {
     }
   };
 
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error.message}</p>;
-
+  // Refs for progress circle and content (not currently used)
   const progressCircle = useRef(null);
   const progressContent = useRef(null);
-  const onAutoplayTimeLeft = (s, time, progress) => {
-    progressCircle.current.style.setProperty('--progress', 1 - progress);
-    progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
-  };
 
+  // Render the UserPage component
   return (
-    <Layout style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: 'center' }}>
+      {/* Modal for displaying song lyrics */}
       <Modal title={activeSong?.name} open={!!activeSong} onCancel={() => setActiveSong(null)} footer={[]}>
         <pre>{lyrics}</pre>
       </Modal>
-      <Content style={{ minHeight: 'calc(100vh - 120px)', padding: '50px' }}>
-        <h1 style={{ color: '#FFFCF2', fontSize: '36px', marginBottom: '20px' }}>Saved Songs</h1>
+
+      {/* Main content area */}
+      <div style={{ minHeight: 'calc(100vh - 120px)', padding: '50px' }}>
+        {/* Header */}
+        <h1 style={commonStyle}>Saved Songs</h1>
+
+        {/* Map through savedMusic array and display each song */}
         {savedMusic.map((song) => (
-          <Card title={
-            <div onClick={() => setActiveSong(song)}>{song.name}</div>
-          } style={{ height: '100%' }} key={song.id}>
-            <p>Artists: {song.artists}</p>
+          <div key={song.id} style={{ backgroundColor: '#252422', marginBottom: '20px', padding: '20px', borderRadius: '20px' }}>
+            {/* Display song name, make it clickable to set as active */}
+            <div onClick={() => setActiveSong(song)} style={{ fontSize: '20px', cursor: 'pointer', color: '#28B5EB' }}>
+              {song.name}
+            </div>
+
+            {/* Display artists with custom font color */}
+            <p style={{ color: '#CCC5B9' }}>Artists: {song.artists}</p>
+
+            {/* Button to remove the song */}
             <Button onClick={() => handleRemoveSong(song.id)} type="primary">
               Remove Song
             </Button>
-          </Card>
-        ))}
-        {/* <Swiper
-            spaceBetween={30}
-            centeredSlides={true}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
-            }}
-            navigation={true}
-            modules={[Autoplay, Pagination, Navigation]}
-            onAutoplayTimeLeft={onAutoplayTimeLeft}
-            className="Swiper"
-          >
-          {savedMusic.map((song) => (
-            <SwiperSlide key={song.songId}>
-              <Card title={song.songTitle} style={{ height: '100%' }}>
-                <p>Artists: {song.artists}</p>
-                <Button onClick={() => handleRemoveSong(song.songId)} type="primary">
-                  Remove Song
-                </Button>
-              </Card>
-            </SwiperSlide>
-          ))}
-          <div className="autoplay-progress" slot="container-end">
-              <svg viewBox="0 0 48 48" ref={progressCircle}>
-                <circle cx="24" cy="24" r="20"></circle>
-              </svg>
-            <span ref={progressContent}></span>
           </div>
-        </Swiper> */}
-      </Content>
-    </Layout>
+        ))}
+      </div>
+    </div>
   );
 };
 
