@@ -2,9 +2,6 @@ import React, { useRef, useState } from 'react';
 import { Card, Button, Modal } from 'antd';
 import { useFetchSongLyrics } from '../LyricStore';
 
-// import required modules
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-
 import Auth from "../utils/auth";
 
 import { useQuery, useMutation, gql } from "@apollo/client";
