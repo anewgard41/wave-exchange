@@ -1,6 +1,6 @@
 import "../css/SignupLogin.css";
 import React, { useState } from "react";
-import { Layout, Input, Space, Tooltip, Button, Flex } from "antd";
+import { Layout, Input, Space, Tooltip, Button, Flex, Alert } from "antd";
 import {
   InfoCircleOutlined,
   UserOutlined,
@@ -25,7 +25,7 @@ const layoutStyle = {
 };
 
 const LoginPage = () => {
-  const [loginError, setLoginError] = useState('');
+  const [loginError, setLoginError] = useState("");
   // State for managing the visibility of the password
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [loadings, setLoadings] = useState([]);
@@ -77,9 +77,11 @@ const LoginPage = () => {
       // If successful, log the user in
       Auth.login(data.login.token);
       console.log(data.login.token);
-      setLoginError('');
+      setLoginError("");
     } catch (err) {
-      setLoginError('Could not log you in. Please double check your username and password.');
+      setLoginError(
+        "Incorrect username and/or password!"
+      );
       console.error(err);
     }
 
@@ -95,9 +97,7 @@ const LoginPage = () => {
     <div className="info-container">
       {/* Main content area */}
       {/* "Login" text */}
-      <h2
-        style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}
-      >
+      <h2>
         Login
       </h2>
       <form className="info-form" onSubmit={handleFormSubmit}>
@@ -138,8 +138,19 @@ const LoginPage = () => {
             }
           />
         </Space>
-        <div className="login-error" style={{ color: "red", fontSize: "18px", marginTop: "10px" }}>
-          {loginError && <p className="login-error">{loginError}</p>}
+        <div
+          className="login-error"
+          style={{ color: "red", fontSize: "18px", marginTop: "10px" }}
+        >
+          {loginError && (
+            <Alert
+              message=""
+              description={loginError}
+              type="error"
+              showIcon
+              closable
+            />
+          )}
         </div>
         <Flex gap="small" wrap="wrap" align="center" justify="center">
           <Button
@@ -155,7 +166,6 @@ const LoginPage = () => {
           </Button>
         </Flex>
       </form>
-
     </div>
   );
 };

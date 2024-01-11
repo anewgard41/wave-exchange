@@ -16,11 +16,11 @@
   grid-template-rows: 1fr;
   place-items: center;
   height: 100%;
-  width: 60%;
 }
 
 .title {
   place-self: center start;
+  font-size: 2.5rem;
 }
 
 .nav-container {
@@ -83,5 +83,20 @@
     height: 100%;
     width: 60%;
   }
+}
 
+@media only screen and (max-width: 500px) {
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .nav-container {
+    width: 80%;
+    gap: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 0.8rem;
+  }
 }
