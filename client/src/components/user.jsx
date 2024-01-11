@@ -52,7 +52,7 @@ const UserPage = () => {
           },
         },
       });
-      console.log('Song removed successfully', data);
+      console.log('Song removed successfully');
 
       const newSavedMusic = savedMusic.filter(song => song.id !== songId);
       setSavedMusic(newSavedMusic);
