@@ -1,22 +1,23 @@
-import React, { useRef, useState } from 'react';
-import { Card, Button, Modal } from 'antd';
-import { useFetchSongLyrics } from '../LyricStore';
+import "../css/User.css";
+import React, { useRef, useState } from "react";
+import { Card, Button, Modal } from "antd";
+import { useFetchSongLyrics } from "../LyricStore";
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 import Auth from "../utils/auth";
 
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { GET_ME } from "../utils/queries";
 import { REMOVE_SONG } from "../utils/mutations";
-import { useUserData } from '../UserStore';
+import { useUserData } from "../UserStore";
 
 // Shared style object
 const commonStyle = {
-  color: '#FFFCF2',
-  fontSize: '36px',
-  marginBottom: '20px',
+  color: "#FFFCF2",
+  fontSize: "36px",
+  marginBottom: "20px",
 };
 
 const UserPage = () => {
@@ -27,7 +28,7 @@ const UserPage = () => {
   const [removeSong] = useMutation(REMOVE_SONG);
 
   // Log user data and retrieve saved music
-  console.log('User data: ', userData);
+  console.log("User data: ", userData);
   const savedMusic = userData.savedMusic ?? [];
   console.log(savedMusic);
 
@@ -37,7 +38,6 @@ const UserPage = () => {
 
   // Function to handle removing a song
   const handleRemoveSong = async (songId) => {
-
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     console.log(token);
 
@@ -55,9 +55,9 @@ const UserPage = () => {
           },
         },
       });
-      console.log('Song removed successfully', data);
+      console.log("Song removed successfully", data);
     } catch (error) {
-      console.error('Error removing song:', error.message);
+      console.error("Error removing song:", error.message);
     }
   };
 
@@ -67,27 +67,44 @@ const UserPage = () => {
 
   // Render the UserPage component
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: "center" }}>
       {/* Modal for displaying song lyrics */}
-      <Modal title={activeSong?.name} open={!!activeSong} onCancel={() => setActiveSong(null)} footer={[]}>
-        <pre>{lyrics}</pre>
+      <Modal
+        className="lyric-modal"
+        title={activeSong?.name}
+        open={!!activeSong}
+        onCancel={() => setActiveSong(null)}
+        footer={[]}
+      >
+        <pre style={{color: "#FFFCF2", backgroundColor: "#403D39", borderRadius: "1rem"}} className="lyric-text">{lyrics}</pre>
       </Modal>
 
       {/* Main content area */}
-      <div style={{ minHeight: 'calc(100vh - 120px)', padding: '50px' }}>
+      <div style={{ minHeight: "calc(100vh - 120px)", padding: "50px" }}>
         {/* Header */}
         <h1 style={commonStyle}>Saved Songs</h1>
 
         {/* Map through savedMusic array and display each song */}
         {savedMusic.map((song) => (
-          <div key={song.id} style={{ backgroundColor: '#252422', marginBottom: '20px', padding: '20px', borderRadius: '20px' }}>
+          <div
+            key={song.id}
+            style={{
+              backgroundColor: "#252422",
+              marginBottom: "20px",
+              padding: "20px",
+              borderRadius: "20px",
+            }}
+          >
             {/* Display song name, make it clickable to set as active */}
-            <div onClick={() => setActiveSong(song)} style={{ fontSize: '20px', cursor: 'pointer', color: '#28B5EB' }}>
+            <div
+              onClick={() => setActiveSong(song)}
+              style={{ fontSize: "20px", cursor: "pointer", color: "#28B5EB" }}
+            >
               {song.name}
             </div>
 
             {/* Display artists with custom font color */}
-            <p style={{ color: '#CCC5B9' }}>Artists: {song.artists}</p>
+            <p style={{ color: "#CCC5B9" }}>Artists: {song.artists}</p>
 
             {/* Button to remove the song */}
             <Button onClick={() => handleRemoveSong(song.id)} type="primary">
