@@ -33,6 +33,23 @@
   border-radius: 0.5rem;
 }
 
+.header-with-heart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heart-container {
+  background-color: white;
+  padding: 8px;
+  border-radius: 5px;
+  margin-left: 10px; /* Adjust the margin as needed */
+}
+
+.heart-icon.saved {
+  color: red;
+}
+
 .success-message {
   width: 30%;
   padding-top: 2vh;
