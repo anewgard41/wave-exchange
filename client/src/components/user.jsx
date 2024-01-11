@@ -3,9 +3,6 @@ import React, { useRef, useState } from "react";
 import { Card, Button, Modal } from "antd";
 import { useFetchSongLyrics } from "../LyricStore";
 
-// import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-
 import Auth from "../utils/auth";
 
 import { useQuery, useMutation, gql } from "@apollo/client";
@@ -28,8 +25,8 @@ const UserPage = () => {
   const [removeSong] = useMutation(REMOVE_SONG);
 
   // Log user data and retrieve saved music
-  console.log("User data: ", userData);
-  const savedMusic = userData.savedMusic ?? [];
+  console.log('User data: ', userData);
+  const [savedMusic, setSavedMusic] = useState(userData.savedMusic ?? []);
   console.log(savedMusic);
 
   // State for the currently active song and lyrics
@@ -55,7 +52,11 @@ const UserPage = () => {
           },
         },
       });
-      console.log("Song removed successfully", data);
+      
+      console.log('Song removed successfully');
+
+      const newSavedMusic = savedMusic.filter(song => song.id !== songId);
+      setSavedMusic(newSavedMusic);
     } catch (error) {
       console.error("Error removing song:", error.message);
     }
