@@ -10,6 +10,7 @@ import { useUserData } from "../UserStore";
 import Auth from "../utils/auth";
 
 export function SongList({ searchResults }) {
+  const [savedSongId, setSavedSongId] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
   const [activeSong, setActiveSong] = useState();
   const [saveSong] = useMutation(SAVE_SONG);
