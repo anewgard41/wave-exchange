@@ -34,7 +34,7 @@ export const SAVE_SONG = gql`
 `;
 
 export const REMOVE_SONG = gql`
-  mutation RemoveSong($songId: String!) {
+  mutation removeSong($songId: String!) {
     removeSong(songId: $songId) {
       _id
       username
