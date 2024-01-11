@@ -17,6 +17,7 @@ const { Content } = Layout;
 
 // SignupPage component
 const SignupPage = () => {
+  const [loginError, setLoginError] = useState('');
   // State for managing the visibility of the password
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [loadings, setLoadings] = useState([]);
@@ -59,7 +60,9 @@ const SignupPage = () => {
       console.log(data.addUser.token);
       console.log(data);
       Auth.login(data.addUser.token);
+      setLoginError('');
     } catch (err) {
+      setLoginError('Username taken. Please choose a different one.');
       console.error(err);
     }
 
@@ -114,6 +117,9 @@ const SignupPage = () => {
             }
           />
         </Space>
+        <div className="login-error" style={{ color: "red", fontSize: "18px", marginTop: "10px" }}>
+          {loginError && <p className="login-error">{loginError}</p>}
+        </div>
         <Flex gap="small" wrap="wrap" align="center" justify="center">
           <Button
             type="primary"
