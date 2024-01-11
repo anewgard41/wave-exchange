@@ -1,6 +1,7 @@
 import "../css/SongList.css"
 import React, { useState, useMemo } from "react";
 import { Collapse } from "antd";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { SongListPanel } from "./SongListPanel";
 
 import { useMutation } from "@apollo/client";
@@ -53,7 +54,15 @@ export function SongList({ searchResults }) {
           <Collapse.Panel
             className="custom-collapse"
             style={{ backgroundColor: "#252422" }}
-            header={`${result.name} - ${result.artists[0]}`}
+            header={
+              <div className="header-with-heart">
+              <span>{`${result.name} - ${result.artists[0]}`}</span>
+              <HeartButton
+                isSaved={savedSongId === result.id}
+                onClick={() => handleSaveSong(result)}
+              />
+            </div>
+            }
             key={result.id}
           >
             <SongListPanel song={result} handleSaveSong={handleSaveSong} enabled={activeSong === result.id} />
@@ -63,3 +72,12 @@ export function SongList({ searchResults }) {
     </div>
   );
 }
+
+// HeartButton component
+const HeartButton = ({ isSaved, onClick }) => {
+  return isSaved ? (
+    <HeartFilled className="heart-icon saved" onClick={onClick} />
+  ) : (
+    <HeartOutlined className="heart-icon" onClick={onClick} />
+  );
+};
