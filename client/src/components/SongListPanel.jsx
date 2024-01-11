@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react'
 import { useFetchSongLyrics } from '../LyricStore';
-import { Collapse, Button } from "antd";
+import { Collapse, Button, Alert } from "antd";
 
 export const SongListPanel = ({
   song,
   handleSaveSong,
-  enabled
+  enabled,
+  successMessage,
+  setSuccessMessage
 }) => {
   const lyrics = useFetchSongLyrics(enabled ? song : null);
   return (
@@ -21,6 +23,20 @@ export const SongListPanel = ({
       >
         Save Song
       </Button>
+      <div
+          className="success-message"
+          style={{ color: "red", fontSize: "18px", marginTop: "2px" }}
+        >
+          {successMessage && (
+            <Alert
+              message=""
+              description={successMessage}
+              type="warning"
+              showIcon
+              closable
+            />
+          )}
+        </div>
     </Fragment>
   )
 }
