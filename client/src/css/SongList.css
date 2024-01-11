@@ -32,3 +32,9 @@
   border: none;
   border-radius: 0.5rem;
 }
+
+.success-message {
+  width: 30%;
+  padding-top: 2vh;
+  margin: 0 auto;
+}

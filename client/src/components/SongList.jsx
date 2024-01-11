@@ -43,7 +43,7 @@ export function SongList({ searchResults }) {
       await refetch();
     } catch (error) {
       console.error("Error saving song:", error);
-      setSuccessMessage("Could not save your song!");
+      setSuccessMessage("Song already saved!");
     }
   };
   console.log("searchResults", searchResults);
