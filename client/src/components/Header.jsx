@@ -27,7 +27,7 @@ function Header() {
             to="/"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <h1 style={{ color: "#fffcf2", fontSize: "2.5rem" }}>
+            <h1 style={{ color: "#fffcf2"}}>
               <span style={{ color: "#EB5E28" }}>W</span>ave{" "}
               <span style={{ color: "#CCC5B9" }}>E</span>xchange
             </h1>

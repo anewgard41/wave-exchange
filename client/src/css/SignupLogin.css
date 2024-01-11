@@ -13,14 +13,29 @@
 }
 
 .info-container h2 {
-  place-self: end center;
+  place-self: center;
+  font-size: 2rem;
+  color: #fffcf2;
 }
 
 .info-form {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
   place-items: center;
   width: 100%;
-  gap: 2rem;
+}
+
+.form-input {
+  place-self: start center;
+}
+
+@media only screen and (max-width: 500px) {
+  .info-container {
+    width: 80%;
+  }
+
+  .info-container h2 {
+    font-size: 1.5rem;
+  }
 }

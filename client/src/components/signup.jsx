@@ -1,6 +1,6 @@
 import "../css/SignupLogin.css";
 import React, { useState } from "react";
-import { Layout, Input, Space, Tooltip, Button, Flex } from "antd";
+import { Layout, Input, Space, Tooltip, Button, Flex, Alert } from "antd";
 import {
   InfoCircleOutlined,
   UserOutlined,
@@ -17,13 +17,13 @@ const { Content } = Layout;
 
 // SignupPage component
 const SignupPage = () => {
-  const [loginError, setLoginError] = useState('');
+  const [loginError, setLoginError] = useState("");
   // State for managing the visibility of the password
   const [passwordVisible, setPasswordVisible] = React.useState(false);
 
   // State for managing button loading state
   const [loadings, setLoadings] = useState([]);
-  
+
   // Function to simulate loading state for the button
   const enterLoading = (index) => {
     setLoadings((prevLoadings) => {
@@ -70,9 +70,9 @@ const SignupPage = () => {
       console.log(data.addUser.token);
       console.log(data);
       Auth.login(data.addUser.token);
-      setLoginError('');
+      setLoginError("");
     } catch (err) {
-      setLoginError('Username taken. Please choose a different one.');
+      setLoginError("Username taken. Please choose a different one.");
       console.error(err);
     }
 
@@ -88,7 +88,7 @@ const SignupPage = () => {
     <div className="info-container">
       {/* Main content area */}
       {/* "Sign Up Today" text */}
-      <h2 style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}>
+      <h2>
         Sign Up Today
       </h2>
 
@@ -131,8 +131,19 @@ const SignupPage = () => {
             }
           />
         </Space>
-        <div className="login-error" style={{ color: "red", fontSize: "18px", marginTop: "10px" }}>
-          {loginError && <p className="login-error">{loginError}</p>}
+        <div
+          className="login-error"
+          style={{ color: "red", fontSize: "18px", marginTop: "10px" }}
+        >
+          {loginError && (
+            <Alert
+              message=""
+              description={loginError}
+              type="error"
+              showIcon
+              closable
+            />
+          )}
         </div>
         <Flex gap="small" wrap="wrap" align="center" justify="center">
           <Button
