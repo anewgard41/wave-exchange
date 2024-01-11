@@ -35,18 +35,15 @@ a {
 
 :root {
   --shadow-color: 0deg 0% 0%;
-  --shadow-elevation-low:
-    0.2px 0.3px 0.3px hsl(var(--shadow-color) / 0.25),
+  --shadow-elevation-low: 0.2px 0.3px 0.3px hsl(var(--shadow-color) / 0.25),
     0.4px 0.4px 0.5px -2.1px hsl(var(--shadow-color) / 0.18),
     1.1px 1.2px 1.4px -4.2px hsl(var(--shadow-color) / 0.11);
-  --shadow-elevation-medium:
-    0.2px 0.3px 0.3px hsl(var(--shadow-color) / 0.21),
+  --shadow-elevation-medium: 0.2px 0.3px 0.3px hsl(var(--shadow-color) / 0.21),
     0.4px 0.5px 0.6px -1.1px hsl(var(--shadow-color) / 0.17),
     1.1px 1.2px 1.4px -2.1px hsl(var(--shadow-color) / 0.14),
     2.6px 2.9px 3.4px -3.2px hsl(var(--shadow-color) / 0.11),
     5.6px 6.2px 7.2px -4.2px hsl(var(--shadow-color) / 0.07);
-  --shadow-elevation-high:
-    0.2px 0.3px 0.3px hsl(var(--shadow-color) / 0.21),
+  --shadow-elevation-high: 0.2px 0.3px 0.3px hsl(var(--shadow-color) / 0.21),
     0.7px 0.8px 0.9px -0.5px hsl(var(--shadow-color) / 0.19),
     1.4px 1.6px 1.8px -1.1px hsl(var(--shadow-color) / 0.18),
     2.8px 3.1px 3.6px -1.6px hsl(var(--shadow-color) / 0.16),
@@ -62,7 +59,7 @@ a {
 ========================================================================== */
 
 #body {
-  background-image: linear-gradient(#252422, #403D39);
+  background-image: linear-gradient(#252422, #403d39);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -76,236 +73,22 @@ a {
 
 .leaderboard-names-container p {
   font-size: 1.2rem;
-  color: #fffcf2; 
+  color: #fffcf2;
 }
 
 .ant-btn-primary {
-  background-color: #EB5E28;
+  background-color: #eb5e28;
   box-shadow: var(--shadow-elevation-medium);
 }
 
 .ant-btn-primary:hover {
-  border-color: #CCC5B9;
-  background-color: #EB5E28;
+  border-color: #ccc5b9;
+  background-color: #eb5e28;
   transform: scale(1.1);
 }
 
 .ant-btn-primary:active {
-  border-color: #CCC5B9;
+  border-color: #ccc5b9;
   translate: 0 0.5rem;
-  color: #CCC5B9;
-}
-
-/* ==========================================================================
-   Header
-========================================================================== */
-
-.header-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 1fr;
-  place-items: center;
-  height: 10rem;
-}
-
-.title-container {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: 1fr;
-  place-items: center;
-  height: 100%;
-  width: 60%;
-}
-.title {
-  place-self: center start;
-}
-
-.nav-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
-  width: 60%;
-  gap: 2rem;
-}
-
-.nav-link {
-  text-align: center;
-  font-size: 1.2rem;
-  padding: 0.8rem 0;
-  border-radius: 0.5rem;
-  color: #252422;
-  background-image: linear-gradient(#CCC5B9, #FFFCF2);
-  box-shadow: var(--shadow-elevation-high);
-}
-
-.donate-link {
-  background-image: linear-gradient(#EB5E28, #252422);
-  color: #fffcf2;
-}
-
-.active {
-  background-image: linear-gradient(#161616, #161616);
-  color: #fffcf2;
-}
-
-.nav-link:hover {
-  background-image: linear-gradient(#4096ff, #4096ff);
-  color: #fffcf2;
-  transform: scale(1.1);
-}
-
-.nav-link:active {
-  transform: scale(1.1);
-  translate: 0 0.25rem;
-  background-color: #EB5E28;
-  color: #CCC5B9;
-}
-
-/* ==========================================================================
-   Sign up and Login Pages
-========================================================================== */
-
-.info-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 3fr;
-  place-items: center;
-  height: 60%;
-  width: 60%;
-  margin: 0 auto;
-}
-
-.info-container h2{
-  place-self: end center;
-}
-
-.info-form {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
-  place-items: center;
-  width: 100%;
-  gap: 2rem;
-}
-
-/* ==========================================================================
-   Search Page
-========================================================================== */
-
-.search-page-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 18rem 6fr;
-  place-items: center;
-  text-align: center;
-  width: 95%;
-  margin: 0 auto;
-}
-
-.search-top {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, 1fr);
-  place-items: center;
-  gap: 2rem;
-}
-
-.results {
-  width: 100%;
-}
-
-/* ==========================================================================
-   Donate Page
-========================================================================== */
-
-.donate-layout {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 1fr;
-  gap: 1rem;
-  text-align: center;
-  place-items: center;
-  height: 75%;
-}
-
-.donate-section {
-  height: 100%;
-  width: 80%;
-}
-
-.donations {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 2fr 4fr 2fr;
-  gap: 1rem;
-  height: 100%;
-  place-items: center;
-}
-
-.donate-btn-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 3rem;
-  place-self: center;
-  height: 100%;
-  width: 60%;
-}
-
-.stripe-logo {
-  place-self: start center;
-  height: 50%;
-}
-
-.leaderboard {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 3fr;
-  gap: 1rem;
-  height: 100%;
-  place-items: center;
-  background-color: #161616;
-  border-radius: 2rem;
-}
-
-.leaderboard-names-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  height: 100%;
-}
-
-/* ==========================================================================
-   Songlist
-========================================================================== */
-
-.search-result-container {
-  width: 50%;
-  margin: 0 auto;
-}
-
-.ant-collapse-header {
-  border: none;
-}
-
-.ant-collapse-header-text {
-  font-size: 1.2rem;
-  color: #FFFCF2;
-}
-
-.ant-collapse-content {
-  font-size: 1.1rem;
-}
-
-.ant-collapse-content-box {
-  background-color: #252422;
-}
-
-.ant-collapse-expand-icon {
-  color: #FFFCF2;
-}
-
-.custom-collapse {
-  border: none;
-  border-radius: 0.5rem;
+  color: #ccc5b9;
 }
