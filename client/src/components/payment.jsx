@@ -52,7 +52,7 @@ const CheckoutForm = (props) => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const response = await axios.post("/payment", { amount: props.amount })
+    const response = await axios.post("/api/payment", { amount: props.amount })
     
     if(response.success === true){
       setSuccess(true);

@@ -54,30 +54,30 @@ const startServer = async () => {
         )}`
       );
       const xml = await response.text();
-  
+
       const data = xml2js(xml, { compact: true });
       //console.log(data.ArrayOfSearchLyricResult.SearchLyricResult)
-      const results = data.ArrayOfSearchLyricResult.SearchLyricResult.filter(x => Object.keys(x).length > 1).map(
-        (result) => ({
-          id: result.LyricId._text,
-          checksum: result.LyricChecksum._text,
-          name: result.Song._text,
-          artists: [result.Artist._text]
-        })
-      );
+      const results = data.ArrayOfSearchLyricResult.SearchLyricResult.filter(
+        (x) => Object.keys(x).length > 1
+      ).map((result) => ({
+        id: result.LyricId._text,
+        checksum: result.LyricChecksum._text,
+        name: result.Song._text,
+        artists: [result.Artist._text],
+      }));
       res.status(200).json(results);
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
     }
   });
-  
+
   app.get("/api/lyric", async (req, res) => {
     if (!req.query.lyricId || !req.query.lyricCheckSum) {
       res.status(400).send("Missing query parameter");
       return;
     }
-  
+
     const response = await fetch(
       `http://api.chartlyrics.com/apiv1.asmx/GetLyric?lyricId=${req.query.lyricId}&lyricCheckSum=${req.query.lyricCheckSum}`
     );
@@ -107,42 +107,59 @@ const startServer = async () => {
   //     res.json({ success: false });
   //   }
   // });
-  
-  app.post('/payment', async (req, res) => {
+
+
+  app.post("/api/payment", async (req, res) => {
+    console.log('Received payment request:', req.body);
     const amount = req.body.amount;
-    const purchaseItem = null;
-    switch(amount){
+    let purchaseItem = [];
+    switch (amount) {
       case 500:
         purchaseItem = {
           // 5 dollars
-          price: 'price_1OVgh0JiSz0z5LGkNTChdRo1',
+          price: "price_1OVgh0JiSz0z5LGkNTChdRo1",
           quantity: 1,
         };
+        break;
       case 1000:
         purchaseItem = {
           // 10 dollars
-          price: 'price_1OW9fSJiSz0z5LGkTgZaJopU',
+          price: "price_1OW9fSJiSz0z5LGkTgZaJopU",
           quantity: 1,
         };
+        break;
       case 2000:
         purchaseItem = {
           // 20 dollars
-          price: 'price_1OW9fhJiSz0z5LGkErZniUxd',
+          price: "price_1OW9fhJiSz0z5LGkErZniUxd",
           quantity: 1,
         };
-      case 5000: 
+        break;
+      case 5000:
         purchaseItem = {
           // 50 dollars
-          price: 'price_1OW9foJiSz0z5LGkL3ISgqAp',
+          price: "price_1OW9foJiSz0z5LGkL3ISgqAp",
           quantity: 1,
         };
+        break;
+      default:
+        // Handle cases where the amount doesn't match any of the specified cases
+        res.status(400).json({ success: false, error: "Invalid amount" });
+        return;
     }
-    const session = await stripe.checkout.sessions.create({
-      line_items: [purchaseItem],
-      mode: 'payment'
-    });
-    if(session.status === "complete"){
-      res.json({success: true});
+
+    try {
+      const session = await stripe.checkout.sessions.create({
+        line_items: [purchaseItem],
+        mode: "payment",
+        success_url: `http://localhost:3000/donate?success=true&amount=${amount}`,
+      });
+      if (session.status === "complete") {
+        res.json({ success: true });
+      }
+    } catch (error) {
+      console.error("Error creating Stripe session:", error);
+      res.status(500).json({ success: false, error: "Server error" });
     }
   });
 
