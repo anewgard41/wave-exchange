@@ -25,6 +25,7 @@ const layoutStyle = {
 };
 
 const LoginPage = () => {
+  const [loginError, setLoginError] = useState('');
   // State for managing the visibility of the password
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [loadings, setLoadings] = useState([]);
@@ -68,7 +69,9 @@ const LoginPage = () => {
       console.log(data);
       Auth.login(data.login.token);
       console.log(data.login.token);
+      setLoginError('');
     } catch (err) {
+      setLoginError('Could not log you in. Please double check your username and password.');
       console.error(err);
     }
 
@@ -80,65 +83,69 @@ const LoginPage = () => {
 
   return (
     <div className="info-container">
-        {/* Main content area */}
-          {/* "Login" text */}
-          <h2
-            style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}
-          >
-            Login
-          </h2>
-          <form className="info-form" onSubmit={handleFormSubmit}>
-            {/* Input components for username and password */}
-            <Space
-              direction="vertical"
-              style={{ width: "100%", maxWidth: "300px" }}
-            >
-              {/* Username input */}
-              <Input
-                type="text"
-                placeholder="Please enter username"
-                name="username"
-                onChange={handleInputChange}
-                value={userFormData.username}
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                suffix={
-                  // Tooltip for extra information about the username input
-                  <Tooltip title="Username is case-sensitive">
-                    <InfoCircleOutlined
-                      style={{
-                        color: "rgba(0, 0, 0, 0.45)",
-                      }}
-                    />
-                  </Tooltip>
-                }
-              />
+      {/* Main content area */}
+      {/* "Login" text */}
+      <h2
+        style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}
+      >
+        Login
+      </h2>
+      <form className="info-form" onSubmit={handleFormSubmit}>
+        {/* Input components for username and password */}
+        <Space
+          direction="vertical"
+          style={{ width: "100%", maxWidth: "300px" }}
+        >
+          {/* Username input */}
+          <Input
+            type="text"
+            placeholder="Please enter username"
+            name="username"
+            onChange={handleInputChange}
+            value={userFormData.username}
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            suffix={
+              // Tooltip for extra information about the username input
+              <Tooltip title="Username is case-sensitive">
+                <InfoCircleOutlined
+                  style={{
+                    color: "rgba(0, 0, 0, 0.45)",
+                  }}
+                />
+              </Tooltip>
+            }
+          />
 
-              {/* Password input with eye icon */}
-              <Input.Password
-                type="password"
-                placeholder="Please enter password"
-                name="password"
-                onChange={handleInputChange}
-                value={userFormData.password}
-                iconRender={(visible) =>
-                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                }
-              />
-            </Space>
-            <Flex gap="small" wrap="wrap" align="center" justify="center">
-              <Button
-                disabled={!(userFormData.username && userFormData.password)}
-                type="primary"
-                direction="vertical"
-                loading={loadings[0]}
-                onClick={() => enterLoading(0)}
-                htmlType="submit"
-                style={{ backgroundColor: "#CCC5B9", color: "#252422" }}
-              >
-                Login!
-              </Button>
-            </Flex>
-          </form>
+          {/* Password input with eye icon */}
+          <Input.Password
+            type="password"
+            placeholder="Please enter password"
+            name="password"
+            onChange={handleInputChange}
+            value={userFormData.password}
+            iconRender={(visible) =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
+          />
+        </Space>
+        <div className="login-error" style={{ color: "red", fontSize: "18px", marginTop: "10px" }}>
+          {loginError && <p className="login-error">{loginError}</p>}
+        </div>
+        <Flex gap="small" wrap="wrap" align="center" justify="center">
+          <Button
+            disabled={!(userFormData.username && userFormData.password)}
+            type="primary"
+            direction="vertical"
+            loading={loadings[0]}
+            onClick={() => enterLoading(0)}
+            htmlType="submit"
+            style={{ backgroundColor: "#CCC5B9", color: "#252422" }}
+          >
+            Login!
+          </Button>
+        </Flex>
+      </form>
+
     </div>
   );
 };
