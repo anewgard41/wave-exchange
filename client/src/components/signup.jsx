@@ -88,7 +88,7 @@ const SignupPage = () => {
     <div className="info-container">
       {/* Main content area */}
       {/* "Sign Up Today" text */}
-      <h2 style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}>
+      <h2>
         Sign Up Today
       </h2>
 
