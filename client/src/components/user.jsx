@@ -25,7 +25,7 @@ const UserPage = () => {
 
   // Log user data and retrieve saved music
   console.log('User data: ', userData);
-  const savedMusic = userData.savedMusic ?? [];
+  const [savedMusic, setSavedMusic] = useState(userData.savedMusic ?? []);
   console.log(savedMusic);
 
   // State for the currently active song and lyrics
@@ -52,7 +52,10 @@ const UserPage = () => {
           },
         },
       });
-      console.log('Song removed successfully', data);
+      console.log('Song removed successfully');
+
+      const newSavedMusic = savedMusic.filter(song => song.id !== songId);
+      setSavedMusic(newSavedMusic);
     } catch (error) {
       console.error('Error removing song:', error.message);
     }
