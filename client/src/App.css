@@ -69,6 +69,7 @@ a {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 7fr;
   height: 100vh;
+  gap: 4rem;
 }
 
 .leaderboard-names-container p {

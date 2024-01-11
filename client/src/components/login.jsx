@@ -97,7 +97,7 @@ const LoginPage = () => {
     <div className="info-container">
       {/* Main content area */}
       {/* "Login" text */}
-      <h2 style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}>
+      <h2>
         Login
       </h2>
       <form className="info-form" onSubmit={handleFormSubmit}>
