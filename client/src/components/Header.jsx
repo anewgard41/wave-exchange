@@ -1,3 +1,4 @@
+import "../css/Header.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import UseAnimations from "react-useanimations";

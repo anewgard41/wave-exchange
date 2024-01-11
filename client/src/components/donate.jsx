@@ -1,6 +1,6 @@
+import "../css/Donate.css";
 import React, { useState } from "react";
 import { Button, Avatar } from "antd";
-import Auth from "../utils/auth";
 
 function DonatePage() {
   const [size, setSize] = useState("large");

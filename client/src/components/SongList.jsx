@@ -1,7 +1,6 @@
+import "../css/SongList.css"
 import React, { useState, useMemo } from "react";
 import { Collapse } from "antd";
-import axios from "axios";
-import { Button } from "antd";
 import { SongListPanel } from "./SongListPanel";
 
 import { useMutation } from "@apollo/client";

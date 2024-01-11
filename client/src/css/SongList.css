@@ -1,0 +1,34 @@
+/* ==========================================================================
+   Songlist
+========================================================================== */
+
+.search-result-container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.ant-collapse-header {
+  border: none;
+}
+
+.ant-collapse-header-text {
+  font-size: 1.2rem;
+  color: #fffcf2;
+}
+
+.ant-collapse-content {
+  font-size: 1.1rem;
+}
+
+.ant-collapse-content-box {
+  background-color: #252422;
+}
+
+.ant-collapse-expand-icon {
+  color: #fffcf2;
+}
+
+.custom-collapse {
+  border: none;
+  border-radius: 0.5rem;
+}
