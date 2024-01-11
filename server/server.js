@@ -90,20 +90,58 @@ const startServer = async () => {
     }
   });
 
-  app.post("/payment", cors(), async (req, res) => {
-    let { amount, id } = req.body;
-    try {
-      const payment = await stripe.paymentIntents.create({
-        amount,
-        currency: "USD",
-        description: `$${amount / 100} donation to Wave Exchange`,
-        payment_method: id,
-        confirm: true,
-      });
-      res.json({ success: true });
-    } catch (err) {
-      console.log(err);
-      res.json({ success: false });
+  // app.post("/payment", cors(), async (req, res) => {
+  //   let { amount} = req.body;
+  //   try {
+  //     const payment = await stripe.paymentIntents.create({
+  //       amount,
+  //       currency: "USD",
+  //       description: `$${amount / 100} donation to Wave Exchange`,
+  //       payment_method: id,
+  //       confirm: true,
+  //     });
+  //     console.log(payment);
+  //     res.json(payment);
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.json({ success: false });
+  //   }
+  // });
+  app.post('/payment', async (req, res) => {
+    const amount = req.body.amount;
+    const purchaseItem = null;
+    switch(amount){
+      case 500:
+        purchaseItem = {
+          // 5 dollars
+          price: 'price_1OVgh0JiSz0z5LGkNTChdRo1',
+          quantity: 1,
+        };
+      case 1000:
+        purchaseItem = {
+          // 10 dollars
+          price: 'price_1OW9fSJiSz0z5LGkTgZaJopU',
+          quantity: 1,
+        };
+      case 2000:
+        purchaseItem = {
+          // 20 dollars
+          price: 'price_1OW9fhJiSz0z5LGkErZniUxd',
+          quantity: 1,
+        };
+      case 5000: 
+        purchaseItem = {
+          // 50 dollars
+          price: 'price_1OW9foJiSz0z5LGkL3ISgqAp',
+          quantity: 1,
+        };
+    }
+    const session = await stripe.checkout.sessions.create({
+      line_items: [purchaseItem],
+      mode: 'payment'
+    });
+    if(session.status === "complete"){
+      res.json({success: true});
     }
   });
 
