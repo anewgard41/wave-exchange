@@ -17,8 +17,8 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 import Auth from "../utils/auth";
 
-import { useQuery, useMutation, gql } from "@apollo/client";
-import { GET_ME } from "../utils/queries";
+import {useMutation } from "@apollo/client";
+//import { GET_ME } from "../utils/queries";
 import { REMOVE_SONG } from "../utils/mutations";
 import { useUserData } from '../UserStore';
 
@@ -36,6 +36,8 @@ const UserPage = () => {
 
   const handleRemoveSong = async (songId) => {
 
+    console.log(`this is the song id : ${songId}`);
+
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     console.log(token);
 
@@ -44,7 +46,8 @@ const UserPage = () => {
     }
 
     try {
-      await removeSong({
+
+      const { data } = await removeSong({
         variables: { songId },
         context: {
           headers: {
@@ -52,7 +55,7 @@ const UserPage = () => {
           },
         },
       });
-      console.log('Song removed successfully');
+      console.log('Song removed successfully', data);
     } catch (error) {
       console.error('Error removing song:', error.message);
     }

@@ -75,7 +75,7 @@ const resolvers = {
 
       return await User.findOneAndUpdate(
         { _id: context.user._id },
-        { $pull: { savedMusic: { songId } } },
+        { $pull: { savedMusic: { id: songId } } },
         { new: true }
       );
     },
