@@ -1,7 +1,7 @@
-import "../css/SongList.css"
+import "../css/SongList.css";
 import React, { useState, useMemo } from "react";
-import { Collapse } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { Collapse, Alert } from "antd";
 import { SongListPanel } from "./SongListPanel";
 
 import { useMutation } from "@apollo/client";
@@ -10,7 +10,7 @@ import { useUserData } from "../UserStore";
 import Auth from "../utils/auth";
 
 export function SongList({ searchResults }) {
-
+  const [successMessage, setSuccessMessage] = useState("");
   const [activeSong, setActiveSong] = useState();
   const [savedSongId, setSavedSongId] = useState({});
   const [saveSong] = useMutation(SAVE_SONG);
@@ -40,9 +40,11 @@ export function SongList({ searchResults }) {
         },
       });
       console.log("Saved song:", data);
+      setSuccessMessage("Song saved!");
       await refetch();
     } catch (error) {
       console.error("Error saving song:", error);
+      setSuccessMessage("Song already saved!");
     }
   };
   console.log("searchResults", searchResults);
@@ -65,7 +67,13 @@ export function SongList({ searchResults }) {
             }
             key={result.id}
           >
-            <SongListPanel song={result} handleSaveSong={handleSaveSong} enabled={activeSong === result.id} />
+            <SongListPanel
+              song={result}
+              handleSaveSong={handleSaveSong}
+              enabled={activeSong === result.id}
+              successMessage={successMessage}
+              setSuccessMessage={setSuccessMessage}
+            />
           </Collapse.Panel>
         ))}
       </Collapse>
