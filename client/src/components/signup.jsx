@@ -1,3 +1,4 @@
+import "../css/SignupLogin.css";
 import React, { useState } from "react";
 import { Layout, Input, Space, Tooltip, Button, Flex } from "antd";
 import {
@@ -13,15 +14,6 @@ import { ADD_USER } from "../utils/mutations.js";
 import Auth from "../utils/auth.js";
 
 const { Content } = Layout;
-
-// Styling for the layout
-const layoutStyle = {
-  textAlign: "center",
-  minHeight: 120,
-  lineHeight: "120px",
-  color: "#fff",
-  backgroundColor: "#403D39",
-};
 
 // SignupPage component
 const SignupPage = () => {

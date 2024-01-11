@@ -1,3 +1,4 @@
+import "../css/SearchPage.css";
 import React, { useState, useEffect } from "react";
 import { Button, Input, Space } from "antd";
 import axios from "axios";

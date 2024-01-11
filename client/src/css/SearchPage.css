@@ -1,0 +1,25 @@
+/* ==========================================================================
+   Search Page
+========================================================================== */
+
+.search-page-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 18rem 6fr;
+  place-items: center;
+  text-align: center;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.search-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  place-items: center;
+  gap: 2rem;
+}
+
+.results {
+  width: 100%;
+}

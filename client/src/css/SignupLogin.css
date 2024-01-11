@@ -1,0 +1,26 @@
+/* ==========================================================================
+   Sign up and Login Pages
+========================================================================== */
+
+.info-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 3fr;
+  place-items: center;
+  height: 60%;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.info-container h2 {
+  place-self: end center;
+}
+
+.info-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  place-items: center;
+  width: 100%;
+  gap: 2rem;
+}
