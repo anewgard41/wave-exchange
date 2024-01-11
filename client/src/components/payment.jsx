@@ -52,7 +52,7 @@ const CheckoutForm = (props) => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const response = await axios.post("/payment", { amount: props.amount })
+    const response = await axios.post("/api/payment", { amount: props.amount })
     
     if(response.success === true){
       setSuccess(true);
@@ -76,8 +76,6 @@ const PaymentPage = () => {
   const userData = data?.me || {};
 
   const [success, setSuccess] = useState(false);
-  //    //options={options}
-  //    //above line should be pasted as a prop in Elements, line 59, but you need the actual secret key
   const [options, setOptions] = useState(null);
 
   
@@ -93,7 +91,6 @@ useEffect(() => {
       mode: "payment",
       amount: amount,
       currency: "usd",
-      // appearance: "night",
     });
   }
 }, [total]);
