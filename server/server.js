@@ -108,11 +108,11 @@ const startServer = async () => {
   //   }
   // });
 
-
+  // STRIPE PAYMENT ROUTE
   app.post("/api/payment", async (req, res) => {
-    console.log('Received payment request:', req.body);
+    console.log("Received payment request:", req.body);
     const amount = req.body.amount;
-    let purchaseItem = [];
+    let purchaseItem = {};
     switch (amount) {
       case 500:
         purchaseItem = {
@@ -147,15 +147,19 @@ const startServer = async () => {
         res.status(400).json({ success: false, error: "Invalid amount" });
         return;
     }
-
     try {
       const session = await stripe.checkout.sessions.create({
         line_items: [purchaseItem],
         mode: "payment",
-        success_url: `http://localhost:3000/donate?success=true&amount=${amount}`,
+        success_url:
+          `https://localhost:3000/donate?success=true&amount=${amount}` ||
+          `https://wave-exchange.onrender.com/payment?amount=${amount}`,
       });
-      if (session.status === "complete") {
+    
+      if (session.payment_status === "paid") {
         res.json({ success: true });
+      } else {
+        res.json({ success: false });
       }
     } catch (error) {
       console.error("Error creating Stripe session:", error);
