@@ -28,7 +28,7 @@ const UserPage = () => {
   const { data: userData } = useUserData();
   const [removeSong] = useMutation(REMOVE_SONG);
   console.log('User data: ', userData);
-  const savedMusic = userData.savedMusic ?? [];
+  const [savedMusic, setSavedMusic] = useState(userData.savedMusic ?? []);
   console.log(savedMusic);
 
   const [activeSong, setActiveSong] = useState();
@@ -56,6 +56,9 @@ const UserPage = () => {
         },
       });
       console.log('Song removed successfully', data);
+
+      const newSavedMusic = savedMusic.filter(song => song.id !== songId);
+      setSavedMusic(newSavedMusic);
     } catch (error) {
       console.error('Error removing song:', error.message);
     }
