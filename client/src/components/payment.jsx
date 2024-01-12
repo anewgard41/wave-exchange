@@ -12,6 +12,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import { GET_ME } from "../utils/queries";
 
+// stripe key
 const PUBLIC_KEY =
   "pk_live_51OVg6UJiSz0z5LGkDTYGRsNWn3tGI8xORP7XynojRNNihXUckOc3dWbJ8RyRnx2G5vWcRiDCIcNiLlRGZAAtLxmv00J3nY5B91";
 
