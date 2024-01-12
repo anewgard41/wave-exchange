@@ -155,7 +155,7 @@ const startServer = async () => {
           `https://localhost:3000/donate?success=true&amount=${amount}` ||
           `https://wave-exchange.onrender.com/payment?amount=${amount}`,
       });
-    
+
       if (session.payment_status === "paid") {
         res.json({ success: true });
       } else {
@@ -171,9 +171,9 @@ const startServer = async () => {
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/dist")));
 
-    app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-  });
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+    });
   }
 
   const PORT = process.env.PORT || 3000;
@@ -184,7 +184,7 @@ const startServer = async () => {
       });
     });
   } catch (err) {
-    console.log("Could not connect to server: server.js line 85.", err);
+    console.log("Could not connect to server: server.js line 187.", err);
   }
 };
 
