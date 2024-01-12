@@ -76,7 +76,7 @@ export function LyricSearchPage() {
         {loading ? (
           <p>Loading...</p> // Display a loading indicator while fetching data
         ) : (
-          <SongList searchResults={searchResults} />
+          <SongList className="results" searchResults={searchResults} />
         )}
       </div>
     </div>
