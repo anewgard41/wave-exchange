@@ -9,7 +9,6 @@ const musicSchema = new Schema({
     id: {
         type: String,
         required: true,
-        unique: true,
     },
     checksum: {
         type: String,
