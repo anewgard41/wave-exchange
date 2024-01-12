@@ -1,5 +1,5 @@
 import "../css/User.css";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Card, Button, Modal } from "antd";
 import { useFetchSongLyrics } from "../LyricStore";
 
@@ -20,13 +20,22 @@ const commonStyle = {
 const UserPage = () => {
   // Fetch user data using a custom hook
   const { data: userData } = useUserData();
+  
 
   // Initialize Apollo mutation for removing a song
   const [removeSong] = useMutation(REMOVE_SONG);
 
   // Log user data and retrieve saved music
   console.log('User data: ', userData);
-  const [savedMusic, setSavedMusic] = useState(userData.savedMusic ?? []);
+  const [savedMusic, setSavedMusic] = useState(userData.savedMusic || []);
+
+  useEffect(() => {
+    if (userData.savedMusic) {
+      setSavedMusic(userData.savedMusic);
+    }
+  }, [userData.savedMusic]);
+
+  
   console.log(savedMusic);
 
   // State for the currently active song and lyrics
