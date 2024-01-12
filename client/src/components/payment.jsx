@@ -14,10 +14,11 @@ import { GET_ME } from "../utils/queries";
 
 // stripe key
 const PUBLIC_KEY =
-  "pk_live_51OVg6UJiSz0z5LGkDTYGRsNWn3tGI8xORP7XynojRNNihXUckOc3dWbJ8RyRnx2G5vWcRiDCIcNiLlRGZAAtLxmv00J3nY5B91";
+  "pk_test_51OVg6UJiSz0z5LGkkgL7TCPW4kcuNoxVY4GMfM5m1dugVUGdrRUsgrzfIecf2HMhe0u1WrTVC0cL3yAwfyl4o0yJ00ldmksGIn";
 
 const stripePromise = loadStripe(PUBLIC_KEY);
 
+// ChecoutForm component
 const CheckoutForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -55,8 +56,10 @@ const CheckoutForm = (props) => {
   );
 };
 
+// PaymentPage component
 const PaymentPage = () => {
-  const { loading, data } = useQuery(GET_ME);
+  // Get user data
+  const { data } = useQuery(GET_ME);
   const userData = data?.me || {};
 
   const [success, setSuccess] = useState(false);
@@ -65,6 +68,7 @@ const PaymentPage = () => {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const total = params.get("amount");
+  userData.donations = total;
 
   useEffect(() => {
     if (total) {

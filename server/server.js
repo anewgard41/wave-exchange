@@ -117,7 +117,7 @@ const startServer = async () => {
       case 500:
         purchaseItem = {
           // 5 dollars
-          price: "price_1OXZEQJiSz0z5LGkxDGwM0Mc",
+          price: "price_1OVgh0JiSz0z5LGkNTChdRo1",
           quantity: 1,
         };
         break;
@@ -148,24 +148,32 @@ const startServer = async () => {
         return;
     }
     try {
-      const session = await stripe.checkout.sessions.create({
-        line_items: [purchaseItem],
-        mode: "payment",
-        success_url:
-          `https://localhost:3000/donate?success=true&amount=${amount}` ||
-          `https://wave-exchange.onrender.com/payment?amount=${amount}`,
-      });
-    
-      if (session.payment_status === "paid") {
-        res.json({ success: true });
-      } else {
-        res.json({ success: false });
-      }
-    } catch (error) {
-      console.error("Error creating Stripe session:", error);
-      res.status(500).json({ success: false, error: "Server error" });
+    const session = await stripe.checkout.sessions.create({
+      line_items: [purchaseItem],
+      mode: "payment",
+      success_url:
+        `https://localhost:3000/donate?success=true&amount=${amount}` ||
+        `https://wave-exchange.onrender.com/payment?amount=${amount}`,
+    });
+
+    console.log("Stripe session:", session);
+    // Retrieve the PaymentIntent ID from the session
+    const paymentIntentId = session.payment_intent;
+
+    // Confirm the PaymentIntent using its ID
+    const paymentIntent = await stripe.paymentIntents.confirm(paymentIntentId);
+
+    // Check if the PaymentIntent is successful
+    if (paymentIntent.status === "succeeded") {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false });
     }
-  });
+  } catch (error) {
+    console.error("Error creating Stripe session:", error);
+    res.status(500).json({ success: false, error: "Server error" });
+  }
+});
 
   // if we're in production, serve client/dist as static assets
   if (process.env.NODE_ENV === "production") {
