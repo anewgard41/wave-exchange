@@ -153,20 +153,25 @@ const startServer = async () => {
         line_items: [purchaseItem],
         mode: "payment",
         success_url:
-          `http://localhost:4000/payment?success=true&amount=${amount}` ||
-          `https://wave-exchange.onrender.com/payment?amount=${amount}`,
+          `http://localhost:4000/payment?amount=${amount}&session_id={CHECKOUT_SESSION_ID}` ||
+          `https://wave-exchange.onrender.com/payment?amount=${amount}&session_id={CHECKOUT_SESSION_ID}`,
       });
       console.log(session);
     
-      if (session.payment_status === "paid") {
-        res.json({ success: true });
-      } else {
-        res.json({ success: false });
-      }
+      res.send({clientSecret: session.client_secret});
     } catch (error) {
       console.error("Error creating Stripe session:", error);
       res.status(500).json({ success: false, error: "Server error" });
     }
+  });
+
+  app.get('/api/session-status',async(req,res)=>{
+    const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+
+    res.send({
+      status: session.status,
+      customer_email: session.customer_details.email
+    });
   });
 
   // if we're in production, serve client/dist as static assets
