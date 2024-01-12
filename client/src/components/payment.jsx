@@ -14,7 +14,7 @@ import { GET_ME } from "../utils/queries";
 
 // stripe key
 const PUBLIC_KEY =
-  "pk_live_51OVg6UJiSz0z5LGkDTYGRsNWn3tGI8xORP7XynojRNNihXUckOc3dWbJ8RyRnx2G5vWcRiDCIcNiLlRGZAAtLxmv00J3nY5B91";
+  "pk_test_51OVg6UJiSz0z5LGkkgL7TCPW4kcuNoxVY4GMfM5m1dugVUGdrRUsgrzfIecf2HMhe0u1WrTVC0cL3yAwfyl4o0yJ00ldmksGIn";
 
 const stripePromise = loadStripe(PUBLIC_KEY);
 

@@ -116,8 +116,8 @@ const startServer = async () => {
     switch (amount) {
       case 500:
         purchaseItem = {
-          // 5 dollars
-          price: "price_1OXZEQJiSz0z5LGkxDGwM0Mc",
+          // 5 dollars // test price: price_1OVgh0JiSz0z5LGkNTChdRo1 // live price: price_1OXZEQJiSz0z5LGkxDGwM0Mc
+          price: "price_1OVgh0JiSz0z5LGkNTChdRo1",
           quantity: 1,
         };
         break;
@@ -149,12 +149,14 @@ const startServer = async () => {
     }
     try {
       const session = await stripe.checkout.sessions.create({
+        ui_mode: "embedded",
         line_items: [purchaseItem],
         mode: "payment",
         success_url:
-          `https://localhost:3000/donate?success=true&amount=${amount}` ||
+          `http://localhost:4000/payment?success=true&amount=${amount}` ||
           `https://wave-exchange.onrender.com/payment?amount=${amount}`,
       });
+      console.log(session);
     
       if (session.payment_status === "paid") {
         res.json({ success: true });
