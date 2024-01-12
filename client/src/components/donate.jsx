@@ -5,9 +5,6 @@ import { Button, Avatar } from "antd";
 function DonatePage() {
   const [size, setSize] = useState("large");
 
-  const handleDonation = (amount) => {
-    console.log(`Donated $${amount}`);
-  }
 
   return (
       <div className="donate-layout">
@@ -19,7 +16,6 @@ function DonatePage() {
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
-                onClick={() => handleDonation(5)}
                 href="/payment?amount=500"
               >
                 $5
@@ -28,7 +24,6 @@ function DonatePage() {
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
-                onClick={() => handleDonation(10)}
                 href="/payment?amount=1000"
               >
                 $10
@@ -37,7 +32,6 @@ function DonatePage() {
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
-                onClick={() => handleDonation(20)}
                 href="/payment?amount=2000"
               >
                 $20
@@ -46,7 +40,6 @@ function DonatePage() {
                 type="primary"
                 size={size}
                 style={{ backgroundColor: "#EB5E28" }}
-                onClick={() => handleDonation(50)}
                 href="/payment?amount=5000"
               >
                 $50

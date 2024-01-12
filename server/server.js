@@ -116,8 +116,8 @@ const startServer = async () => {
     switch (amount) {
       case 500:
         purchaseItem = {
-          // 5 dollars
-          price: "price_1OXZEQJiSz0z5LGkxDGwM0Mc",
+          // 5 dollars // test price: price_1OVgh0JiSz0z5LGkNTChdRo1 // live price: price_1OXZEQJiSz0z5LGkxDGwM0Mc
+          price: "price_1OVgh0JiSz0z5LGkNTChdRo1",
           quantity: 1,
         };
         break;
@@ -149,22 +149,29 @@ const startServer = async () => {
     }
     try {
       const session = await stripe.checkout.sessions.create({
+        ui_mode: "embedded",
         line_items: [purchaseItem],
         mode: "payment",
         success_url:
-          `https://localhost:3000/donate?success=true&amount=${amount}` ||
-          `https://wave-exchange.onrender.com/payment?amount=${amount}`,
+          `http://localhost:4000/payment?amount=${amount}&session_id={CHECKOUT_SESSION_ID}` ||
+          `https://wave-exchange.onrender.com/payment?amount=${amount}&session_id={CHECKOUT_SESSION_ID}`,
       });
-
-      if (session.payment_status === "paid") {
-        res.json({ success: true });
-      } else {
-        res.json({ success: false });
-      }
+      console.log(session);
+    
+      res.send({clientSecret: session.client_secret});
     } catch (error) {
       console.error("Error creating Stripe session:", error);
       res.status(500).json({ success: false, error: "Server error" });
     }
+  });
+
+  app.get('/api/session-status',async(req,res)=>{
+    const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+
+    res.send({
+      status: session.status,
+      customer_email: session.customer_details.email
+    });
   });
 
   // if we're in production, serve client/dist as static assets
