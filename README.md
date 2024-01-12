@@ -58,8 +58,8 @@ Email: tmbarnhart1@gmail.com<br>
 Github: [Thomas Barnhart](https://github.com/Thomas-Barnhart)<br>
 
 <b>Anders Newgard</b><br>
-Email: <br>
-Github: [Andres Newgard](https://github.com/anewgard41)<br>
+Email: anewgard41@gmail.com<br>
+Github: [Anders Newgard](https://github.com/anewgard41)<br>
 
 <b>Josh Bowen</b><br>
 Email: <br>

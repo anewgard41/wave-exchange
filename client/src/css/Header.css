@@ -27,7 +27,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
-  width: 80%;
+  width: 60%;
   gap: 2rem;
 }
 
@@ -70,7 +70,7 @@
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: 1fr;
     gap: 2rem;
-    width: 95%;
+    width: 100%;
   }
 
   .title {
