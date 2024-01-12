@@ -179,7 +179,7 @@ const startServer = async () => {
     app.use(express.static(path.join(__dirname, "../client/dist")));
 
     app.get("*", (req, res) => {
-      res.send("Hello, You're lost!");
+      res.sendFile(path.join(__dirname, "../client/dist/index.html"));
     });
   }
 
@@ -191,7 +191,7 @@ const startServer = async () => {
       });
     });
   } catch (err) {
-    console.log("Could not connect to server: server.js line 85.", err);
+    console.log("Could not connect to server: server.js line 187.", err);
   }
 };
 
