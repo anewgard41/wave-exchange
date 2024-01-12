@@ -13,7 +13,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { GET_ME } from "../utils/queries";
 
 const PUBLIC_KEY =
-  "pk_test_51OVg6UJiSz0z5LGkkgL7TCPW4kcuNoxVY4GMfM5m1dugVUGdrRUsgrzfIecf2HMhe0u1WrTVC0cL3yAwfyl4o0yJ00ldmksGIn";
+  "pk_live_51OVg6UJiSz0z5LGkDTYGRsNWn3tGI8xORP7XynojRNNihXUckOc3dWbJ8RyRnx2G5vWcRiDCIcNiLlRGZAAtLxmv00J3nY5B91";
 
 const stripePromise = loadStripe(PUBLIC_KEY);
 

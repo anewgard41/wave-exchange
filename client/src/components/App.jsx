@@ -12,7 +12,7 @@ import Header from "./Header.jsx";
 
 // graphQL endpoint for Apollo Client
 const httpLink = createHttpLink({
-  uri: "https://wave-exchange.onrender.com/graphql",
+  uri: "/graphql",
 });
 
 // middleware to set the token to the auth header
