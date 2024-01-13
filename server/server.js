@@ -150,7 +150,7 @@ const startServer = async () => {
     try {
       const session = await stripe.checkout.sessions.create({
         ui_mode: "embedded",
-        return_url: `http://localhost:4000/donate`,
+        return_url: `http://localhost:4000/donate` || `https://wave-exchange.onrender.com/`,
         line_items: [purchaseItem],
         mode: "payment",
       });
