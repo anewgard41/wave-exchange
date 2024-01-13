@@ -116,7 +116,7 @@ const startServer = async () => {
     switch (amount) {
       case 500:
         purchaseItem = {
-          // 5 dollars
+          // 5 dollars // test price: price_1OVgh0JiSz0z5LGkNTChdRo1 // live price: price_1OXZEQJiSz0z5LGkxDGwM0Mc
           price: "price_1OVgh0JiSz0z5LGkNTChdRo1",
           quantity: 1,
         };
@@ -148,39 +148,37 @@ const startServer = async () => {
         return;
     }
     try {
-    const session = await stripe.checkout.sessions.create({
-      line_items: [purchaseItem],
-      mode: "payment",
-      success_url:
-        `https://localhost:3000/donate?success=true&amount=${amount}` ||
-        `https://wave-exchange.onrender.com/payment?amount=${amount}`,
-    });
-
-    console.log("Stripe session:", session);
-    // Retrieve the PaymentIntent ID from the session
-    const paymentIntentId = session.payment_intent;
-
-    // Confirm the PaymentIntent using its ID
-    const paymentIntent = await stripe.paymentIntents.confirm(paymentIntentId);
-
-    // Check if the PaymentIntent is successful
-    if (paymentIntent.status === "succeeded") {
-      res.json({ success: true });
-    } else {
-      res.json({ success: false });
-    }
-  } catch (error) {
-    console.error("Error creating Stripe session:", error);
-    res.status(500).json({ success: false, error: "Server error" });
-  }
+      const session = await stripe.checkout.sessions.create({
+        ui_mode: "embedded",
+        return_url: `http://localhost:4000/donate`,
+        line_items: [purchaseItem],
+        mode: "payment",
+      });
+      console.log(session);
+     
+      const successUrl = `${process.env.CLIENT_URL}/payment?amount=${amount}&session_id=${session.id}`;
+      res.send({clientSecret: session.client_secret, successUrl});
+     } catch (error) {
+      console.error("Error creating Stripe session:", error);
+      res.status(500).json({ success: false, error: "Server error" });
+     }
 });
+
+  app.get('/api/session-status',async(req,res)=>{
+    const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+
+    res.send({
+      status: session.status,
+      customer_email: session.customer_details.email
+    });
+  });
 
   // if we're in production, serve client/dist as static assets
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/dist")));
 
     app.get("*", (req, res) => {
-      res.send("Hello, You're lost!");
+      res.sendFile(path.join(__dirname, "../client/dist/index.html"));
     });
   }
 
@@ -192,7 +190,7 @@ const startServer = async () => {
       });
     });
   } catch (err) {
-    console.log("Could not connect to server: server.js line 85.", err);
+    console.log("Could not connect to server: server.js line 187.", err);
   }
 };
 

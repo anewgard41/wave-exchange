@@ -18,20 +18,12 @@ function Header() {
         <div className="title-container">
           {/* Animation */}
           <span>
-            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-              <UseAnimations animation={activity} size={76} />
-            </Link>
+            <UseAnimations animation={activity} size={76} />
           </span>
-          <Link
-            className="title"
-            to="/"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <h1 style={{ color: "#fffcf2"}}>
-              <span style={{ color: "#EB5E28" }}>W</span>ave{" "}
-              <span style={{ color: "#CCC5B9" }}>E</span>xchange
-            </h1>
-          </Link>
+          <h1 className="title" style={{ color: "#fffcf2" }}>
+            <span style={{ color: "#EB5E28" }}>W</span>ave{" "}
+            <span style={{ color: "#CCC5B9" }}>E</span>xchange
+          </h1>
         </div>
 
         {/* Nav */}

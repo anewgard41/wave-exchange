@@ -19,7 +19,7 @@ const commonStyle = {
 
 const UserPage = () => {
   // Fetch user data using a custom hook
-  const { data: userData } = useUserData();
+const { data: userData, refetch } = useUserData();
   
 
   // Initialize Apollo mutation for removing a song
@@ -35,7 +35,7 @@ const UserPage = () => {
     }
   }, [userData.savedMusic]);
 
-  
+
   console.log(savedMusic);
 
   // State for the currently active song and lyrics
@@ -66,6 +66,7 @@ const UserPage = () => {
 
       const newSavedMusic = savedMusic.filter(song => song.id !== songId);
       setSavedMusic(newSavedMusic);
+      await refetch();
     } catch (error) {
       console.error("Error removing song:", error.message);
     }
