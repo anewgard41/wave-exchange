@@ -150,20 +150,19 @@ const startServer = async () => {
     try {
       const session = await stripe.checkout.sessions.create({
         ui_mode: "embedded",
+        return_url: `http://localhost:4000/donate` || `https://wave-exchange.onrender.com/`,
         line_items: [purchaseItem],
         mode: "payment",
-        success_url:
-          `http://localhost:4000/payment?amount=${amount}&session_id={CHECKOUT_SESSION_ID}` ||
-          `https://wave-exchange.onrender.com/payment?amount=${amount}&session_id={CHECKOUT_SESSION_ID}`,
       });
       console.log(session);
-    
-      res.send({clientSecret: session.client_secret});
-    } catch (error) {
+     
+      const successUrl = `${process.env.CLIENT_URL}/payment?amount=${amount}&session_id=${session.id}`;
+      res.send({clientSecret: session.client_secret, successUrl});
+     } catch (error) {
       console.error("Error creating Stripe session:", error);
       res.status(500).json({ success: false, error: "Server error" });
-    }
-  });
+     }
+});
 
   app.get('/api/session-status',async(req,res)=>{
     const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
