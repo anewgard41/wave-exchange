@@ -6,7 +6,7 @@ import { SongListPanel } from "./SongListPanel";
 
 import { useMutation } from "@apollo/client";
 import { SAVE_SONG } from "../utils/mutations";
-import { useUserData } from "../UserStore";
+import { useUserData } from "../components/UserStore";
 import Auth from "../utils/auth";
 
 export function SongList({ searchResults }) {
