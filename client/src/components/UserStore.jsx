@@ -1,8 +1,8 @@
-import { createContext, useState, useContext, useEffect } from "react"
+import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@apollo/client";
-import { GET_ME } from "./utils/queries";
-import Auth from "./utils/auth";
+import { GET_ME } from "../utils/queries";
+import Auth from "../utils/auth";
 
 const UserStoreContext = createContext();
 

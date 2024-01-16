@@ -1,14 +1,14 @@
 import "../css/User.css";
 import React, { useRef, useState, useEffect } from "react";
 import { Card, Button, Modal } from "antd";
-import { useFetchSongLyrics } from "../LyricStore";
+import { useFetchSongLyrics } from "../components/LyricStore";
 
 import Auth from "../utils/auth";
 
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { GET_ME } from "../utils/queries";
 import { REMOVE_SONG } from "../utils/mutations";
-import { useUserData } from "../UserStore";
+import { useUserData } from "../components/UserStore";
 
 // Shared style object
 const commonStyle = {

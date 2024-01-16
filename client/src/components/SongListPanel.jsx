@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
-import { useFetchSongLyrics } from "../LyricStore";
+import { useFetchSongLyrics } from "../components/LyricStore";
 import { Collapse, Button, Alert } from "antd";
-import { useUserData } from "../UserStore";
+import { useUserData } from "../components/UserStore";
 import Auth from "../utils/auth";
 
 export const SongListPanel = ({
