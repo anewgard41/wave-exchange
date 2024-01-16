@@ -25,7 +25,7 @@ const LandingPage = () => {
       {/* Vertical space to center content and take up full height of the viewport */}
       <Space direction="vertical" align="center" style={{ height: "80vh" }}>
         {/* Avatar (Image) component */}
-        <Avatar size={600} src="/images/waveexchange_logo.png" />
+        <Avatar size={600} src="../src/images/waveexchange_logo.png" />
 
         {/* Search Input component */}
         <Search
