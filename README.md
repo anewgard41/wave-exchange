@@ -70,7 +70,7 @@ Email: <br>
 Github: [Collier Cobb](https://github.com/colcob98)<br>
 
 <b>Andreas Quist</b><br>
-Email: <br>
+Email: aquist@unc.edu<br>
 Github: [Andreas Quist](https://github.com/andreasq99)<br>
 
 <b>Zach Richardson</b><br>
