@@ -30,7 +30,7 @@ Embark on a musical odyssey with our user-friendly platform designed to enhance 
 
 ### Quick Demo
 
-![Gif of Quick Live Demo](./client/public/images/waveexchange_demo.gif)
+![Gif of Quick Live Demo](./client/src/images/waveexchange_demo.gif)
 
 ## Start Your Own
 
