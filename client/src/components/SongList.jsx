@@ -1,6 +1,5 @@
 import "../css/SongList.css";
 import React, { useState, useMemo } from "react";
-import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Collapse, Alert } from "antd";
 import { SongListPanel } from "./SongListPanel";
 
@@ -59,13 +58,7 @@ export function SongList({ searchResults }) {
             className="custom-collapse"
             style={{ backgroundColor: "#252422" }}
             header={
-              <div className="header-with-heart">
               <span>{`${result.name} - ${result.artists[0]}`}</span>
-              <HeartButton
-                isSaved={savedSongId === result.id}
-                onClick={() => handleSaveSong(result)}
-              />
-            </div>
             }
             key={result.id}
           >
@@ -82,12 +75,3 @@ export function SongList({ searchResults }) {
     </div>
   );
 }
-
-// HeartButton component
-const HeartButton = ({ isSaved, onClick }) => {
-  return isSaved ? (
-    <HeartFilled className="heart-icon saved" onClick={onClick} />
-  ) : (
-    <HeartOutlined className="heart-icon" onClick={onClick} />
-  );
-};
