@@ -51,7 +51,7 @@ function DonatePage() {
         <div className="leaderboard">
           <h2 style={{ color: "#fffcf2", fontSize: "1.8rem" }}>
             Leaderboard
-            <span style={{color: "#EB5E28"}}>
+            <span style={{ color: "#EB5E28" }}>
               <br />
               *Coming Soon*
             </span>
@@ -66,10 +66,6 @@ function DonatePage() {
                     )
                   })
                   } */}
-            <p>Fake Name</p>
-            <p>Fake Name</p>
-            <p>Fake Name</p>
-            <p>Fake Name</p>
           </div>
         </div>
       </section>
