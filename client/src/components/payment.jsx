@@ -1,192 +1,107 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Input, Space, Tooltip, Button, Flex } from "antd";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import axios from "axios";
 import {
-  Elements,
+  EmbeddedCheckoutProvider,
+  EmbeddedCheckout,
   useStripe,
   useElements,
   PaymentElement,
-} from "@stripe/react-stripe-js/dist/react-stripe";
+} from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  InfoCircleOutlined,
-  UserOutlined,
-  EyeInvisibleOutlined,
-  EyeTwoTone,
-} from "@ant-design/icons";
 
 import { GET_ME } from "../utils/queries";
 
-const CARD_OPTIONS = {
-  iconStyle: "solid",
-  style: {
-    base: {
-      color: "#ffffff",
-      fontFamily: "Arial, Helvetica, sans-serif",
-      fontSize: "20px",
-    },
-  },
-};
-
-const { Content } = Layout;
-
-// Styling for the layout
-const layoutStyle = {
-  textAlign: "center",
-  minHeight: 120,
-  lineHeight: "120px",
-  color: "#fff",
-  backgroundColor: "#252422",
-};
-
+// stripe key
 const PUBLIC_KEY =
   "pk_test_51OVg6UJiSz0z5LGkkgL7TCPW4kcuNoxVY4GMfM5m1dugVUGdrRUsgrzfIecf2HMhe0u1WrTVC0cL3yAwfyl4o0yJ00ldmksGIn";
-
 const stripePromise = loadStripe(PUBLIC_KEY);
 
-const CheckoutForm = (props) => {
-  const stripe = useStripe();
-  const elements = useElements();
+// ChecoutForm component
+const PaymentPage = (props) => {
 
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-    const response = await axios.post("/api/payment", { amount: props.amount })
-    
-    if(response.success === true){
-      setSuccess(true);
+  const [clientSecret, setClientSecret] = useState("");
 
-    };
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <PaymentElement />
-      <button type="submit" disabled={!stripe || !elements}>
-        Pay
-      </button>
-    </form>
-  );
-};
-
-const PaymentPage = () => {
-
-  const { loading, data } = useQuery(GET_ME);
-  const userData = data?.me || {};
-
-  const [success, setSuccess] = useState(false);
-  const [options, setOptions] = useState(null);
-
-  
+  // const { data } = useQuery(GET_ME);
+  // const userData = data?.me || {};
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const total = params.get("amount");
-useEffect(() => {
-  if (total) {
-    const amount = parseFloat(total);
-    console.log(amount);
+  // userData.donations = total;
+  // console.log(userData.donations);
+  
+  useEffect(() => {
+    // Create a Checkout Session as soon as the page loads
+    async function fetchClientSecret() {
+      const params = new URLSearchParams(search);
+      const total = params.get("amount");
+      const amount = parseFloat(total);
+      const response = await fetch("/api/payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({amount}),
+      });
 
-    setOptions({
-      mode: "payment",
-      amount: amount,
-      currency: "usd",
-    });
-  }
-}, [total]);
+      const data = await response.json();
+      setClientSecret(data.clientSecret);
+    }
+
+    fetchClientSecret();
+  }, []);
+
   return (
-    <Elements stripe={stripePromise} options={options}>
-      
-        {!success ? (
-          <CheckoutForm amount={options?.amount} />
-        ) : (
-          <div>
-            <h2>Payment Successful!</h2>
-            <Button href="./donate">Return to Donations</Button>
-          </div>
-        )}
-    </Elements>
+    <div id="checkout">
+      {clientSecret && (
+        <EmbeddedCheckoutProvider
+          stripe={stripePromise}
+          options={{clientSecret}}
+        >
+          <EmbeddedCheckout />
+        </EmbeddedCheckoutProvider>
+      )}
+    </div>
   );
 };
 
-//   const [amount, setAmount] = React.useState(0);
+export default PaymentPage;
 
-//    //options={options}
-//    //above line should be pasted as a prop in Elements, line 59, but you need the actual secret key
+// code that could be used to make a "Thank you for donation" page. Would need to be added to the router in main.jsx/be a separate component
 
-//   const { search } = useLocation();
+// const Return = () => {
+//   const [status, setStatus] = useState(null);
+//   const [username, setUsername] = useState(null);
+
 //   useEffect(() => {
+   
+//     async function fetchSessionStatus() {
+//       const { queryString } = useLocation();
+//       const params = new URLSearchParams(queryString);
+//       const sessionId = params.get("session_id");
 
-//     const params = new URLSearchParams(search);
-//     const total = params.get("amount");
-//     if (total) {
-//       setAmount(total);
+//       const res = await fetch(`/session-status?session_id=${sessionId}`);
+//       const data = await res.json();
+
+//       setStatus(data.status);
+//       setUsername(data.username);
 //     }
-//   });
 
-// const {loading, error, data} = useQuery(GET_ME);
-// const [user, setUser] = React.useState(null);
-// useEffect(()=>{
-//   console.log(data);
-// }), [data];
+//     fetchSessionStatus();
+//   }, []);
 
-// const [success, setSuccess] = useState(false);
-
-//   const handleSubmit = async(e)=>{
-//     e.preventDefault();
-//     console.log('handling Submission');
-//     const {err, paymentMethod} = await stripe.createPaymentMethod({
-//         type: "card",
-//         card: CardElement
-//     });
-//     console.log(paymentMethod);
-
-//     if(!err){
-//         try{
-//             const {id} = paymentMethod;
-//             const response = await axios.post("/payment", {
-//                 amount,
-//                 id
-//             });
-//             if(response.data.success){
-//                 //Set up donation post
-//                 setSuccess(true);
-//             }
-//         } catch(error){
-//             console.log("Error", error);
-//         }
-//     } else {
-//         console.log("Error", err);
-//     }
+//   if (status === "open") {
+//     return <div>Processing...</div>;
 //   }
-//   return (
-//     <Layout style={layoutStyle}>
-//       {/* Main content area */}
-//       <Content style={layoutStyle}>
-//         {/* "Login" text */}
-//         <p style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}>
-//           Payment Information
-//         </p>
-//         <Elements stripe={stripePromise}>
-//           {/* {
-//            !success
-//           ? <form onSubmit={handleSubmit}>
-//                 <fieldset className="FormGroup">
-//                     <div className="FormRow">
-//                         <CardElement options={CARD_OPTIONS} />
-//                     </div>
-//                 </fieldset>
-//                 <input type="submit" value="Submit"/>
-//             </form>
-//           : <div>
-//             <h2>Payment Successful!</h2>
-//             <Button href="./donate">Return to Donations</Button>
-//           </div>
-//           } */}
-//         </Elements>
-//       </Content>
-//     </Layout>
-//   );
+
+//   if (status === "complete") {
+//     return (
+//       <div>
+//         <h2>Payment Successful! Thank you {username} </h2>
+//         <Button href="./donate">Return to Donations</Button>
+//       </div>
+//     );
+//   }
 // };
 
-export default PaymentPage;

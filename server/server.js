@@ -108,15 +108,15 @@ const startServer = async () => {
   //   }
   // });
 
-
+  // STRIPE PAYMENT ROUTE
   app.post("/api/payment", async (req, res) => {
-    console.log('Received payment request:', req.body);
+    console.log("Received payment request:", req.body);
     const amount = req.body.amount;
     let purchaseItem = [];
     switch (amount) {
       case 500:
         purchaseItem = {
-          // 5 dollars
+          // 5 dollars // test price: price_1OVgh0JiSz0z5LGkNTChdRo1 // live price: price_1OXZEQJiSz0z5LGkxDGwM0Mc
           price: "price_1OVgh0JiSz0z5LGkNTChdRo1",
           quantity: 1,
         };
@@ -124,21 +124,21 @@ const startServer = async () => {
       case 1000:
         purchaseItem = {
           // 10 dollars
-          price: "price_1OW9fSJiSz0z5LGkTgZaJopU",
+          price: "price_1OXZEgJiSz0z5LGkP8zKbg0e",
           quantity: 1,
         };
         break;
       case 2000:
         purchaseItem = {
           // 20 dollars
-          price: "price_1OW9fhJiSz0z5LGkErZniUxd",
+          price: "price_1OXZEwJiSz0z5LGkK2388E7u",
           quantity: 1,
         };
         break;
       case 5000:
         purchaseItem = {
           // 50 dollars
-          price: "price_1OW9foJiSz0z5LGkL3ISgqAp",
+          price: "price_1OXZFBJiSz0z5LGkeVyQ89Xx",
           quantity: 1,
         };
         break;
@@ -147,20 +147,30 @@ const startServer = async () => {
         res.status(400).json({ success: false, error: "Invalid amount" });
         return;
     }
-
     try {
       const session = await stripe.checkout.sessions.create({
+        ui_mode: "embedded",
+        return_url: `http://localhost:4000/donate` || `https://wave-exchange.onrender.com/`,
         line_items: [purchaseItem],
         mode: "payment",
-        success_url: `http://localhost:3000/donate?success=true&amount=${amount}`,
       });
-      if (session.status === "complete") {
-        res.json({ success: true });
-      }
-    } catch (error) {
+      console.log(session);
+     
+      const successUrl = `${process.env.CLIENT_URL}/payment?amount=${amount}&session_id=${session.id}`;
+      res.send({clientSecret: session.client_secret, successUrl});
+     } catch (error) {
       console.error("Error creating Stripe session:", error);
       res.status(500).json({ success: false, error: "Server error" });
-    }
+     }
+});
+
+  app.get('/api/session-status',async(req,res)=>{
+    const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+
+    res.send({
+      status: session.status,
+      customer_email: session.customer_details.email
+    });
   });
 
   // if we're in production, serve client/dist as static assets
@@ -168,7 +178,7 @@ const startServer = async () => {
     app.use(express.static(path.join(__dirname, "../client/dist")));
 
     app.get("*", (req, res) => {
-      res.send("Hello, You're lost!");
+      res.sendFile(path.join(__dirname, "../client/dist/index.html"));
     });
   }
 
@@ -180,7 +190,7 @@ const startServer = async () => {
       });
     });
   } catch (err) {
-    console.log("Could not connect to server: server.js line 85.", err);
+    console.log("Could not connect to server: server.js line 187.", err);
   }
 };
 

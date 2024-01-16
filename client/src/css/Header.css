@@ -70,6 +70,7 @@
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: 1fr;
     gap: 2rem;
+    width: 100%;
   }
 
   .title {

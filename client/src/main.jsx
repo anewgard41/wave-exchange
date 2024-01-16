@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LyricStore } from "./LyricStore.jsx";
-import { UserStore } from "./UserStore.jsx";
+import { LyricStore } from "./components/LyricStore.jsx";
+import { UserStore } from "./components/UserStore.jsx";
 import App from "./components/App.jsx";
 import { LyricSearchPage } from "./components/LyricSearchPage.jsx";
 import LoginPage from "./components/login.jsx";
