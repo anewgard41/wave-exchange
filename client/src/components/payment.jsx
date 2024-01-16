@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useQuery } from "@apollo/client";
 import axios from "axios";
 import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout,
-  useStripe,
-  useElements,
-  PaymentElement,
 } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js";
-
-import { GET_ME } from "../utils/queries";
 
 // stripe key
 const PUBLIC_KEY =
@@ -33,24 +27,24 @@ const PaymentPage = (props) => {
   
   useEffect(() => {
     // Create a Checkout Session as soon as the page loads
-    async function fetchClientSecret() {
-      const params = new URLSearchParams(search);
-      const total = params.get("amount");
-      const amount = parseFloat(total);
-      const response = await fetch("/api/payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({amount}),
-      });
+     async function fetchClientSecret() {
+   const params = new URLSearchParams(search);
+   const total = params.get("amount");
+   const amount = parseFloat(total);
+   try {
+     const response = await axios.post("/api/payment", {amount}, {
+       headers: {
+         "Content-Type": "application/json",
+       },
+     });
+     setClientSecret(response.data.clientSecret);
+   } catch (error) {
+     console.error(error);
+   }
+ }
 
-      const data = await response.json();
-      setClientSecret(data.clientSecret);
-    }
-
-    fetchClientSecret();
-  }, []);
+ fetchClientSecret();
+}, []);
 
   return (
     <div id="checkout">
