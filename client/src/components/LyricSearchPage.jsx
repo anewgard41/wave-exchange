@@ -6,7 +6,9 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { SongList } from "./SongList";
 
+// LyricSearchPage component for handling lyric searches
 export function LyricSearchPage() {
+  // Hooks for managing state
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +16,7 @@ export function LyricSearchPage() {
   const [loading, setLoading] = useState(false);
   const { search } = useLocation();
 
+  // Effect hook to parse lyricText from the URL on component mount
   useEffect(() => {
     const params = new URLSearchParams(search);
     const lyricText = params.get("lyricText");
@@ -23,11 +26,13 @@ export function LyricSearchPage() {
     }
   }, [search]);
 
+  // Effect hook to trigger a search when the query changes
   useEffect(() => {
     if (!query) return;
     handleSearch();
   }, [query]);
 
+  // Function to handle the lyric search
   const handleSearch = async () => {
     try {
       const results = await axios.get(
@@ -40,18 +45,17 @@ export function LyricSearchPage() {
     }
   };
 
+  // Render the LyricSearchPage component
   return (
     <div className="search-page-container">
       {/* Main content area */}
       <div className="search-top">
-        <h2
-          style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}
-        >
+        {/* Header */}
+        <h2 style={{ color: "#FFFCF2", fontSize: "36px", marginBottom: "10px" }}>
           Lyric Search
         </h2>
-        <Space
-          direction="vertical"
-        >
+        {/* Search input and button */}
+        <Space direction="vertical">
           <Space.Compact>
             <Input
               placeholder="Enter search term"
@@ -66,12 +70,12 @@ export function LyricSearchPage() {
             </Button>
           </Space.Compact>
         </Space>
-        <h3
-          style={{ color: "#FFFCF2", fontSize: "24px", marginBottom: "10px" }}
-        >
+        {/* Subheader for search results */}
+        <h3 style={{ color: "#FFFCF2", fontSize: "24px", marginBottom: "10px" }}>
           Search Results
         </h3>
       </div>
+      {/* Display search results or loading indicator */}
       <div className="results">
         {loading ? (
           <p>Loading...</p> // Display a loading indicator while fetching data

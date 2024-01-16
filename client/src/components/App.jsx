@@ -1,5 +1,5 @@
 import "../css/App.css";
-import React, { useState } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import {
   ApolloClient,
@@ -10,16 +10,16 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import Header from "./Header.jsx";
 
-// graphQL endpoint for Apollo Client
+// GraphQL endpoint for Apollo Client
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
 
-// middleware to set the token to the auth header
+// Middleware to set the token to the auth header
 const authLink = setContext((_, { headers }) => {
-  // get the token from local storage
+  // Get the token from local storage
   const token = localStorage.getItem("id_token");
-  // return the headers to the context so httpLink can read them
+  // Return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
@@ -28,16 +28,21 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+// Create an instance of ApolloClient with authentication middleware
 const client = new ApolloClient({
-  link: authLink.concat(httpLink), // set the httpLink and authLink to Apollo Client
+  link: authLink.concat(httpLink), // Set the httpLink and authLink to Apollo Client
   cache: new InMemoryCache(),
 });
 
+// Main App component
 function App() {
   return (
     <div className="body-container">
+      {/* Provide the Apollo Client to the application */}
       <ApolloProvider client={client}>
-        <Header/>
+        {/* Header component for navigation */}
+        <Header />
+        {/* Outlet for rendering nested routes */}
         <Outlet />
       </ApolloProvider>
     </div>

@@ -9,8 +9,9 @@ import SignUpPage from "./components/signup.jsx";
 import DonatePage from "./components/donate.jsx";
 import LandingPage from "./components/landing.jsx";
 import UserPage from "./components/user.jsx";
-import PaymentPage from "./components/payment.jsx"
+import PaymentPage from "./components/payment.jsx";
 
+// Create a BrowserRouter instance with route configurations
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,6 +51,7 @@ const router = createBrowserRouter([
   }
 ]);
 
+// Render the root component with LyricStore and UserStore context providers
 ReactDOM.createRoot(document.getElementById("root")).render(
   <LyricStore>
     <UserStore>
