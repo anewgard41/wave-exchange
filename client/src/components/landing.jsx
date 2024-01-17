@@ -24,7 +24,7 @@ const LandingPage = () => {
   return (
     <div className="landing-container">
       {/* Avatar (Image) component */}
-      <Avatar size={600} src="/images/waveexchange_logo.png" />
+      <Avatar className="logo" src="/images/waveexchange_logo.png" />
       {/* Search Input component */}
       <Search
         className="search-input"
