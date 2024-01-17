@@ -1,0 +1,28 @@
+/* ==========================================================================
+   Landing Page
+========================================================================== */
+
+.landing-container {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 1fr;
+  place-items: center;
+  margin: 0 auto;
+  height: 60%;
+}
+
+.search-input {
+  width: 24rem;
+}
+
+@media only screen and (max-width: 1220px) {
+  .search-input {
+    width: 20rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .search-input {
+    width: 16rem;
+  }
+}
