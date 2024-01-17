@@ -6,11 +6,15 @@ import activity from "react-useanimations/lib/activity";
 
 import Auth from "../utils/auth";
 
+// Header component for navigation
 function Header() {
+  // State to track the current page
   const [currentPage, setCurrentPage] = useState("landing");
 
+  // Function to set the current page
   const setCurrentPageHandler = (page) => setCurrentPage(page);
 
+  // Render the Header component
   return (
     <header>
       <div className="header-container">
@@ -26,7 +30,7 @@ function Header() {
           </h1>
         </div>
 
-        {/* Nav */}
+        {/* Navigation */}
         <div className="nav-container">
           {/* User is logged in */}
           {Auth.loggedIn() ? (
@@ -94,7 +98,6 @@ function Header() {
               </Link>
             </>
           )}
-          {/* Always visible */}
           {/* Donations */}
           <Link
             className={
