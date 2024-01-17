@@ -11,6 +11,11 @@
   height: 60%;
 }
 
+.logo {
+  width: 100%;
+  height: auto;
+}
+
 .search-input {
   width: 24rem;
 }
