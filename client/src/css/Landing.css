@@ -12,7 +12,7 @@
 }
 
 .logo {
-  width: 100%;
+  width: 150%;
   height: auto;
 }
 
@@ -21,17 +21,22 @@
 }
 
 @media only screen and (max-width: 1220px) {
+  .logo {
+    width: 100%;
+    height: auto;
+  }
+
   .search-input {
     width: 20rem;
   }
 }
 
 @media only screen and (max-width: 500px) {
-  .search-input {
-    width: 16rem;
-  }
-
   .landing-container {
     height: 80%;
+  }
+
+  .search-input {
+    width: 16rem;
   }
 }
