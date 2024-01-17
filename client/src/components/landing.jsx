@@ -1,3 +1,4 @@
+import "../css/Landing.css";
 import React from "react";
 import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space, Avatar } from "antd";
@@ -21,24 +22,21 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
-    <>
-      {/* Vertical space to center content and take up full height of the viewport */}
-      <Space direction="vertical" align="center" style={{ height: "80vh" }}>
-        {/* Avatar (Image) component */}
-        <Avatar size={600} src="/images/waveexchange_logo.png" />
-
-        {/* Search Input component */}
-        <Search
-          placeholder="input search text"
-          enterButton="Search"
-          size="large"
-          suffix={suffix} // Icon displayed on the right side of the search input
-          onSearch={(value) =>
-            navigate(`/search?lyricText=${encodeURIComponent(value)}`)
-          } // Navigate to the search page with the entered search text
-        />
-      </Space>
-    </>
+    <div className="landing-container">
+      {/* Avatar (Image) component */}
+      <Avatar size={600} src="/images/waveexchange_logo.png" />
+      {/* Search Input component */}
+      <Search
+        className="search-input"
+        placeholder="input search text"
+        enterButton="Search"
+        size="large"
+        suffix={suffix} // Icon displayed on the right side of the search input
+        onSearch={(value) =>
+          navigate(`/search?lyricText=${encodeURIComponent(value)}`)
+        } // Navigate to the search page with the entered search text
+      />
+    </div>
   );
 };
 

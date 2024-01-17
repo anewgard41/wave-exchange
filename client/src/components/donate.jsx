@@ -1,6 +1,6 @@
 import "../css/Donate.css";
 import React, { useState } from "react";
-import { Button, Avatar } from "antd";
+import { Button } from "antd";
 
 // DonatePage component for handling donation-related functionality
 function DonatePage() {
