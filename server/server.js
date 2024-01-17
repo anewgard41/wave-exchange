@@ -90,24 +90,6 @@ const startServer = async () => {
     }
   });
 
-  // app.post("/payment", cors(), async (req, res) => {
-  //   let { amount} = req.body;
-  //   try {
-  //     const payment = await stripe.paymentIntents.create({
-  //       amount,
-  //       currency: "USD",
-  //       description: `$${amount / 100} donation to Wave Exchange`,
-  //       payment_method: id,
-  //       confirm: true,
-  //     });
-  //     console.log(payment);
-  //     res.json(payment);
-  //   } catch (err) {
-  //     console.log(err);
-  //     res.json({ success: false });
-  //   }
-  // });
-
   // STRIPE PAYMENT ROUTE
   app.post("/api/payment", async (req, res) => {
     console.log("Received payment request:", req.body);
