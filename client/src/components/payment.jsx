@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useQuery } from "@apollo/client";
 import axios from "axios";
 import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout,
-  useStripe,
-  useElements,
-  PaymentElement,
-} from "@stripe/react-stripe-js"
+} from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-
-import { GET_ME } from "../utils/queries";
 
 // stripe key
 const PUBLIC_KEY =
@@ -20,33 +14,29 @@ const stripePromise = loadStripe(PUBLIC_KEY);
 
 // ChecoutForm component
 const PaymentPage = (props) => {
-
   const [clientSecret, setClientSecret] = useState("");
-
-  // const { data } = useQuery(GET_ME);
-  // const userData = data?.me || {};
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const total = params.get("amount");
-  // userData.donations = total;
-  // console.log(userData.donations);
-  
+  const amount = parseFloat(total);
+
   useEffect(() => {
     // Create a Checkout Session as soon as the page loads
     async function fetchClientSecret() {
-      const params = new URLSearchParams(search);
-      const total = params.get("amount");
-      const amount = parseFloat(total);
-      const response = await fetch("/api/payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({amount}),
-      });
-
-      const data = await response.json();
-      setClientSecret(data.clientSecret);
+      try {
+        const response = await axios.post(
+          "/api/payment",
+          { amount },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setClientSecret(response.data.clientSecret);
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     fetchClientSecret();
@@ -57,7 +47,7 @@ const PaymentPage = (props) => {
       {clientSecret && (
         <EmbeddedCheckoutProvider
           stripe={stripePromise}
-          options={{clientSecret}}
+          options={{ clientSecret }}
         >
           <EmbeddedCheckout />
         </EmbeddedCheckoutProvider>
@@ -75,7 +65,7 @@ export default PaymentPage;
 //   const [username, setUsername] = useState(null);
 
 //   useEffect(() => {
-   
+
 //     async function fetchSessionStatus() {
 //       const { queryString } = useLocation();
 //       const params = new URLSearchParams(queryString);
@@ -104,4 +94,3 @@ export default PaymentPage;
 //     );
 //   }
 // };
-

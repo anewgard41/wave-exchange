@@ -1,6 +1,8 @@
+// ChartLyrics API routes
 const router = require("express").Router();
 const axios = require("axios");
 
+// GET /api/search
 router.get("/search", async (req, res) => {
   console.log("search route hit");
   try {
@@ -11,18 +13,18 @@ router.get("/search", async (req, res) => {
       )}`
     );
     const xml = await response.text();
-    console.log('Fetch time: ', (new Date() - startTime) / 1000)
+    console.log("Fetch time: ", (new Date() - startTime) / 1000);
 
     startTime = new Date();
     const data = xml2js(xml, { compact: true });
-    console.log('Parse time: ', (new Date() - startTime) / 1000)
+    console.log("Parse time: ", (new Date() - startTime) / 1000);
     //console.log(data.ArrayOfSearchLyricResult.SearchLyricResult)
     const results = data.ArrayOfSearchLyricResult.SearchLyricResult.map(
       (result) => ({
         id: result.LyricId._text,
         checksum: result.LyricChecksum._text,
         name: result.Song._text,
-        artists: [result.Artist._text]
+        artists: [result.Artist._text],
       })
     ).filter((x) => Object.keys(x).length === 8);
     res.status(200).json(results);
@@ -32,6 +34,7 @@ router.get("/search", async (req, res) => {
   }
 });
 
+// GET route /api/lyric
 router.get("/lyric", async (req, res) => {
   if (!req.query.lyricId || !req.query.lyricCheckSum) {
     res.status(400).send("Missing query parameter");
