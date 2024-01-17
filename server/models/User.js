@@ -11,13 +11,13 @@ const userSchema = new Schema(
       trim: true,
     },
     password: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     donation: {
-        type: Number,
-        required: true,
-        default: 0
+      type: Number,
+      required: true,
+      default: 0,
     },
     savedMusic: [musicSchema],
   },
@@ -28,6 +28,7 @@ const userSchema = new Schema(
   }
 );
 
+// virtual called donationTotal for future dev. Totals a user's donations, could be used to determine user's position on leaderboard.
 userSchema
   .virtual("donationTotal")
   .get(() => {
@@ -37,6 +38,7 @@ userSchema
     this.donation += newDonation;
   });
 
+// pre-save middleware to hash password
 userSchema.pre("save", async function (next) {
   if (this.isNew || this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 10);
@@ -44,14 +46,17 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.virtual('musicList')
-.get(()=>{
+// musicList virtual that returns and adds to savedMusic array
+userSchema
+  .virtual("musicList")
+  .get(() => {
     return this.savedMusic;
-})
-.set((song)=>{
+  })
+  .set((song) => {
     this.savedMusic.push(song);
-});
+  });
 
+// compare the incoming password with the hashed password
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };

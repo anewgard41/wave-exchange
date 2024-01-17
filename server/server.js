@@ -12,6 +12,7 @@ const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
 const app = express();
 
+// Create a new Apollo server and pass in our schema data
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -19,6 +20,7 @@ const server = new ApolloServer({
   cache: "bounded",
 });
 
+// Start the Apollo server and integrate with Express
 const startServer = async () => {
   await server.start();
   app.use(express.urlencoded({ extended: false }));
@@ -45,6 +47,7 @@ const startServer = async () => {
     res.sendFile(path.join(__dirname, "../client/dist/index.html"));
   });
 
+  // Handle requests for the /api/search path
   app.get("/api/search", async (req, res) => {
     console.log("search route hit");
     try {
@@ -72,6 +75,7 @@ const startServer = async () => {
     }
   });
 
+  // Handle requests for the /api/lyric path
   app.get("/api/lyric", async (req, res) => {
     if (!req.query.lyricId || !req.query.lyricCheckSum) {
       res.status(400).send("Missing query parameter");
@@ -90,25 +94,7 @@ const startServer = async () => {
     }
   });
 
-  // app.post("/payment", cors(), async (req, res) => {
-  //   let { amount} = req.body;
-  //   try {
-  //     const payment = await stripe.paymentIntents.create({
-  //       amount,
-  //       currency: "USD",
-  //       description: `$${amount / 100} donation to Wave Exchange`,
-  //       payment_method: id,
-  //       confirm: true,
-  //     });
-  //     console.log(payment);
-  //     res.json(payment);
-  //   } catch (err) {
-  //     console.log(err);
-  //     res.json({ success: false });
-  //   }
-  // });
-
-  // STRIPE PAYMENT ROUTE
+  // Stripe payment route
   app.post("/api/payment", async (req, res) => {
     console.log("Received payment request:", req.body);
     const amount = req.body.amount;
@@ -150,26 +136,30 @@ const startServer = async () => {
     try {
       const session = await stripe.checkout.sessions.create({
         ui_mode: "embedded",
-        return_url: `http://localhost:4000/donate` || `https://wave-exchange.onrender.com/`,
+        return_url:
+          `http://localhost:4000/donate` ||
+          `https://wave-exchange.onrender.com/`,
         line_items: [purchaseItem],
         mode: "payment",
       });
       console.log(session);
-     
+
       const successUrl = `${process.env.CLIENT_URL}/payment?amount=${amount}&session_id=${session.id}`;
-      res.send({clientSecret: session.client_secret, successUrl});
-     } catch (error) {
+      res.send({ clientSecret: session.client_secret, successUrl });
+    } catch (error) {
       console.error("Error creating Stripe session:", error);
       res.status(500).json({ success: false, error: "Server error" });
-     }
-});
+    }
+  });
 
-  app.get('/api/session-status',async(req,res)=>{
-    const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+  app.get("/api/session-status", async (req, res) => {
+    const session = await stripe.checkout.sessions.retrieve(
+      req.query.session_id
+    );
 
     res.send({
       status: session.status,
-      customer_email: session.customer_details.email
+      customer_email: session.customer_details.email,
     });
   });
 
@@ -182,6 +172,7 @@ const startServer = async () => {
     });
   }
 
+  // defining the port
   const PORT = process.env.PORT || 3000;
   try {
     db.once("open", () => {
@@ -194,6 +185,7 @@ const startServer = async () => {
   }
 };
 
+// Start the server
 try {
   startServer();
 } catch (err) {

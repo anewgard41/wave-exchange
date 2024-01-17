@@ -1,0 +1,42 @@
+/* ==========================================================================
+   Landing Page
+========================================================================== */
+
+.landing-container {
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  grid-template-columns: 1fr;
+  place-items: center;
+  margin: 0 auto;
+  height: 60%;
+}
+
+.logo {
+  width: 150%;
+  height: auto;
+}
+
+.search-input {
+  width: 24rem;
+}
+
+@media only screen and (max-width: 1220px) {
+  .logo {
+    width: 100%;
+    height: auto;
+  }
+
+  .search-input {
+    width: 20rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .landing-container {
+    height: 80%;
+  }
+
+  .search-input {
+    width: 16rem;
+  }
+}
