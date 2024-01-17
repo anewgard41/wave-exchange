@@ -2,7 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-- View the GitHub [repository](https://github.com/anewgard41/wave-exchange)
+- View the GitHub: [Repository](https://github.com/anewgard41/wave-exchange)
+- Deployed Link: [Here](https://wave-exchange.onrender.com/)
 
 ## Table of Contents
 
